@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:context="http://www.springframework.org/schema/context" 
+  xmlns:lang="http://www.springframework.org/schema/lang" 	
+  xmlns:p="http://www.springframework.org/schema/util"
+  xmlns:zksp="http://www.zkoss.org/2008/zkspring"
+  xmlns:zksp-annot="http://www.zkoss.org/2008/zkspring-annot"
+  xsi:schemaLocation="
+  	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+    http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+     http://www.zkoss.org/2008/zkspring http://www.zkoss.org/2008/zkspring/zkspring.xsd
+    http://www.zkoss.org/2008/zkspring-annot http://www.zkoss.org/2008/zkspring-annot/zkspring-annot.xsd"> 
+    
+    <context:component-scan base-package="fr.meijin.run4win">
+	</context:component-scan>
+    
+  	<!--  Active la prise en charge par Spring de diverses annotations.  --> 
+	<context:annotation-config />
+	
+	<!-- Maps logical view names to ZK templates (e.g. 'search' to '/WEB-INF/search.zul' -->
+	<bean id="viewResolver" class="org.zkoss.spring.web.servlet.view.ZkResourceViewResolver">
+		<property name="prefix" value="/pages/"/>
+		<property name="suffix" value=".zul"/>
+	</bean>
+	
+</beans>

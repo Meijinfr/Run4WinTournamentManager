@@ -1,0 +1,19 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div align="right" style="padding-top : 5px; padding-bottom : 5px;">
+		<button id="deleteRound" label="Supprimer la ronde" mold="trendy"/>
+	</div>
+	<listbox id="listboxRound" apply="fr.meijin.run4win.composer.SingleRoundComposer"
+		itemRenderer="fr.meijin.run4win.renderer.SingleRoundItemRenderer"  height="99%">
+		<listhead>
+			<listheader label="Table" hflex="1" align="center" sort="auto"/>
+			<listheader label="Joueur 1" hflex="2"/>
+			<listheader label="Résultat Corpo. Joueur 1" hflex="2"/>
+			<listheader label="Résultat Runner Joueur 1" hflex="2"/>
+			<listheader label="Joueur 2" hflex="2"/>
+			<listheader label="Résultat Corpo. Joueur 2" hflex="2"/>
+			<listheader label="Résultat Runner Joueur 2" hflex="2"/>
+			<listheader label="Action" hflex="1" align="center"/>
+		</listhead>
+	</listbox>
+</zk>

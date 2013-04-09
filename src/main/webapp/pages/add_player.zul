@@ -1,0 +1,68 @@
+<?page title="add_player" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="fr.meijin.run4win.composer.AddPlayerComposer" closable="true"
+		id="windowPlayer" title="Ajouter un joueur" border="normal">
+		<grid width="270px">
+			<columns>
+				<column width="100px"/>
+				<column width="170px"/>
+			</columns>
+			<rows>
+				<row>
+					<label value="Prénom" />
+					<textbox id="firstNameTextbox" forward="onOk" />
+				</row>
+				<row>
+					<label value="Nom" />
+					<textbox id="lastNameTextbox" forward="onOk" />
+				</row>
+				<row>
+					<label value="Pseudo" />
+					<textbox id="nicknameTextbox" forward="onOk" constraint="no empty"/>
+				</row>
+				<row>
+					<label value="Id Runner" />
+					<combobox id="idRunnerCombobox">
+						<comboitem label="Noise : Hacker Extraordinaire"
+							value="Noise" />
+						<comboitem label="Whizzard : Master Gamer"
+							value="Whizzard" />
+						<comboitem
+							label="Gabriel Santiago : Consummate Professionnal"
+							value="Gabriel" />
+						<comboitem
+							label="Kate 'Mac' McCaffrey : Digital Tinker"
+							value="Kate" />
+						<comboitem label="Chaos Theory : Wunderkind"
+							value="Chaos Theory" />
+					</combobox>
+				</row>
+				<row>
+					<label value="Id Corporation" />
+					<combobox id="idCorporationCombobox">
+						<comboitem
+							label="Haas-Bioroid: Engineering the Future" value="HB 1" />
+						<comboitem
+							label="Haas-Bioroid: Stronger Together" value="HB 2" />
+						<comboitem label="Jinteki: Personal Evolution"
+							value="Jinteki 1" />
+						<comboitem
+							label="Jinteki: Replicating Perfection" value="Jinteki 2" />
+						<comboitem label="NBN: Making News" value="NBN" />
+						<comboitem
+							label="Weyland Consortium: Building a Better World"
+							value="Weyland" />
+					</combobox>
+				</row>
+				<row>
+					<label value="Abandon" />
+					<checkbox id="forfeitCheckbox" />
+				</row>
+			</rows>
+		</grid>
+		<div align="right">
+			<button id="validateButton" label="Valider" mold="trendy" />
+			<button id="cancelButton" label="Annuler" mold="trendy" />
+		</div>
+	</window>
+</zk>
