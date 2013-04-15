@@ -51,7 +51,10 @@
 						<comboitem label="NBN: Making News" value="NBN" />
 						<comboitem
 							label="Weyland Consortium: Building a Better World"
-							value="Weyland" />
+							value="Weyland 1" />
+						<comboitem
+							label="Weyland Consortium: Because We Built it"
+							value="Weyland 2" />
 					</combobox>
 				</row>
 				<row>

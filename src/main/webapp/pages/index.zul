@@ -58,14 +58,13 @@
 					</listbox>
 				</tabpanel>
 				<tabpanel>
-					<tabbox id="resultTabbox" width="100%"  style="margin-top : 20px;" orient="vertical">
+					<tabbox id="resultTabbox" width="100%"  style="margin-top : 20px;">
 						<tabs>
 							<tab id="currentResultTab" closable="false" label="En cours" />
 						</tabs>
 						<tabpanels>
-							<tabpanel height="100%">
-								<grid id="playersResultsGrid" height="99%"
-									model="@{sessionScope.tournament.players}" width="99%">
+							<tabpanel>
+								<grid id="playersResultsGrid" model="@{sessionScope.tournament.players}">
 									<columns sizable="true">
 										<column label="Rang" align="center" hflex="1" />
 										<column label="Pseudo" hflex="2" />

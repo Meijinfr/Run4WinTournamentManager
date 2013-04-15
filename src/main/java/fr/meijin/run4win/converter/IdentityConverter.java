@@ -32,8 +32,10 @@ public class IdentityConverter implements TypeConverter {
 			id = "jinteki_replicating_perfection";
 		else if (StringUtils.equals("NBN", id))
 			id = "nbn_making_news";
-		else if (StringUtils.equals("Weyland", id))
+		else if (StringUtils.equals("Weyland 1", id))
 			id = "weyland_building_a_better_world";
+		else if (StringUtils.equals("Weyland 2", id))
+			id = "weyland_because_we_built_it";
 		else if (StringUtils.equals("Chaos Theory", id))
 			return "http://www.run4games.com/forum/images/smilies/chaostheory.png";
 
