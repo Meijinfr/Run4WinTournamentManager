@@ -73,9 +73,6 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		
 		Collections.sort(tournament.players);
 		
-		if(tournament.rounds == 1)
-			Collections.shuffle(tournament.players);
-		
 		List<Player> toMatch = new ArrayList<Player>(tournament.players);
 		
 		List<Player> forfeitPlayers = new ArrayList<Player>();
@@ -151,6 +148,8 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		panel.setId("round"+tournament.rounds+"Panel");
 		panel.setParent(singleTabbox.getTabpanels());
 			
+		if(tournament.rounds == 1)
+			Collections.shuffle(toMatch);
 		
 		Round r = TournamentUtils.doSingleMatch(tournament.roundsList, toMatch, new ArrayList<Game>());
 			
