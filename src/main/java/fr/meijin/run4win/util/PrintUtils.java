@@ -4,8 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -15,23 +13,13 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
 import fr.meijin.run4win.converter.IdentityConverter;
-import fr.meijin.run4win.model.Tournament;
+import fr.meijin.run4win.model.Round;
 
-public class DocumentUtils {
+public class PrintUtils {
 
-	public static File exportTournamentData(Tournament tournament) throws Exception {
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-		String date = format.format(new Date());
-		
-		String fileTitle = "Run4Win_"+tournament.name+"_"+date+".html";
-		
-		StringBuilder finalName = new StringBuilder();
-		for (char c : fileTitle.toCharArray()) {
-			  if (c=='.' || Character.isJavaIdentifierPart(c)) {
-				  finalName.append(c);
-			  }
-			}
-		File file = new File(finalName.toString());
+	public static File exportRound(Round round) throws Exception {
+
+		File file = new File("Ronde"+round.roundNumber+".html");
 
 		Properties properties = new Properties();
 		properties.put("input.encoding", "utf-8");
@@ -40,19 +28,15 @@ public class DocumentUtils {
 			"org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 
 		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("rounds", tournament.roundsList);
-		parameters.put("name", tournament.name);
-		parameters.put("players", tournament.players);
-		parameters.put("date", date);
+		parameters.put("round", round);
 		BufferedWriter out = new BufferedWriter(new FileWriter(file));
 
 		VelocityEngine engine = new VelocityEngine();
 		engine.init(properties);
-		Template template = engine.getTemplate("/template.html");
+		Template template = engine.getTemplate("/round.html");
 
 		// Create a context and add parameters
 		VelocityContext context = new VelocityContext(parameters);
-		context.put("identityConverter", new IdentityConverter());
 
 		// Render the template for the context into a string
 		StringWriter stringWriter = new StringWriter();

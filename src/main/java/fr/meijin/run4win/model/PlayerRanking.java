@@ -13,6 +13,8 @@ public class PlayerRanking implements Serializable {
 	public int opponentsStrength;
 	public int opponentsPoints;
 	
+	public int malusPrestige;
+	
 	public String getNickname() {
 		return nickname;
 	}

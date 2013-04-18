@@ -72,6 +72,26 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		boolean addBye = false;
 		
 		Collections.sort(tournament.players);
+		Collections.reverse(tournament.players);
+		if(tournament.rounds >= 1){
+			Ranking ranking = new Ranking();
+			ranking.roundNumber = tournament.rounds;
+			for(Player p : tournament.players){
+				PlayerRanking pr = new PlayerRanking();
+				pr.nickname = p.nickname;
+				pr.prestige = p.getPrestige();
+				pr.opponentsStrength = p.getOpponentsStrength();
+				pr.opponentsPoints = p.getOpponentsPoints();
+				pr.points = p.getPoints();
+				ranking.playerRankings.add(pr);
+			}
+			
+			addResultTab(ranking);
+			
+			tournament.rankings.add(ranking);
+		}
+		
+		Collections.sort(tournament.players);
 		
 		List<Player> toMatch = new ArrayList<Player>(tournament.players);
 		
@@ -107,62 +127,24 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		tournament.rounds++;
 		
 		TournamentUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
-		Collections.sort(tournament.players);
-		Collections.reverse(tournament.players);
-		if(tournament.rounds != 0){
-			Ranking ranking = new Ranking();
-			ranking.roundNumber = tournament.rounds;
-			for(Player p : tournament.players){
-				PlayerRanking pr = new PlayerRanking();
-				pr.nickname = p.nickname;
-				pr.prestige = p.getPrestige();
-				pr.opponentsStrength = p.getOpponentsStrength();
-				pr.opponentsPoints = p.getOpponentsPoints();
-				pr.points = p.getPoints();
-				ranking.playerRankings.add(pr);
-			}
-			
-			Tab tab = new Tab("Résultat ronde "+ranking.roundNumber);
-			tab.setId("ranking"+tournament.rounds+"Tab");
-			
-			tab.setParent(resultTabbox.getTabs());
-			Tabpanel panel = new Tabpanel();
-			panel.setId("ranking"+ranking.roundNumber+"Panel");
-			panel.setParent(resultTabbox.getTabpanels());
-			
-			Include inc = new Include("ranking.zul");
-			inc.setDynamicProperty("ranking", ranking);
-			inc.setId("ranking"+ranking.roundNumber+"Include");
-			inc.setParent(panel);
-			tournament.rankings.add(ranking);
-		}
+		
 		
 		Collections.sort(toMatch);
 		Collections.reverse(toMatch);
-
-		Tab tab = new Tab("Ronde "+tournament.rounds);
-		tab.setId("round"+tournament.rounds+"Tab");
-		
-		tab.setParent(singleTabbox.getTabs());
-		Tabpanel panel = new Tabpanel();
-		panel.setId("round"+tournament.rounds+"Panel");
-		panel.setParent(singleTabbox.getTabpanels());
 			
 		if(tournament.rounds == 1)
 			Collections.shuffle(toMatch);
 		
 		Round r = TournamentUtils.doSingleMatch(tournament.roundsList, toMatch, new ArrayList<Game>());
-			
-		Include inc = new Include("single_round.zul");
-		inc.setDynamicProperty("round", r);
-		inc.setId("round"+tournament.rounds+"Include");
-		inc.setParent(panel);
-		
 		tournament.roundsList.add(r);
+		
+		Tab tab = addRoundTab(r);
+		
 		session.setAttribute("tournament", tournament);
 		tab.setSelected(true);
 		binder.loadAll();
 	}
+
 	
 
 	public void onClick$resultTab (Event e){
@@ -236,8 +218,24 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 			Tournament tournament = (Tournament) ois.readObject();
 			deleteTabs();
 			tournament = reloadTabs(tournament);
+			reloadPlayerRankingTab(tournament);
 			session.setAttribute("tournament",tournament);
 		}
+		binder.loadAll();
+	}
+	
+	public void onSelect$tieBreakCombobox(Event e){
+		int tieBreak = Integer.parseInt((String) tieBreakCombobox.getSelectedItem().getValue());
+		Tournament tournament = (Tournament) session.getAttribute("tournament");
+		System.out.println("Changing tieBreak !");
+		for(Player p : tournament.players){
+			p.tieBreak = tieBreak;
+		}
+		
+		deleteTabs();
+		reloadTabs(tournament);
+		reloadPlayerRankingTab(tournament);
+		session.setAttribute("tournament", tournament);
 		binder.loadAll();
 	}
 	
@@ -327,22 +325,27 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 				for(Game g : r.games){
 					g.roundNumber = i;
 				}
-				Tab tab = new Tab("Ronde "+i);
-				tab.setId("round"+r.roundNumber+"Tab");
-				tab.setParent(singleTabbox.getTabs());
-				Tabpanel panel = new Tabpanel();
-				panel.setId("round"+r.roundNumber+"Panel");
-				panel.setParent(singleTabbox.getTabpanels());
-				Include inc = new Include("single_round.zul");
-				inc.setDynamicProperty("round", r);
-				inc.setId("round"+r.roundNumber+"Include");
-				inc.setParent(panel);
+				addRoundTab(r);
 				i++;
 			}
 		}
 		return tournament;
 	}
 	
+	private Tab addRoundTab(Round r) {
+		Tab tab = new Tab("Ronde "+r.roundNumber);
+		tab.setId("round"+r.roundNumber+"Tab");
+		tab.setParent(singleTabbox.getTabs());
+		Tabpanel panel = new Tabpanel();
+		panel.setId("round"+r.roundNumber+"Panel");
+		panel.setParent(singleTabbox.getTabpanels());
+		Include inc = new Include("single_round.zul");
+		inc.setDynamicProperty("round", r);
+		inc.setId("round"+r.roundNumber+"Include");
+		inc.setParent(panel);
+		return tab;
+	}
+
 	private void deleteTabs (){
 		List<Component> componentsToRemove = new ArrayList<Component>();
 		for(Component c : page.getFellows()){
@@ -357,11 +360,12 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	}
 	
 	private Tournament reloadPlayerRankingTab(Tournament tournament) {
-		for(Round r : tournament.roundsList){
-			if(r.roundNumber != 1){
+		if(tournament.rounds > 1){
+			for(int i = 1; i < tournament.rounds; i++){
+				Round r = tournament.roundsList.get(i);
 				Ranking ranking = new Ranking();
 				ranking.roundNumber = r.roundNumber;
-				
+					
 				Collections.sort(tournament.players);
 				Collections.reverse(tournament.players);
 				for(Player p : tournament.players){
@@ -374,37 +378,28 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 					ranking.playerRankings.add(pr);
 				}
 				
-				Tab tab = new Tab("Résultat ronde "+ranking.roundNumber);
-				tab.setId("ranking"+ranking.roundNumber+"Tab");
-				
-				tab.setParent(resultTabbox.getTabs());
-				Tabpanel panel = new Tabpanel();
-				panel.setId("ranking"+ranking.roundNumber+"Panel");
-				panel.setParent(resultTabbox.getTabpanels());
-				
-				Include inc = new Include("ranking.zul");
-				inc.setDynamicProperty("ranking", ranking);
-				inc.setId("ranking"+ranking.roundNumber+"Include");
-				inc.setHeight("100%");
-				inc.setParent(panel);
+				addResultTab(ranking);
 				tournament.rankings.add(ranking);
 			}
 		}
 		return tournament;
 	}
 	
-	public void onSelect$tieBreakCombobox(Event e){
-		int tieBreak = Integer.parseInt((String) tieBreakCombobox.getSelectedItem().getValue());
-		Tournament tournament = (Tournament) session.getAttribute("tournament");
-		System.out.println("Changing tieBreak !");
-		for(Player p : tournament.players){
-			p.tieBreak = tieBreak;
-		}
+	
+	private void addResultTab(Ranking ranking){
+		Tab tab = new Tab("Résultat ronde "+ranking.roundNumber);
+		tab.setId("ranking"+ranking.roundNumber+"Tab");
 		
-		deleteTabs();
-		reloadTabs(tournament);
-		reloadPlayerRankingTab(tournament);
-		session.setAttribute("tournament", tournament);
-		binder.loadAll();
+		tab.setParent(resultTabbox.getTabs());
+		Tabpanel panel = new Tabpanel();
+		panel.setId("ranking"+ranking.roundNumber+"Panel");
+		panel.setParent(resultTabbox.getTabpanels());
+		
+		Include inc = new Include("ranking.zul");
+		inc.setDynamicProperty("ranking", ranking);
+		inc.setId("ranking"+ranking.roundNumber+"Include");
+		inc.setParent(panel);
 	}
+	
+
 }

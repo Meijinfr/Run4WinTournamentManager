@@ -1,9 +1,13 @@
 <?page title="" contentType="text/html;charset=UTF-8"?>
-<zk>
+<zk xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd ">
 	<div align="right" style="padding-top : 5px; padding-bottom : 5px;">
+		<button id="printRound" label="Imprimer" mold="trendy"/>
 		<button id="deleteRound" label="Supprimer la ronde" mold="trendy"/>
 	</div>
-	<listbox id="listboxRound" apply="fr.meijin.run4win.composer.SingleRoundComposer"
+	<listbox id="listboxRound" apply="fr.meijin.run4win.composer.SingleRoundComposer" class="printable"
 		itemRenderer="fr.meijin.run4win.renderer.SingleRoundItemRenderer"  height="99%">
 		<listhead>
 			<listheader label="Table" hflex="1" align="center" sort="auto"/>

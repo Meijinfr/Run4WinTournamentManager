@@ -1,5 +1,6 @@
 package fr.meijin.run4win.composer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.SimpleListModel;
@@ -20,6 +22,7 @@ import fr.meijin.run4win.model.Game;
 import fr.meijin.run4win.model.Player;
 import fr.meijin.run4win.model.Round;
 import fr.meijin.run4win.model.Tournament;
+import fr.meijin.run4win.util.PrintUtils;
 import fr.meijin.run4win.util.TournamentUtils;
 
 public class SingleRoundComposer extends GenericForwardComposer<Listbox> {
@@ -113,4 +116,8 @@ public class SingleRoundComposer extends GenericForwardComposer<Listbox> {
 		}
 	}
 	
+	public void onClick$printRound (Event e) throws Exception{
+		File roundFile = PrintUtils.exportRound(round);
+		Filedownload.save(roundFile, "text/plain");
+	}
 }

@@ -23,7 +23,13 @@ public class SingleRoundItemRenderer implements ListitemRenderer<Game>{
 		createLabelCell(g.player2.nickname).setParent(item);
 		createResultCorporationCell(g.p2Result).setParent(item);
 		createResultRunnerCell(g.p2Result).setParent(item);
-		createListcellButtons(g).setParent(item);
+		Listcell cell = createListcellButtons(g);
+		
+		if(g.p1Result.resultCorporation == 0 && g.p1Result.resultRunner == 0 
+			&& g.p2Result.resultCorporation == 0 && g.p2Result.resultRunner == 0){
+			cell.setStyle("background : #FFADAD;");
+		}
+		cell.setParent(item);
 	}
 
 	private Listcell createLabelCell(String label) {

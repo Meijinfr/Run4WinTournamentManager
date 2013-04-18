@@ -27,6 +27,8 @@ public class Player implements Comparable<Player>, Serializable {
 
 	public int tieBreak;
 	
+	public int malusPrestige;
+	
 	public Player () {
 		super();
 		this.games = new HashMap<String,Game>();
