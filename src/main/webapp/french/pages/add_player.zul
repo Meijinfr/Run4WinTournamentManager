@@ -22,7 +22,7 @@
 				</row>
 				<row>
 					<label value="Id Runner" />
-					<combobox id="idRunnerCombobox">
+					<combobox id="idRunnerCombobox" readonly="true">
 						<comboitem label="Noise : Hacker Extraordinaire"
 							value="Noise" />
 						<comboitem label="Whizzard : Master Gamer"
@@ -39,7 +39,7 @@
 				</row>
 				<row>
 					<label value="Id Corporation" />
-					<combobox id="idCorporationCombobox">
+					<combobox id="idCorporationCombobox" readonly="true">
 						<comboitem
 							label="Haas-Bioroid: Engineering the Future" value="HB 1" />
 						<comboitem

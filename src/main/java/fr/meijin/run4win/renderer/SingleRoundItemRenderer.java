@@ -11,6 +11,8 @@ import org.zkoss.zul.ListitemRenderer;
 
 import fr.meijin.run4win.model.Game;
 import fr.meijin.run4win.model.Result;
+import fr.meijin.run4win.util.lang.LangEnum;
+import fr.meijin.run4win.util.lang.LangUtils;
 
 public class SingleRoundItemRenderer implements ListitemRenderer<Game>{
 
@@ -51,7 +53,7 @@ public class SingleRoundItemRenderer implements ListitemRenderer<Game>{
 	
 	private Listcell createResultRunnerCell(Result result) {
 		if (result.millWin)
-			return new Listcell(result.resultRunner+" (Meule)");
+			return new Listcell(result.resultRunner+" ("+LangUtils.getMessage(LangEnum.MILL)+")");
 		else if(result.resultRunner != null)
 			return new Listcell(result.resultRunner.toString());
 		
@@ -61,7 +63,7 @@ public class SingleRoundItemRenderer implements ListitemRenderer<Game>{
 	private Listcell createListcellButtons(final Game g){
 		Listcell listcell = new Listcell();
 		
-		Button editButton = new Button("Modifier");
+		Button editButton = new Button(LangUtils.getMessage(LangEnum.EDIT));
 		editButton.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 
 			@Override

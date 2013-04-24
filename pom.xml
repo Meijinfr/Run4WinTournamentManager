@@ -4,30 +4,51 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.meijin</groupId>
 	<artifactId>Run4Win</artifactId>
-	<version>0.2</version>
+	<version>1.0</version>
 	<name>Run 4 Win Android:Netrunner Tournament Manager</name>
 	<packaging>war</packaging>
 
 	<dependencies>
 		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.servlet</artifactId>
+			<version>3.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-webapp</artifactId>
+			<version>8.1.5.v20120716</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>8.1.5.v20120716</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-util</artifactId>
+			<version>8.1.5.v20120716</version>
+		</dependency>
+		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkplus</artifactId>
-			<version>6.0.0</version>
+			<version>6.5.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zhtml</artifactId>
-			<version>6.0.0</version>
+			<version>6.5.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkbind</artifactId>
-			<version>6.0.0</version>
+			<version>6.5.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zul</artifactId>
-			<version>6.0.0</version>
+			<version>6.5.2</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -59,16 +80,24 @@
 			<artifactId>velocity</artifactId>
 			<version>1.6.2</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<scope>provided</scope>
-			<version>2.4</version>
-		</dependency>
 	</dependencies>
+	
+	<properties>
+		<lang>french</lang>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>EN</id>
+			<properties>
+				<lang>english</lang>
+			</properties>
+		</profile>
+	</profiles>
 
 	<build>
 		<finalName>${artifactId}</finalName>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -77,46 +106,120 @@
 				</includes>
 				<filtering>false</filtering>
 			</resource>
+			<resource>
+				<directory>src/main/resources/${lang}</directory>
+				<includes>
+					<include>*</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
 		</resources>
 		<plugins>
 			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<configuration>
+					<downloadSources>true</downloadSources>
 					<wtpversion>2.0</wtpversion>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/webapp/${lang}/pages</directory>
+							<targetPath>pages</targetPath>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0.2</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<encoding>UTF-8</encoding>
-					<fork>true</fork>
-					<meminitial>128m</meminitial>
-					<maxmem>1024m</maxmem>
-				</configuration>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<createDependencyReducedPom>true</createDependencyReducedPom>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>fr.meijin.run4win.webapp.main.Main</mainClass>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
+									<resource>pages</resource>
+									<file>src/main/webapp/${lang}/pages/*</file>
+								</transformer>
+							</transformers>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
+							<finalName>${project.artifactId}-${project.version}-${lang}</finalName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- The main class needs to be in the root of the war in order to be 
+				runnable -->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>move-main-class</id>
+						<phase>compile</phase>
+						<configuration>
+							<tasks>
+								<move todir="${project.build.directory}/${project.artifactId}">
+									<fileset dir="${project.build.directory}/classes/">
+										<include
+											name="fr/meijin/run4win/webapp/context/AppContextBuilder.class" />
+										<include name="fr/meijin/run4win/webapp/main/Launcher.class" />
+										<include name="fr/meijin/run4win/webapp/main/Main.class" />
+										<include name="fr/meijin/run4win/webapp/server/JettyServer.class" />
+										<include name="fr/meijin/run4win/webapp/server/ServerRunner.class" />
+									</fileset>
+								</move>
+								<move todir="${project.build.directory}/${project.artifactId}">
+									<fileset dir="${project.build.directory}/classes/">
+										<include name="splash.jpg" />
+									</fileset>
+								</move>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
-
-	<!-- <repositories> -->
-	<!-- <repository> -->
-	<!-- <id>central</id> -->
-	<!-- <name>Leasecom Maven Repository</name> -->
-	<!-- <url>http://srv-devtomcat:8180/artifactory-2.0.6/leasecom</url> -->
-	<!-- <snapshots> -->
-	<!-- <enabled>true</enabled> -->
-	<!-- <updatePolicy>always</updatePolicy> -->
-	<!-- <checksumPolicy>warn</checksumPolicy> -->
-	<!-- </snapshots> -->
-	<!-- </repository> -->
-	<!-- </repositories> -->
 
 	<repositories>
 		<repository>

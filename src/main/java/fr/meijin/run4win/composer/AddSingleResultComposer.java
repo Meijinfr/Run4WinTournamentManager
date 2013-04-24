@@ -14,6 +14,8 @@ import org.zkoss.zul.Window;
 import fr.meijin.run4win.model.Game;
 import fr.meijin.run4win.model.Player;
 import fr.meijin.run4win.model.Tournament;
+import fr.meijin.run4win.util.lang.LangEnum;
+import fr.meijin.run4win.util.lang.LangUtils;
 
 public class AddSingleResultComposer extends GenericForwardComposer<Window>{
 
@@ -58,7 +60,7 @@ public class AddSingleResultComposer extends GenericForwardComposer<Window>{
 	public void onClick$validateButton (Event e){
 		Game g = (Game) page.getAttribute("game");
 		if(StringUtils.equals(player2Combobox.getText(), player1Combobox.getText())){
-			Messagebox.show("Appariement impossible, un joueur ne peut pas jouer contre lui-même !");
+			Messagebox.show(LangUtils.getMessage(LangEnum.IMPOSSIBLE_MATCH));
 			return;
 		}
 		

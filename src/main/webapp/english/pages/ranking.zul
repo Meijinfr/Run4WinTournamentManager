@@ -1,0 +1,23 @@
+<?page title="Ranking" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<grid apply="fr.meijin.run4win.composer.RankingComposer" model="@{pageScope.playerRankings}">
+		<columns sizable="true">
+			<column label="Rank" align="center" hflex="1" />
+			<column label="Nickname" hflex="2" />
+			<column label="Prestige taken" hflex="2" />
+			<column label="Opponents Strength" hflex="2" />
+			<column label="Match Points" hflex="2" />
+			<column label="Opponents Match Points" hflex="2" />
+		</columns>
+		<rows>
+			<row self="@{each='player'}" visible="${player.id != 0}">
+				<label value="@{self.parent.index, converter='fr.meijin.run4win.converter.RankingConverter'}" />
+				<label value="@{player.nickname}" />
+				<label value="@{player.prestige}" />
+				<label value="@{player.opponentsStrength}" />
+				<label value="@{player.points}" />
+				<label value="@{player.opponentsPoints}" />
+			</row>
+		</rows>
+	</grid>
+</zk>

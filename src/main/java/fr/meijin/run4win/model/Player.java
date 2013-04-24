@@ -43,35 +43,7 @@ public class Player implements Comparable<Player>, Serializable {
 			return 0;
 		
 		for(Game g : games.values()){
-			
-			if(g.p1Result.resultCorporation == g.p2Result.resultCorporation 
-					&& g.p1Result.resultRunner == g.p2Result.resultRunner 
-					&& (g.p1Result.resultCorporation == 10 || g.p1Result.resultRunner == 10)){
-					ret += 3;
-					continue;
-			}
-			
-			if(g.player1.id == this.id){
-				if(g.p1Result.resultCorporation == 10)
-					ret += 2;
-				if(g.p1Result.resultRunner == 10)
-					ret += 2;
-				if((g.p1Result.resultRunner < 10 && g.p2Result.resultCorporation < 10)
-					||(g.p1Result.resultCorporation < 10 && g.p2Result.resultRunner < 10))
-					ret += 1;
-				if(ret == 4 || (g.p1Result.resultCorporation+g.p1Result.resultRunner) > (g.p2Result.resultCorporation+g.p2Result.resultRunner))
-					ret += 2;
-			} else {
-				if(g.p2Result.resultCorporation == 10)
-					ret += 2;
-				if(g.p2Result.resultRunner == 10)
-					ret += 2;
-				if((g.p2Result.resultRunner < 10 && g.p1Result.resultCorporation < 10)
-						||(g.p2Result.resultCorporation < 10 && g.p1Result.resultRunner < 10))
-						ret += 1;
-				if(ret == 4 || (g.p2Result.resultCorporation+g.p2Result.resultRunner) > (g.p1Result.resultCorporation+g.p1Result.resultRunner))
-					ret += 2;
-			}
+			ret+=getPrestige(g);
 		}
 		
 		return ret;
@@ -85,41 +57,56 @@ public class Player implements Comparable<Player>, Serializable {
 		
 		for(int i=0;i < games.values().size() && i < roundNumber; i++){
 			Game g = games.get(String.valueOf(i));
+			
 			if(g != null){
-				if(g.p1Result.resultCorporation == g.p2Result.resultCorporation 
-						&& g.p1Result.resultRunner == g.p2Result.resultRunner 
-						&& (g.p1Result.resultCorporation == 10 || g.p1Result.resultRunner == 10)){
-						ret += 3;
-						continue;
-				}
-				
-				if(g.player1.id == this.id){
-					if(g.p1Result.resultCorporation == 10)
-						ret += 2;
-					if(g.p1Result.resultRunner == 10)
-						ret += 2;
-					if((g.p1Result.resultRunner < 10 && g.p2Result.resultCorporation < 10)
-						||(g.p1Result.resultCorporation < 10 && g.p2Result.resultRunner < 10))
-						ret += 1;
-					if(ret == 4 || (g.p1Result.resultCorporation+g.p1Result.resultRunner) > (g.p2Result.resultCorporation+g.p2Result.resultRunner))
-						ret += 2;
-				} else {
-					if(g.p2Result.resultCorporation == 10)
-						ret += 2;
-					if(g.p2Result.resultRunner == 10)
-						ret += 2;
-					if((g.p2Result.resultRunner < 10 && g.p1Result.resultCorporation < 10)
-							||(g.p2Result.resultCorporation < 10 && g.p1Result.resultRunner < 10))
-							ret += 1;
-					if(ret == 4 || (g.p2Result.resultCorporation+g.p2Result.resultRunner) > (g.p1Result.resultCorporation+g.p1Result.resultRunner))
-						ret += 2;
-				}
+				ret+= getPrestige(g);
 			}
 		}
 		
 		return ret;
 	}
 	
+	private int getPrestige(Game g) {
+		int prestige = 0;
+		
+		if(g.p1Result.resultCorporation == g.p2Result.resultCorporation 
+				&& g.p1Result.resultRunner == g.p2Result.resultRunner 
+				&& (g.p1Result.resultCorporation == 10 || g.p1Result.resultRunner == 10)){
+				return 3;
+		}
+		
+		if(g.player1.id == this.id){
+			if(g.p1Result.resultCorporation == 10){
+				prestige += 2;
+			}
+			if(g.p1Result.resultRunner == 10){
+				prestige += 2;
+			}
+			if((g.p1Result.resultRunner < 10 && g.p2Result.resultCorporation < 10)
+				||(g.p1Result.resultCorporation < 10 && g.p2Result.resultRunner < 10)){
+				prestige += 1;
+			}
+			if(prestige == 4 || (g.p1Result.resultCorporation+g.p1Result.resultRunner) > (g.p2Result.resultCorporation+g.p2Result.resultRunner)){
+				prestige += 2;
+			}
+		} else {
+			if(g.p2Result.resultCorporation == 10){
+				prestige += 2;
+			}
+			if(g.p2Result.resultRunner == 10){
+				prestige += 2;
+			}
+			if((g.p2Result.resultRunner < 10 && g.p1Result.resultCorporation < 10)
+					||(g.p2Result.resultCorporation < 10 && g.p1Result.resultRunner < 10)){
+					prestige += 1;
+			}
+			if(prestige == 4 || (g.p2Result.resultCorporation+g.p2Result.resultRunner) > (g.p1Result.resultCorporation+g.p1Result.resultRunner)){
+				prestige += 2;
+			}
+		}
+		return prestige;
+	}
+
 	public int getPoints(){
 		int ret = 0;
 		

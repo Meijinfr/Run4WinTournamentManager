@@ -12,6 +12,8 @@ import org.zkoss.zul.Window;
 
 import fr.meijin.run4win.model.Player;
 import fr.meijin.run4win.model.Tournament;
+import fr.meijin.run4win.util.lang.LangEnum;
+import fr.meijin.run4win.util.lang.LangUtils;
 
 public class AddPlayerComposer extends GenericForwardComposer<Window>{
 
@@ -55,7 +57,7 @@ public class AddPlayerComposer extends GenericForwardComposer<Window>{
 			
 			for(Player player : tournament.players){
 				if(StringUtils.equals(player.nickname, nicknameTextbox.getValue())){
-					Messagebox.show("Ce pseudonyme est déjà utilisé, veuillez en saisir un autre.");
+					Messagebox.show(LangUtils.getMessage(LangEnum.NICKNAME_ALREADY_TAKEN));
 					return;
 				}
 			}

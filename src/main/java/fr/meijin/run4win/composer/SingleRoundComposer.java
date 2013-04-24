@@ -24,6 +24,8 @@ import fr.meijin.run4win.model.Round;
 import fr.meijin.run4win.model.Tournament;
 import fr.meijin.run4win.util.PrintUtils;
 import fr.meijin.run4win.util.TournamentUtils;
+import fr.meijin.run4win.util.lang.LangEnum;
+import fr.meijin.run4win.util.lang.LangUtils;
 
 public class SingleRoundComposer extends GenericForwardComposer<Listbox> {
 
@@ -109,7 +111,7 @@ public class SingleRoundComposer extends GenericForwardComposer<Listbox> {
 	}
 	
 	public void onClick$deleteRound(Event e){
-		int ret = Messagebox.show("Etes-vous sûr(e) de vouloir supprimer cette ronde ?", "Supprimer la ronde", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
+		int ret = Messagebox.show(LangUtils.getMessage(LangEnum.DELETE_ROUND_MESSAGE), LangUtils.getMessage(LangEnum.DELETE_ROUND_TITLE), Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
 		
 		if(ret == Messagebox.YES){
 			Events.postEvent("onDeleteRound", page.getFellow("divIndex"),round.roundNumber);

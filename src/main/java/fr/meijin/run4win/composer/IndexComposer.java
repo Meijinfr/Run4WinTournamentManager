@@ -39,8 +39,9 @@ import fr.meijin.run4win.model.Ranking;
 import fr.meijin.run4win.model.Round;
 import fr.meijin.run4win.model.Tournament;
 import fr.meijin.run4win.util.DocumentUtils;
-import fr.meijin.run4win.util.LangUtils;
 import fr.meijin.run4win.util.TournamentUtils;
+import fr.meijin.run4win.util.lang.LangEnum;
+import fr.meijin.run4win.util.lang.LangUtils;
 
 public class IndexComposer extends GenericForwardComposer<Div> {
 
@@ -105,14 +106,14 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		toMatch.removeAll(forfeitPlayers);
 
 		if(toMatch.size()%2 == 1){
-			int rep = Messagebox.show("Le nombre de joueurs est impair, un joueur 'Bye' va être créé, êtes-vous sur de vouloir continuer ?", "Attention", Messagebox.YES | Messagebox.NO, Messagebox.EXCLAMATION);
+			int rep = Messagebox.show(LangUtils.getMessage(LangEnum.CREATE_BYE), LangUtils.getMessage(LangEnum.WARNING), Messagebox.YES | Messagebox.NO, Messagebox.EXCLAMATION);
 			if(rep == Messagebox.NO){
 				return;
 			} else {
 				addBye = true;
 			}
-		}else if (tournament.players.isEmpty()){
-			Messagebox.show(LangUtils.getPlayersErrorMessage(), "Oups...", Messagebox.OK, Messagebox.ERROR);
+		} else if (tournament.players.isEmpty()){
+			Messagebox.show(LangUtils.getMessage(LangEnum.NO_PLAYERS), LangUtils.getMessage(LangEnum.ERROR), Messagebox.OK, Messagebox.ERROR);
 			return;
 		}
 		
@@ -173,7 +174,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	
 
 	public void onClick$resetTournament (Event e){
-		int ret = Messagebox.show("Etes-vous sûr(e) de vouloir supprimer toutes les données du tournoi ?", "Reset", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
+		int ret = Messagebox.show(LangUtils.getMessage(LangEnum.RESET), "Reset", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
 		
 		if(ret == Messagebox.YES){
 			Tournament t = new Tournament();
@@ -227,7 +228,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	public void onSelect$tieBreakCombobox(Event e){
 		int tieBreak = Integer.parseInt((String) tieBreakCombobox.getSelectedItem().getValue());
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
-		System.out.println("Changing tieBreak !");
+		
 		for(Player p : tournament.players){
 			p.tieBreak = tieBreak;
 		}
@@ -333,16 +334,19 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	}
 	
 	private Tab addRoundTab(Round r) {
-		Tab tab = new Tab("Ronde "+r.roundNumber);
+		Tab tab = new Tab(LangUtils.getMessage(LangEnum.ROUND)+" "+r.roundNumber);
 		tab.setId("round"+r.roundNumber+"Tab");
 		tab.setParent(singleTabbox.getTabs());
+		
 		Tabpanel panel = new Tabpanel();
 		panel.setId("round"+r.roundNumber+"Panel");
 		panel.setParent(singleTabbox.getTabpanels());
+		
 		Include inc = new Include("single_round.zul");
 		inc.setDynamicProperty("round", r);
 		inc.setId("round"+r.roundNumber+"Include");
 		inc.setParent(panel);
+		
 		return tab;
 	}
 
@@ -356,6 +360,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		
 		for(Component c : componentsToRemove){
 			c.setParent(null);
+			c.detach();
 		}
 	}
 	
@@ -387,7 +392,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	
 	
 	private void addResultTab(Ranking ranking){
-		Tab tab = new Tab("Résultat ronde "+ranking.roundNumber);
+		Tab tab = new Tab(LangUtils.getMessage(LangEnum.RESULT)+" "+ranking.roundNumber);
 		tab.setId("ranking"+ranking.roundNumber+"Tab");
 		
 		tab.setParent(resultTabbox.getTabs());

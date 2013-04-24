@@ -15,6 +15,8 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.ListitemRenderer;
 
 import fr.meijin.run4win.model.Player;
+import fr.meijin.run4win.util.lang.LangEnum;
+import fr.meijin.run4win.util.lang.LangUtils;
 
 public class ListPlayerRenderer implements ListitemRenderer<Player> {
 	
@@ -61,7 +63,7 @@ public class ListPlayerRenderer implements ListitemRenderer<Player> {
 	private Listcell createListcellButtons(final Player p){
 		Listcell listcell = new Listcell();
 		
-		Button editButton = new Button("Modifier");
+		Button editButton = new Button(LangUtils.getMessage(LangEnum.EDIT));
 		editButton.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 
 			@Override
@@ -75,7 +77,7 @@ public class ListPlayerRenderer implements ListitemRenderer<Player> {
 		editButton.setMold("trendy");
 		editButton.setParent(listcell);
 		
-		Button deleteButton = new Button("Supprimer");
+		Button deleteButton = new Button(LangUtils.getMessage(LangEnum.DELETE));
 		deleteButton.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
 
 			@Override
