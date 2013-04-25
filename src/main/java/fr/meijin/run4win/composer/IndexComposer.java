@@ -120,8 +120,10 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		if(addBye){
 			Player p = new Player();
 			p.id=0;
-			p.nickname = "Bye";
+			p.nickname = "BYE";
 			p.forfeit = true;
+			p.idCorporation = "";
+			p.idRunner = "";
 			toMatch.add(p);
 		}
 		

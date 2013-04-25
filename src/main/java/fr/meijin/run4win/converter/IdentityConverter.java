@@ -22,6 +22,8 @@ public class IdentityConverter implements TypeConverter {
 	}
 	
 	public static String coerceToHTML(String id) {
+		if(id == null)
+			return "";
 		if (StringUtils.equals("HB 1", id))
 			id = "hb_engineering_the_future";
 		else if (StringUtils.equals("HB 2", id))
