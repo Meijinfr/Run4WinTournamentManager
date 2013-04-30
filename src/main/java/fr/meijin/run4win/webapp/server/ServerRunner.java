@@ -3,6 +3,7 @@ package fr.meijin.run4win.webapp.server;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,13 +12,13 @@ import java.net.URL;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JWindow;
 import javax.swing.UIManager;
 
-public class ServerRunner extends JWindow implements ActionListener {
+public class ServerRunner extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 8246957846370294364L;
 	
@@ -39,13 +40,31 @@ public class ServerRunner extends JWindow implements ActionListener {
 		content.setBackground(Color.black);
 		UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 
+		Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/credit.png"));
+		setIconImage(icon);
+		
 		int width = 710;
-		int height = 325;
+		int height = 375;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (screen.width - width) / 2;
 		int y = (screen.height - height) / 2;
 		setBounds(x, y, width, height);
-
+		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				if(jettyServer.isStarted()) {
+					try {
+						System.out.println("Stopping jetty");
+						jettyServer.stop();
+					} catch (Exception exception) {
+						exception.printStackTrace();
+					}
+				}
+			}
+		},"Stop Jetty Hook"));
 		
 		URL imgURL = getClass().getResource("/splash.jpg");
 		

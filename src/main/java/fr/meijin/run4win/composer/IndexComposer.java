@@ -223,6 +223,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 			tournament = reloadTabs(tournament);
 			reloadPlayerRankingTab(tournament);
 			session.setAttribute("tournament",tournament);
+			ois.close();
 		}
 		binder.loadAll();
 	}

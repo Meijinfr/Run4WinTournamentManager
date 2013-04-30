@@ -180,7 +180,7 @@
 									</excludes>
 								</filter>
 							</filters>
-							<finalName>${project.artifactId}-${project.version}-${lang}</finalName>
+							<finalName>${project.artifactId}</finalName>
 						</configuration>
 					</execution>
 				</executions>
@@ -203,11 +203,13 @@
 										<include name="fr/meijin/run4win/webapp/main/Main.class" />
 										<include name="fr/meijin/run4win/webapp/server/JettyServer.class" />
 										<include name="fr/meijin/run4win/webapp/server/ServerRunner.class" />
+										<include name="fr/meijin/run4win/webapp/server/ServerRunner$1.class" />
 									</fileset>
 								</move>
 								<move todir="${project.build.directory}/${project.artifactId}">
 									<fileset dir="${project.build.directory}/classes/">
 										<include name="splash.jpg" />
+										<include name="credit.png" />
 									</fileset>
 								</move>
 							</tasks>
