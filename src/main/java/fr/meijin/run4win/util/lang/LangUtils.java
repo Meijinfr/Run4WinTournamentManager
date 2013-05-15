@@ -6,27 +6,36 @@ import java.util.Properties;
 
 
 public class LangUtils {
+	
+	private static Properties configProperties;
 
 	public static String getMessage(LangEnum messageType) {
-		System.out.println("Searching for message type "+messageType.toString());
-		InputStream stream = instance.getClass().getClassLoader().getResourceAsStream("lang.properties");
-		Properties configProperties;
-		String message = null;
-		try {
-			configProperties = new Properties();
-			configProperties.load(stream);
-			message = configProperties.getProperty(messageType.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 		
-		return message;
+		if(configProperties == null){
+			InputStream stream = instance.getClass().getClassLoader().getResourceAsStream("lang.properties");
+			configProperties = new Properties();
+			
+			try {
+				configProperties.load(stream);
+			}catch (Exception e) {
+				// failed to load
+			}finally{
+				try {
+					stream.close();
+				} catch (IOException e) {
+					// fail silently
+				}
+			}
+		}
+		
+		return configProperties.getProperty(messageType.toString());
 	}
 	
 	private static LangUtils instance;
 	
-	private LangUtils(){}
+	private LangUtils(){
+		
+	}
 	
 	static{
 		instance = new LangUtils();

@@ -138,7 +138,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		if(tournament.rounds == 1)
 			Collections.shuffle(toMatch);
 		
-		Round r = TournamentUtils.doSingleMatch(tournament.roundsList, toMatch, new ArrayList<Game>());
+		Round r = TournamentUtils.doSingleMatch(tournament.rounds,tournament.roundsList, toMatch, new ArrayList<Game>());
 		tournament.roundsList.add(r);
 		
 		Tab tab = addRoundTab(r);
@@ -322,15 +322,9 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	}
 	
 	private Tournament reloadTabs (Tournament tournament){
-		int i = 1;
 		if(tournament.roundsList.size()  != 0){
 			for(Round r : tournament.roundsList){
-				r.roundNumber = i;
-				for(Game g : r.games){
-					g.roundNumber = i;
-				}
 				addRoundTab(r);
-				i++;
 			}
 		}
 		return tournament;
@@ -368,33 +362,17 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	}
 	
 	private Tournament reloadPlayerRankingTab(Tournament tournament) {
-		if(tournament.rounds > 1){
-			for(int i = 1; i < tournament.rounds; i++){
-				Round r = tournament.roundsList.get(i);
-				Ranking ranking = new Ranking();
-				ranking.roundNumber = r.roundNumber;
-					
-				Collections.sort(tournament.players);
-				Collections.reverse(tournament.players);
-				for(Player p : tournament.players){
-					PlayerRanking pr = new PlayerRanking();
-					pr.nickname = p.nickname;
-					pr.prestige = p.getPrestige(ranking.roundNumber);
-					pr.opponentsPoints = p.getOpponentsPoints(ranking.roundNumber);
-					pr.opponentsStrength = p.getOpponentsStrength(ranking.roundNumber);
-					pr.points = p.getPoints(ranking.roundNumber);
-					ranking.playerRankings.add(pr);
-				}
-				
-				addResultTab(ranking);
-				tournament.rankings.add(ranking);
+		if(tournament.rankings.size() != 0){
+			for(Ranking r : tournament.rankings){
+
+				addResultTab(r);
 			}
 		}
 		return tournament;
 	}
-	
-	
+
 	private void addResultTab(Ranking ranking){
+		System.out.println("Adding result for round "+ranking.roundNumber);
 		Tab tab = new Tab(LangUtils.getMessage(LangEnum.RESULT)+" "+ranking.roundNumber);
 		tab.setId("ranking"+ranking.roundNumber+"Tab");
 		

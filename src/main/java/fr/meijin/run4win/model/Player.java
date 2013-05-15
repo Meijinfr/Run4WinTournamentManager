@@ -76,34 +76,56 @@ public class Player implements Comparable<Player>, Serializable {
 		}
 		
 		if(g.player1.id == this.id){
-			if(g.p1Result.resultCorporation == 10){
-				prestige += 2;
+			
+			if(g.p1Result.resultCorporation == 10 && g.p1Result.resultRunner == 10){
+				return 6;
 			}
-			if(g.p1Result.resultRunner == 10){
-				prestige += 2;
+			
+			if((g.p1Result.resultCorporation+g.p1Result.resultRunner) > (g.p2Result.resultCorporation+g.p2Result.resultRunner)){
+				
+				if(g.p2Result.resultCorporation == 10 || g.p2Result.resultRunner == 10){
+					return 4;
+				}else {
+					return 5;
+				}
+			} else {
+				
+				if(g.p2Result.resultCorporation == 10 && g.p2Result.resultRunner == 10){
+					return 0;
+				} else if (g.p1Result.resultCorporation == 10 || g.p1Result.resultRunner == 10) {
+					return 2;
+				}else {
+					return 1;
+				}
 			}
-			if((g.p1Result.resultRunner < 10 && g.p2Result.resultCorporation < 10)
-				||(g.p1Result.resultCorporation < 10 && g.p2Result.resultRunner < 10)){
-				prestige += 1;
+
+		} else if (g.player2.id == this.id) {
+			
+			if(g.p2Result.resultCorporation == 10 && g.p2Result.resultRunner == 10){
+				return 6;
 			}
-			if(prestige == 4 || (g.p1Result.resultCorporation+g.p1Result.resultRunner) > (g.p2Result.resultCorporation+g.p2Result.resultRunner)){
-				prestige += 2;
+			
+			if((g.p2Result.resultCorporation+g.p2Result.resultRunner) > (g.p1Result.resultCorporation+g.p1Result.resultRunner)){
+				
+				if(g.p1Result.resultCorporation == 10 || g.p1Result.resultRunner == 10){
+					return 4;
+				} else {
+					return 5;
+				}
+				
+			} else {
+				
+				if(g.p1Result.resultCorporation == 10 && g.p1Result.resultRunner == 10){
+					return 0;
+				} else if (g.p2Result.resultCorporation == 10 || g.p2Result.resultRunner == 10) {
+					return 2;
+				} else {
+					return 1;
+				}
 			}
-		} else {
-			if(g.p2Result.resultCorporation == 10){
-				prestige += 2;
-			}
-			if(g.p2Result.resultRunner == 10){
-				prestige += 2;
-			}
-			if((g.p2Result.resultRunner < 10 && g.p1Result.resultCorporation < 10)
-					||(g.p2Result.resultCorporation < 10 && g.p1Result.resultRunner < 10)){
-					prestige += 1;
-			}
-			if(prestige == 4 || (g.p2Result.resultCorporation+g.p2Result.resultRunner) > (g.p1Result.resultCorporation+g.p1Result.resultRunner)){
-				prestige += 2;
-			}
+			
 		}
+		
 		return prestige;
 	}
 

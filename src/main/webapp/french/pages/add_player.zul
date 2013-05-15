@@ -24,37 +24,39 @@
 					<label value="Id Runner" />
 					<combobox id="idRunnerCombobox" readonly="true">
 						<comboitem label="Noise : Hacker Extraordinaire"
-							value="Noise" />
+							value="noise" />
 						<comboitem label="Whizzard : Master Gamer"
-							value="Whizzard" />
+							value="whizzard" />
 						<comboitem
 							label="Gabriel Santiago : Consummate Professionnal"
-							value="Gabriel" />
+							value="gabriel" />
+						<comboitem
+							label="Andromeda : Dispossessed Ristie"
+							value="andromeda" />
 						<comboitem
 							label="Kate 'Mac' McCaffrey : Digital Tinker"
-							value="Kate" />
+							value="kate" />
 						<comboitem label="Chaos Theory : Wunderkind"
-							value="Chaos Theory" />
+							value="chaostheory" />
 					</combobox>
 				</row>
 				<row>
 					<label value="Id Corporation" />
 					<combobox id="idCorporationCombobox" readonly="true">
-						<comboitem
-							label="Haas-Bioroid: Engineering the Future" value="HB 1" />
-						<comboitem
-							label="Haas-Bioroid: Stronger Together" value="HB 2" />
+						<comboitem label="Haas-Bioroid: Engineering the Future" 
+							value="hb_engineering_the_future" />
+						<comboitem label="Haas-Bioroid: Stronger Together" 
+							value="hb_stronger_together" />
 						<comboitem label="Jinteki: Personal Evolution"
-							value="Jinteki 1" />
-						<comboitem
-							label="Jinteki: Replicating Perfection" value="Jinteki 2" />
-						<comboitem label="NBN: Making News" value="NBN" />
-						<comboitem
-							label="Weyland Consortium: Building a Better World"
-							value="Weyland 1" />
-						<comboitem
-							label="Weyland Consortium: Because We Built it"
-							value="Weyland 2" />
+							value="jinteki_personal_evolution" />
+						<comboitem label="Jinteki: Replicating Perfection" 
+							value="jinteki_replicating_perfection" />
+						<comboitem label="NBN: Making News" 
+							value="nbn_making_news" />
+						<comboitem label="Weyland Consortium: Building a Better World"
+							value="weyland_building_a_better_world" />
+						<comboitem label="Weyland Consortium: Because We Built it"
+							value="weyland_because_we_built_it" />
 					</combobox>
 				</row>
 				<row>

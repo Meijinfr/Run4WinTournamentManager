@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Intbox;
@@ -39,6 +40,8 @@ public class AddSingleResultComposer extends GenericForwardComposer<Window>{
 	private Rows player1Rows;
 	private Rows player2Rows;
 	
+	private Button validateButton;
+	
 	@Override
 	public void doAfterCompose(Window comp) throws Exception {
 		super.doAfterCompose(comp);
@@ -61,6 +64,18 @@ public class AddSingleResultComposer extends GenericForwardComposer<Window>{
 		Game g = (Game) page.getAttribute("game");
 		if(StringUtils.equals(player2Combobox.getText(), player1Combobox.getText())){
 			Messagebox.show(LangUtils.getMessage(LangEnum.IMPOSSIBLE_MATCH));
+			return;
+		}
+		
+		if(intboxP1ResultRunner.getValue() == 10 && intboxP2ResultCorporation.getValue() == 10){
+			intboxP1ResultRunner.setSclass("red_border");
+			intboxP2ResultCorporation.setSclass("red_border");
+			binder.loadAll();
+			return;
+		} else if(intboxP2ResultRunner.getValue() == 10 && intboxP1ResultCorporation.getValue() == 10){
+			intboxP2ResultRunner.setSclass("red_border");
+			intboxP1ResultCorporation.setSclass("red_border");
+			binder.loadAll();
 			return;
 		}
 		
@@ -105,5 +120,24 @@ public class AddSingleResultComposer extends GenericForwardComposer<Window>{
 	
 	public void onClick$cancelButton (Event e){
 		self.detach();
+	}
+	
+	public void onChangeResult (){
+		
+		if(intboxP1ResultRunner.getValue() == 10 && intboxP2ResultCorporation.getValue() == 10){
+			intboxP1ResultRunner.setSclass("red_border");
+			intboxP2ResultCorporation.setSclass("red_border");
+			validateButton.setDisabled(true);
+		} else if(intboxP2ResultRunner.getValue() == 10 && intboxP1ResultCorporation.getValue() == 10){
+			intboxP2ResultRunner.setSclass("red_border");
+			intboxP1ResultCorporation.setSclass("red_border");
+			validateButton.setDisabled(true);
+		} else {
+			validateButton.setDisabled(false);
+		}
+		
+		
+		binder.loadAll();
+		return;
 	}
 }

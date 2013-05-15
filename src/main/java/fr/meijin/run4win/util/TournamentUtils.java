@@ -11,9 +11,9 @@ import fr.meijin.run4win.model.Round;
 
 public class TournamentUtils {
 	
-	public static Round doSingleMatch(List<Round> lastRounds, List<Player> toMatch, List<Game> matched){
+	public static Round doSingleMatch(int roundNumber, List<Round> lastRounds, List<Player> toMatch, List<Game> matched){
 		Round sr = new Round();
-		sr.roundNumber = lastRounds.size()+1;
+		sr.roundNumber = roundNumber;
 		
 		List<Player> matchedPlayers = new ArrayList<Player>();
 		

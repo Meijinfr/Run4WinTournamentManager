@@ -81,7 +81,7 @@ public class SingleRoundComposer extends GenericForwardComposer<Listbox> {
 
 				int index = tournament.roundsList.indexOf(round);
 				tournament.roundsList.remove(index);
-				round = TournamentUtils.doSingleMatch(tournament.roundsList.subList(0, (newGame.roundNumber-1)), toMatch, round.challenges);
+				round = TournamentUtils.doSingleMatch(tournament.rounds, tournament.roundsList.subList(0, (newGame.roundNumber-1)), toMatch, round.challenges);
 
 				tournament.roundsList.add(index, round);
 				

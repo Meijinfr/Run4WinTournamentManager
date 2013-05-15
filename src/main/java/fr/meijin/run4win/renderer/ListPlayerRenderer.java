@@ -14,11 +14,14 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.ListitemRenderer;
 
+import fr.meijin.run4win.converter.IdentityConverter;
 import fr.meijin.run4win.model.Player;
 import fr.meijin.run4win.util.lang.LangEnum;
 import fr.meijin.run4win.util.lang.LangUtils;
 
 public class ListPlayerRenderer implements ListitemRenderer<Player> {
+	
+	private static final IdentityConverter IDENTITY_CONVERTER = new IdentityConverter();
 	
 	@Override
 	public void render(Listitem item, Player p, int i) throws Exception {
@@ -36,9 +39,10 @@ public class ListPlayerRenderer implements ListitemRenderer<Player> {
 		if (StringUtils.isNotBlank(id)){
 			Listcell cell = new Listcell();
 			Hlayout h = new Hlayout();
-			Image image = new Image("/images/"+id.replaceAll(" ", "").toLowerCase()+".gif");
-			Label label = new Label(id);
-			
+			Image image = new Image();
+			image.setSrc((String) IDENTITY_CONVERTER.coerceToUi(id, image));
+			Label label = new Label();
+			label.setValue((String) IDENTITY_CONVERTER.coerceToUi(id, label));
 			h.setSpacing("10px");
 			Div div = new Div();
 			div.setStyle("margin-top : 7px;");
