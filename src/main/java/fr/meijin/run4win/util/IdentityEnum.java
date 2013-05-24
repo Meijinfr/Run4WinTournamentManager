@@ -8,7 +8,8 @@ public enum IdentityEnum {
 	JINTEKI_PERSONAL_EVOLUTION		("jinteki_personal_evolution","Jinteki 1"),
 	JINTEKI_REPLICATING_PERFECTION	("jinteki_replicating_perfection","Jinteki 2"),
 	
-	NBN_MAKING_NEWS					("nbn_making_news","NBN"),
+	NBN_MAKING_NEWS					("nbn_making_news","NBN 1"),
+	NBN_THE_WORLD_IS_YOURS			("nbn_the_world_is_yours","NBN 2"),
 	
 	WEYLAND_BUILDING_A_BETTER_WORLD	("weyland_building_a_better_world","Weyland 1"),
 	WEYLAND_BECAUSE_WE_BUILT_IT		("weyland_because_we_built_it","Weyland 2"),
@@ -20,7 +21,7 @@ public enum IdentityEnum {
 	ANDROMEDA						("andromeda","Andromeda"),
 	
 	KATE							("kate","Kate"),
-	CHAOS_THEORY					("chaosthoery","Chaos Theory");
+	CHAOS_THEORY					("chaostheory","Chaos Theory");
 	
 	private String filename;
 	

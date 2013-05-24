@@ -31,5 +31,17 @@ public class Round implements Serializable {
 	public List<Game> getChallenges() {
 		return challenges;
 	}
+
+	public void setRoundNumber(int roundNumber) {
+		this.roundNumber = roundNumber;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
+	}
+
+	public void setChallenges(List<Game> challenges) {
+		this.challenges = challenges;
+	}
 	
 }
