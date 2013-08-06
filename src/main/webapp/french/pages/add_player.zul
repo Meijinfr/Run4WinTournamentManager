@@ -27,6 +27,8 @@
 							value="noise" />
 						<comboitem label="Whizzard : Master Gamer"
 							value="whizzard" />
+						<comboitem label="Reina Roja : Freedom Fighter"
+							value="reinaroja" />
 						<comboitem
 							label="Gabriel Santiago : Consummate Professionnal"
 							value="gabriel" />
@@ -38,6 +40,12 @@
 							value="kate" />
 						<comboitem label="Chaos Theory : Wunderkind"
 							value="chaostheory" />
+						<comboitem label="Rielle 'Kit' Peddler : Transhuman"
+							value="rielle" />
+						<comboitem label="The Professor : Keeper of Knowledge"
+							value="theprofessor" />
+						<comboitem label="Exile : Streethawk"
+							value="exile" />
 					</combobox>
 				</row>
 				<row>
@@ -47,6 +55,12 @@
 							value="hb_engineering_the_future" />
 						<comboitem label="Haas-Bioroid: Stronger Together" 
 							value="hb_stronger_together" />
+						<comboitem label="Custom Biotics: Engineered for Success" 
+							value="custombiotics" />
+						<comboitem label="Cerebral Imaging : Infinite Frontiers" 
+							value="cerebralimaging" />
+						<comboitem label="NEXT Design : Guarding The Net" 
+							value="nextdesign" />
 						<comboitem label="Jinteki: Personal Evolution"
 							value="jinteki_personal_evolution" />
 						<comboitem label="Jinteki: Replicating Perfection" 

@@ -24,35 +24,8 @@ public class IdentityConverter implements TypeConverter {
 				
 				return "/images/"+id.replaceAll(" ", "").toLowerCase()+".gif";
 			} else if (c instanceof Label) {
-				
-				if(StringUtils.equals(id, IdentityEnum.HB_ENGINEERING_THE_FUTURE.getFilename()))
-					return IdentityEnum.HB_ENGINEERING_THE_FUTURE.getDisplayName();
-				else if(StringUtils.equals(id, IdentityEnum.HB_STRONGER_TOGETHER.getFilename()))
-					return IdentityEnum.HB_STRONGER_TOGETHER.getDisplayName();
-				else if(StringUtils.equals(id, IdentityEnum.JINTEKI_PERSONAL_EVOLUTION.getFilename()))
-					return IdentityEnum.JINTEKI_PERSONAL_EVOLUTION.getDisplayName();
-				else if(StringUtils.equals(id, IdentityEnum.JINTEKI_REPLICATING_PERFECTION.getFilename()))
-					return IdentityEnum.JINTEKI_REPLICATING_PERFECTION.getDisplayName();
-				else if(StringUtils.equals(id, IdentityEnum.NBN_MAKING_NEWS.getFilename()))
-					return IdentityEnum.NBN_MAKING_NEWS.getDisplayName();
-				else if(StringUtils.equals(id, IdentityEnum.WEYLAND_BUILDING_A_BETTER_WORLD.getFilename()))
-					return IdentityEnum.WEYLAND_BUILDING_A_BETTER_WORLD.getDisplayName();
-				else if(StringUtils.equals(id, IdentityEnum.WEYLAND_BECAUSE_WE_BUILT_IT.getFilename()))
-					return IdentityEnum.WEYLAND_BECAUSE_WE_BUILT_IT.getDisplayName();
-				
-				else if(StringUtils.equals(id, IdentityEnum.NOISE.getFilename()))
-					return IdentityEnum.NOISE.getDisplayName();
-				else if(StringUtils.equals(id, IdentityEnum.WHIZZARD.getFilename()))
-					return IdentityEnum.WHIZZARD.getDisplayName();
-				else if(StringUtils.equals(id, IdentityEnum.GABRIEL.getFilename()))
-					return IdentityEnum.GABRIEL.getDisplayName();
-				else if(StringUtils.equals(id, IdentityEnum.ANDROMEDA.getFilename()))
-					return IdentityEnum.ANDROMEDA.getDisplayName();
-				else if(StringUtils.equals(id, IdentityEnum.KATE.getFilename()))
-					return IdentityEnum.KATE.getDisplayName();
-				else if(StringUtils.equals(id, IdentityEnum.CHAOS_THEORY.getFilename()))
-					return IdentityEnum.CHAOS_THEORY.getDisplayName();
-				
+
+				return IdentityEnum.getDisplayName(id);
 			}
 		}
 		return "";
@@ -62,8 +35,10 @@ public class IdentityConverter implements TypeConverter {
 		if(id == null)
 			return "";
 		
-		if (StringUtils.equals("Chaos Theory", id))
+		if (StringUtils.equals(IdentityEnum.CHAOS_THEORY.getFilename(), id))
 			return "http://www.run4games.com/forum/images/smilies/chaostheory.png";
+		else if (StringUtils.equals(IdentityEnum.CUSTOM_BIOTICS_ENGINEERED_FOR_SUCCESS.getFilename(), id))
+			return "http://www.run4games.com/forum/images/smilies/custombiotic.png";
 
 		return "http://www.run4games.com/forum/images/smilies/"+ id + ".gif";
 	}
