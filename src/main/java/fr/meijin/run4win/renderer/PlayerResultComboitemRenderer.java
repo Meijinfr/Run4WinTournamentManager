@@ -3,7 +3,6 @@ package fr.meijin.run4win.renderer;
 import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.ComboitemRenderer;
 
-import fr.meijin.run4win.converter.NicknameConverter;
 import fr.meijin.run4win.model.Player;
 
 public class PlayerResultComboitemRenderer implements ComboitemRenderer<Player>{

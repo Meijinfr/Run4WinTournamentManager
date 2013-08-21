@@ -24,53 +24,53 @@
 					<label value="Id Runner" />
 					<combobox id="idRunnerCombobox" readonly="true">
 						<comboitem label="Noise : Hacker Extraordinaire"
-							value="noise" />
+							value="noise" style="color : #e45f30;" />
 						<comboitem label="Whizzard : Master Gamer"
-							value="whizzard" />
+							value="whizzard" style="color : #e45f30;" />
 						<comboitem label="Reina Roja : Freedom Fighter"
-							value="reinaroja" />
+							value="reinaroja" style="color : #e45f30;" />
 						<comboitem
 							label="Gabriel Santiago : Consummate Professionnal"
-							value="gabriel" />
+							value="gabriel" style="color : #3e6ea9;" />
 						<comboitem
 							label="Andromeda : Dispossessed Ristie"
-							value="andromeda" />
+							value="andromeda" style="color : #3e6ea9;" />
 						<comboitem
 							label="Kate 'Mac' McCaffrey : Digital Tinker"
-							value="kate" />
+							value="kate" style="color : #6b9141;" />
 						<comboitem label="Chaos Theory : Wunderkind"
-							value="chaostheory" />
+							value="chaostheory" style="color : #6b9141;" />
 						<comboitem label="Rielle 'Kit' Peddler : Transhuman"
-							value="rielle" />
+							value="rielle" style="color : #6b9141;" />
 						<comboitem label="The Professor : Keeper of Knowledge"
-							value="theprofessor" />
+							value="theprofessor" style="color : #6b9141;" />
 						<comboitem label="Exile : Streethawk"
-							value="exile" />
+							value="exile" style="color : #6b9141;" />
 					</combobox>
 				</row>
 				<row>
 					<label value="Id Corporation" />
 					<combobox id="idCorporationCombobox" readonly="true">
 						<comboitem label="Haas-Bioroid: Engineering the Future" 
-							value="hb_engineering_the_future" />
+							value="hb_engineering_the_future" style="color : #ac69bb;"/>
 						<comboitem label="Haas-Bioroid: Stronger Together" 
-							value="hb_stronger_together" />
+							value="hb_stronger_together" style="color : #ac69bb;"/>
 						<comboitem label="Custom Biotics: Engineered for Success" 
-							value="custombiotics" />
+							value="custombiotics" style="color : #ac69bb;"/>
 						<comboitem label="Cerebral Imaging : Infinite Frontiers" 
-							value="cerebralimaging" />
+							value="cerebralimaging" style="color : #ac69bb;"/>
 						<comboitem label="NEXT Design : Guarding The Net" 
-							value="nextdesign" />
+							value="nextdesign" style="color : #ac69bb;"/>
 						<comboitem label="Jinteki: Personal Evolution"
-							value="jinteki_personal_evolution" />
+							value="jinteki_personal_evolution" style="color : #c53127;"/>
 						<comboitem label="Jinteki: Replicating Perfection" 
-							value="jinteki_replicating_perfection" />
-						<comboitem label="NBN: Making News" value="nbn_making_news" />
-						<comboitem label="NBN: The World Is Yours*" value="nbn_the_world_is_yours" />
+							value="jinteki_replicating_perfection" style="color : #c53127;"/>
+						<comboitem label="NBN: Making News" value="nbn_making_news" style="color : #ecaa2c;"/>
+						<comboitem label="NBN: The World Is Yours*" value="nbn_the_world_is_yours" style="color : #ecaa2c;"/>
 						<comboitem label="Weyland Consortium: Building a Better World"
-							value="weyland_building_a_better_world" />
+							value="weyland_building_a_better_world" style="color : #4b796c;"/>
 						<comboitem label="Weyland Consortium: Because We Built it"
-							value="weyland_because_we_built_it" />
+							value="weyland_because_we_built_it" style="color : #4b796c;"/>
 					</combobox>
 				</row>
 				<row>

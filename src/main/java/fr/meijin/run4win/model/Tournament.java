@@ -17,7 +17,7 @@ public class Tournament implements Serializable {
 	
 	public int rounds;
 	
-	public long gameDuration;
+	public int tieBreak;
 	
 	public List<Player> players;
 	
@@ -31,5 +31,6 @@ public class Tournament implements Serializable {
 		roundsList = new ArrayList<Round>();
 		rankings = new ArrayList<Ranking>();
 		playersCount = 1;
+		tieBreak = 1;
 	}
 }

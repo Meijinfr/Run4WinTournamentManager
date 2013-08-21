@@ -39,6 +39,12 @@ public class IdentityConverter implements TypeConverter {
 			return "http://www.run4games.com/forum/images/smilies/chaostheory.png";
 		else if (StringUtils.equals(IdentityEnum.CUSTOM_BIOTICS_ENGINEERED_FOR_SUCCESS.getFilename(), id))
 			return "http://www.run4games.com/forum/images/smilies/custombiotic.png";
+		else if (StringUtils.equals(IdentityEnum.THE_PROFESSOR.getFilename(), id))
+			return "http://www.run4games.com/forum/images/smilies/theprofessor.png";
+		else if (StringUtils.equals(IdentityEnum.RIELLE.getFilename(), id))
+			return "http://www.run4games.com/forum/images/smilies/rielle.png";
+		else if (StringUtils.equals(IdentityEnum.EXILE.getFilename(), id))
+			return "http://www.run4games.com/forum/images/smilies/exile.png";
 
 		return "http://www.run4games.com/forum/images/smilies/"+ id + ".gif";
 	}

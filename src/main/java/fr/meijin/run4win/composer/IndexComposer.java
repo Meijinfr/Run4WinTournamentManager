@@ -65,11 +65,13 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 			reloadTabs(tournament);
 			reloadPlayerRankingTab(tournament);
 		}
+		System.out.println(tieBreakCombobox.getValue());
 		binder.loadAll();
 	}
 	
 	public void onClick$addRound (Event e) throws InterruptedException{
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
+		TournamentUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
 		boolean addBye = false;
 		
 		Collections.sort(tournament.players);
@@ -81,6 +83,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 				PlayerRanking pr = new PlayerRanking();
 				pr.nickname = p.nickname;
 				pr.prestige = p.getPrestige();
+				pr.weakestSide = p.getWeakestSide();
 				pr.opponentsStrength = p.getOpponentsStrength();
 				pr.opponentsPoints = p.getOpponentsPoints();
 				pr.points = p.getPoints();
@@ -128,8 +131,6 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		}
 		
 		tournament.rounds++;
-		
-		TournamentUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
 		
 		
 		Collections.sort(toMatch);
@@ -221,7 +222,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 			Tournament tournament = (Tournament) ois.readObject();
 			deleteTabs();
 			tournament = reloadTabs(tournament);
-			reloadPlayerRankingTab(tournament);
+			tournament = reloadPlayerRankingTab(tournament);
 			session.setAttribute("tournament",tournament);
 			ois.close();
 		}
@@ -232,13 +233,24 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		int tieBreak = Integer.parseInt((String) tieBreakCombobox.getSelectedItem().getValue());
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
 		
+		tournament.tieBreak = tieBreak;
+		
 		for(Player p : tournament.players){
 			p.tieBreak = tieBreak;
+			
+		}
+		
+		if(tieBreak == 1){
+			page.setAttribute("V2Visibility", true);
+			reloadRanking(tournament);
+		} else {
+			page.setAttribute("V2Visibility", false);
+			reloadRanking(tournament);
 		}
 		
 		deleteTabs();
-		reloadTabs(tournament);
-		reloadPlayerRankingTab(tournament);
+		tournament = reloadTabs(tournament);
+		tournament = reloadPlayerRankingTab(tournament);
 		session.setAttribute("tournament", tournament);
 		binder.loadAll();
 	}
@@ -297,18 +309,25 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	public void onDeleteRound(Event e){
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
 		
-		Integer indexRoundToRemove = (Integer) e.getData();
-		if(indexRoundToRemove > 0){
-			tournament.roundsList.remove(indexRoundToRemove-1);
-			tournament.rankings = new ArrayList<Ranking>();
+		Integer roundToRemove = (Integer) e.getData();
+		if(roundToRemove > 0){
+			
+			int index = -1;
+			for(Round r : tournament.roundsList){
+				if (r.roundNumber == roundToRemove)
+					index = tournament.roundsList.indexOf(r);
+			}
+			
+			if (index != -1)
+				tournament.roundsList.remove(index);
 			tournament.rounds--;
 			
-			Collections.reverse(tournament.roundsList);
 			int i = 1;
 			for(Round r : tournament.roundsList){
 				r.roundNumber = i++;
 			}
-			Collections.reverse(tournament.roundsList);
+
+			reloadRanking(tournament);
 		}
 
 		deleteTabs();
@@ -358,6 +377,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		for(Component c : componentsToRemove){
 			c.setParent(null);
 			c.detach();
+			c.setId(null);
 		}
 	}
 	
@@ -387,5 +407,27 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		inc.setParent(panel);
 	}
 	
+	private void reloadRanking(Tournament tournament){
+		tournament.rankings = new ArrayList<Ranking>();
+		TournamentUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
+		if(tournament.rounds >= 1){
+			for(int i = 0; i < tournament.roundsList.size()-1; i++){
+				Ranking ranking = new Ranking();
+				ranking.roundNumber = tournament.rounds;
+				for(Player p : tournament.players){
+					PlayerRanking pr = new PlayerRanking();
+					pr.nickname = p.nickname;
+					pr.prestige = p.getPrestige(i);
+					pr.weakestSide = p.getWeakestSide(i);
+					pr.opponentsStrength = p.getOpponentsStrength(i);
+					pr.opponentsPoints = p.getOpponentsPoints(i);
+					pr.points = p.getPoints(i);
+					ranking.playerRankings.add(pr);
+				}
+				
+				tournament.rankings.add(ranking);
+			}
+		}
+	}
 
 }

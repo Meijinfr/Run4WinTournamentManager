@@ -38,7 +38,7 @@ public class ServerRunner extends JFrame implements ActionListener {
 
 		JPanel content = (JPanel) getContentPane();
 		content.setBackground(Color.black);
-		UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
 		Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/credit.png"));
 		setIconImage(icon);

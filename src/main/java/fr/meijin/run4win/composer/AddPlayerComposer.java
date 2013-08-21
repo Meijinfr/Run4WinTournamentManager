@@ -79,6 +79,7 @@ public class AddPlayerComposer extends GenericForwardComposer<Window>{
 			p.idRunner = idRunnerCombobox.getValue();
 		
 		p.forfeit = forfeitCheckbox.isChecked();
+		p.tieBreak = tournament.tieBreak;
 		
 		page.setAttribute("newPlayer",p);
 		self.detach();

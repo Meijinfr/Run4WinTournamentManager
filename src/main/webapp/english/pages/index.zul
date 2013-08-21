@@ -14,11 +14,13 @@
 				<textbox value="@{sessionScope.tournament.name}" width="250px" style="margin-left : -60px; font-size:20px; color : #ccc;text-align : center;"  inplace="true"/>
 			</div>
 			<div align="right" style="margin-top : -25px;" >
-				<label value="Tie Break"/>
-				<combobox id="tieBreakCombobox" value="Opponent Strength > Agendas taken" >
-					<comboitem value="0" label="Opponent Strength > Agendas taken"/>
-					<comboitem value="1" label="Agendas taken > Opponent Strength"/>
-					<comboitem value="2" label="Agendas taken"/>
+				<label value="Tournament Rules"/>
+				<combobox id="tieBreakCombobox">
+					<attribute name="onCreate">
+						self.setSelectedIndex(1);
+					</attribute>
+					<comboitem value="0" label="V1" />
+					<comboitem value="1" label="V2" />
 				</combobox>
 			</div>
 		</div>
@@ -69,6 +71,7 @@
 										<column label="Rank" align="center" hflex="1" />
 										<column label="Nickname" hflex="2" />
 										<column label="Prestige taken" hflex="2" />
+										<column label="Weakest side" hflex="2" visible="@{pageScope.V2Visibility}" />
 										<column label="Opponents Strength" hflex="2" />
 										<column label="Match Points" hflex="2" />
 										<column label="Opponents Match Points" hflex="2" />
@@ -79,6 +82,7 @@
 											<label value="@{self.parent.index, converter='fr.meijin.run4win.converter.RankingConverter'}" />
 											<label value="@{player.nickname}" />
 											<label value="@{player.prestige}" />
+											<label value="@{player.weakestSide}" visible="@{pageScope.V2Visibility}"/>
 											<label value="@{player.opponentsStrength}" />
 											<label value="@{player.points}" />
 											<label value="@{player.opponentsPoints}" />

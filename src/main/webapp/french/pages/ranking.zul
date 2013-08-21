@@ -5,6 +5,7 @@
 			<column label="Rang" align="center" hflex="1" />
 			<column label="Pseudo" hflex="2" />
 			<column label="Prestige pris" hflex="2" />
+			<column label="Côté faible" hflex="2" visible="@{pageScope.V2Visibility}" />
 			<column label="Force adversaires" hflex="2" />
 			<column label="Agendas pris" hflex="2" />
 			<column label="Agendas laissés" hflex="2" />
@@ -14,6 +15,7 @@
 				<label value="@{self.parent.index, converter='fr.meijin.run4win.converter.RankingConverter'}" />
 				<label value="@{player.nickname}" />
 				<label value="@{player.prestige}" />
+				<label value="@{player.weakestSide}" visible="@{pageScope.V2Visibility}"/>
 				<label value="@{player.opponentsStrength}" />
 				<label value="@{player.points}" />
 				<label value="@{player.opponentsPoints}" />

@@ -12,7 +12,6 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
-import fr.meijin.run4win.converter.IdentityConverter;
 import fr.meijin.run4win.model.Round;
 
 public class PrintUtils {
