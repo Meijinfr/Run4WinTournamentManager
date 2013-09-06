@@ -43,6 +43,8 @@ public class ServerRunner extends JFrame implements ActionListener {
 		Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/credit.png"));
 		setIconImage(icon);
 		
+		this.setTitle("Run 4 Win");
+		
 		int width = 710;
 		int height = 375;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -88,7 +90,7 @@ public class ServerRunner extends JFrame implements ActionListener {
 		setVisible(true);
 
 		while (!jettyServer.isStarted()) {
-			Thread.sleep(60);
+			Thread.sleep(30);
 			if(progressBar.getValue()==100)
 				progressBar.setValue(0);
 			progressBar.setValue(progressBar.getValue()+1);

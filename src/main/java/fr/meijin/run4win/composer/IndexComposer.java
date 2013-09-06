@@ -60,12 +60,15 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		binder = new AnnotateDataBinder(div);
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
 		if(tournament == null){
-			session.setAttribute("tournament",new Tournament());
+			tournament = new Tournament();
+			session.setAttribute("tournament",tournament);
 		}else {
 			reloadTabs(tournament);
 			reloadPlayerRankingTab(tournament);
 		}
-		System.out.println(tieBreakCombobox.getValue());
+		
+		page.setAttribute("V2Visibility", (tournament.tieBreak == 1));
+
 		binder.loadAll();
 	}
 	
@@ -240,13 +243,8 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 			
 		}
 		
-		if(tieBreak == 1){
-			page.setAttribute("V2Visibility", true);
-			reloadRanking(tournament);
-		} else {
-			page.setAttribute("V2Visibility", false);
-			reloadRanking(tournament);
-		}
+		page.setAttribute("V2Visibility", (tieBreak == 1));
+		reloadRanking(tournament);
 		
 		deleteTabs();
 		tournament = reloadTabs(tournament);
@@ -325,15 +323,21 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 			int i = 1;
 			for(Round r : tournament.roundsList){
 				r.roundNumber = i++;
+				for(Game g : r.games){
+					g.roundNumber = r.roundNumber;
+				}
 			}
+			
+			TournamentUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
 
-			reloadRanking(tournament);
+			
 		}
 
 		deleteTabs();
 		reloadTabs(tournament);
+		reloadRanking(tournament);
 		reloadPlayerRankingTab(tournament);
-		TournamentUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
+		
 		session.setAttribute("tournament", tournament);
 		((Tab) page.getFellowIfAny("playerTab")).setSelected(true);
 		
@@ -378,13 +382,14 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 			c.setParent(null);
 			c.detach();
 			c.setId(null);
+			c = null;
 		}
 	}
 	
 	private Tournament reloadPlayerRankingTab(Tournament tournament) {
 		if(tournament.rankings.size() != 0){
 			for(Ranking r : tournament.rankings){
-
+				System.out.println("Reloading player ranking on round "+r.roundNumber);
 				addResultTab(r);
 			}
 		}
@@ -411,9 +416,9 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		tournament.rankings = new ArrayList<Ranking>();
 		TournamentUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
 		if(tournament.rounds >= 1){
-			for(int i = 0; i < tournament.roundsList.size()-1; i++){
+			for(int i = 1; i < tournament.roundsList.size(); i++){
 				Ranking ranking = new Ranking();
-				ranking.roundNumber = tournament.rounds;
+				ranking.roundNumber = i;
 				for(Player p : tournament.players){
 					PlayerRanking pr = new PlayerRanking();
 					pr.nickname = p.nickname;

@@ -75,7 +75,7 @@ public class Player implements Comparable<Player>, Serializable {
 		if(this.id == 0)
 			return 0;
 		
-		for(int i = 0; i < roundNumber; i++){
+		for(int i = 1; i <= roundNumber; i++){
 			ret+=getPrestigeV1(games.get(String.valueOf(i)));
 		}
 		
@@ -162,7 +162,7 @@ public class Player implements Comparable<Player>, Serializable {
 	
 	public int getPoints(int roundNumber){
 		int ret = 0;
-		for(int i=1;i < games.values().size() && i < roundNumber; i++){
+		for(int i=1;i <= games.values().size() && i < roundNumber; i++){
 			Game g = games.get(String.valueOf(i));
 			if(g != null){
 				if(g.player1.id == this.id){
@@ -215,7 +215,7 @@ public class Player implements Comparable<Player>, Serializable {
 		if(this.id == 0)
 			return 0;
 		
-		for(int i = 0; i < roundNumber; i++){
+		for(int i = 1; i <= roundNumber; i++){
 			Game g = games.get(String.valueOf(i));
 			if(g.player1.id == this.id){
 				
@@ -263,7 +263,7 @@ public class Player implements Comparable<Player>, Serializable {
 
 	public int getOpponentsPoints(int roundNumber){
 		int ret = 0;
-		for(int i=0;i < games.values().size() && i < roundNumber; i++){
+		for(int i=1;i <= roundNumber; i++){
 			Game g = games.get(String.valueOf(i));
 			if(g != null){
 				if(g.player1.id == this.id){
@@ -341,7 +341,7 @@ public class Player implements Comparable<Player>, Serializable {
 		if(this.id == 0)
 			return 0;
 		
-		for(int i = 0; i < roundNumber; i++){
+		for(int i = 1; i <= roundNumber; i++){
 			Game g = games.get(String.valueOf(i));
 			if(g.player1.id == this.id){
 				winCorp += (g.p1Result.resultCorporation > g.p2Result.resultRunner) ? 1 : 0;
@@ -374,7 +374,8 @@ public class Player implements Comparable<Player>, Serializable {
 		if(this.id == 0)
 			return 0;
 		
-		for(int i = 0; i < roundNumber; i++){
+		for(int i = 1; i <= roundNumber; i++){
+			System.out.println("Get prestige for round "+i+" : "+games.get(String.valueOf(i)));
 			ret+=getPrestigeV2(games.get(String.valueOf(i)));
 		}
 		
@@ -384,7 +385,7 @@ public class Player implements Comparable<Player>, Serializable {
 	private int getPrestigeV2(Game g) {
 		
 		int prestige = 0;
-		
+
 		if(g.player1.id == this.id){
 			
 			if(g.p1Result.resultCorporation == 10){

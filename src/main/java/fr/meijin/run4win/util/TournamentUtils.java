@@ -57,7 +57,7 @@ public class TournamentUtils {
 					
 					matched.add(g);
 					foundMatch = true;
-					System.out.println("Matched : "+g.player1.nickname+" vs "+g.player2.nickname+" on "+g.tableNumber);
+					System.out.println("Matched : "+g.player1.nickname+" ["+g.player1.getPrestige()+"] vs "+g.player2.nickname+" ["+g.player2.getPrestige()+"] on "+g.tableNumber);
 				}
 			}
 		}
@@ -114,6 +114,7 @@ public class TournamentUtils {
 					for(Game game : round.games){
 						if(player.id == game.player1.id || player.id == game.player2.id)
 							player.games.put(String.valueOf(game.roundNumber),game);
+						System.out.println("New record in player "+player.nickname+" with game on round "+game.roundNumber);
 					}
 				}
 			}
