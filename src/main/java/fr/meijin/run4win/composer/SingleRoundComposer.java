@@ -129,8 +129,15 @@ public class SingleRoundComposer extends GenericForwardComposer<Listbox> {
 		}
 	}
 	
-	public void onClick$printRound (Event e) throws Exception{
-		File roundFile = PrintUtils.exportRound(round);
-		Filedownload.save(roundFile, "text/plain");
+	public void onClick$printAppariement (Event e) throws Exception{
+		PrintUtils utils = new PrintUtils();
+		File roundFile = utils.exportAppariement(round);
+		Filedownload.save(roundFile, "application/excel");
+	}
+	
+	public void onClick$printFeuilleResultat (Event e) throws Exception{
+		PrintUtils utils = new PrintUtils();
+		File roundFile = utils.exportFeuilleResultat(round);
+		Filedownload.save(roundFile, "application/excel");
 	}
 }
