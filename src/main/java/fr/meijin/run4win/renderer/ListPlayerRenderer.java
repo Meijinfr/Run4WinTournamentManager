@@ -41,6 +41,8 @@ public class ListPlayerRenderer implements ListitemRenderer<Player> {
 			Hlayout h = new Hlayout();
 			Image image = new Image();
 			image.setSrc((String) IDENTITY_CONVERTER.coerceToUi(id, image));
+			image.setWidth("36px");
+			image.setHeight("36px");
 			Label label = new Label();
 			label.setValue((String) IDENTITY_CONVERTER.coerceToUi(id, label));
 			h.setSpacing("10px");

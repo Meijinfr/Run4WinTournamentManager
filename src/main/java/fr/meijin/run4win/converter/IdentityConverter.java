@@ -22,7 +22,7 @@ public class IdentityConverter implements TypeConverter {
 			String id = (String) o;
 			if (c instanceof Image) {
 				
-				return "/images/"+id.replaceAll(" ", "").toLowerCase()+".gif";
+				return "/images/"+id.replaceAll(" ", "").toLowerCase()+".png";
 			} else if (c instanceof Label) {
 
 				return IdentityEnum.getDisplayName(id);
