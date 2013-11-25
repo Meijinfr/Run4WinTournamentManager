@@ -72,6 +72,8 @@
 							value="weyland_building_a_better_world" style="color : #4b796c;"  />
 						<comboitem label="Weyland Consortium: Because We Built it"
 							value="weyland_because_we_built_it" style="color : #4b796c;" />
+						<comboitem label="GRNDL: Power Unleashed"
+							value="grndl" style="color : #4b796c;" width="150px"/>
 					</combobox>
 				</row>
 				<row>
