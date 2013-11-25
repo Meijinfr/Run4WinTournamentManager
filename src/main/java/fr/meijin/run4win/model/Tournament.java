@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.meijin.run4win.util.lang.LangEnum;
+import fr.meijin.run4win.util.lang.LangUtils;
+
 
 public class Tournament implements Serializable { 
 
@@ -26,7 +29,7 @@ public class Tournament implements Serializable {
 	public List<Ranking> rankings;
 
 	public Tournament(){
-		name = "Tournoi Run 4 Win";
+		name = LangUtils.getMessage(LangEnum.TOURNAMENT);
 		players = new ArrayList<Player>();
 		roundsList = new ArrayList<Round>();
 		rankings = new ArrayList<Ranking>();

@@ -18,6 +18,7 @@ public enum IdentityEnum {
 	
 	WEYLAND_BUILDING_A_BETTER_WORLD			("weyland_building_a_better_world","Weyland BBW"),
 	WEYLAND_BECAUSE_WE_BUILT_IT				("weyland_because_we_built_it","Weyland BWBI"),
+	GRNDL									("grndl","GRNDL"),
 		
 	NOISE									("noise","Noise"),
 	WHIZZARD								("whizzard","Whizzard"),

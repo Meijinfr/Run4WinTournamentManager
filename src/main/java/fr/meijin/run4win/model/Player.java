@@ -321,6 +321,9 @@ public class Player implements Comparable<Player>, Serializable {
 			return 0;
 		
 		for(Game g : games.values()){
+			if(g.player1.id == -1 || g.player2.id == -1){
+				continue;
+			}
 			
 			if(g.player1.id == this.id){
 				winCorp += (g.p1Result.resultCorporation > g.p2Result.resultRunner) ? 1 : 0;
@@ -390,13 +393,13 @@ public class Player implements Comparable<Player>, Serializable {
 			
 			if(g.p1Result.resultCorporation == 10){
 				prestige += 2;
-			} else if (g.p1Result.resultCorporation > g.p2Result.resultRunner){
+			} else if (g.p1Result.resultCorporation >= g.p2Result.resultRunner){
 				prestige += 1;
 			}
 			
 			if(g.p1Result.resultRunner == 10){
 				prestige += 2;
-			}else if (g.p1Result.resultRunner > g.p2Result.resultCorporation){
+			}else if (g.p1Result.resultRunner >= g.p2Result.resultCorporation){
 				prestige += 1;
 			}
 
@@ -404,13 +407,13 @@ public class Player implements Comparable<Player>, Serializable {
 			
 			if(g.p2Result.resultCorporation == 10){
 				prestige += 2;
-			} else if (g.p2Result.resultCorporation > g.p1Result.resultRunner){
+			} else if (g.p2Result.resultCorporation >= g.p1Result.resultRunner){
 				prestige += 1;
 			}
 			
 			if(g.p2Result.resultRunner == 10){
 				prestige += 2;
-			}else if (g.p2Result.resultRunner > g.p1Result.resultCorporation){
+			}else if (g.p2Result.resultRunner >= g.p1Result.resultCorporation){
 				prestige += 1;
 			}
 		}

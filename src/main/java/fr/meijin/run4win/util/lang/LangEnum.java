@@ -1,7 +1,8 @@
 package fr.meijin.run4win.util.lang;
 
 public enum LangEnum {
-
+	
+	TOURNAMENT,
 	CREATE_BYE,
 	NO_PLAYERS,
 	RESET,

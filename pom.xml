@@ -112,14 +112,14 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
-					<include>**/*</include>
+					<include>*</include>
 				</includes>
 				<filtering>false</filtering>
 			</resource>
 			<resource>
 				<directory>src/main/resources/${lang}</directory>
 				<includes>
-					<include>*</include>
+					<include>**</include>
 				</includes>
 				<filtering>true</filtering>
 			</resource>
