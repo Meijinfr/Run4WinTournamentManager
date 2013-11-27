@@ -4,32 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.meijin</groupId>
 	<artifactId>Run4Win</artifactId>
-	<version>1.6</version>
+	<version>1.7</version>
 	<name>Run 4 Win Android:Netrunner Tournament Manager</name>
 	<packaging>war</packaging>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.servlet</artifactId>
-			<version>3.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-webapp</artifactId>
-			<version>8.1.5.v20120716</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>8.1.5.v20120716</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-util</artifactId>
-			<version>8.1.5.v20120716</version>
-		</dependency>
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zkplus</artifactId>
@@ -90,8 +69,29 @@
 			<artifactId>jxls-reader</artifactId>
 			<version>1.0.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.servlet</artifactId>
+			<version>3.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-webapp</artifactId>
+			<version>8.1.5.v20120716</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>8.1.5.v20120716</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-util</artifactId>
+			<version>8.1.5.v20120716</version>
+		</dependency>
 	</dependencies>
-	
+
 	<properties>
 		<lang>french</lang>
 	</properties>
@@ -213,7 +213,8 @@
 										<include name="fr/meijin/run4win/webapp/main/Main.class" />
 										<include name="fr/meijin/run4win/webapp/server/JettyServer.class" />
 										<include name="fr/meijin/run4win/webapp/server/ServerRunner.class" />
-										<include name="fr/meijin/run4win/webapp/server/ServerRunner$1.class" />
+										<include
+											name="fr/meijin/run4win/webapp/server/ServerRunner$1.class" />
 									</fileset>
 								</move>
 								<move todir="${project.build.directory}/${project.artifactId}">
