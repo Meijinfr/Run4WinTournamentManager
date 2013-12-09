@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +43,8 @@ public class DocumentUtils {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("rounds", tournament.roundsList);
 		parameters.put("name", tournament.name);
+		Collections.sort(tournament.players);
+		Collections.reverse(tournament.players);
 		parameters.put("players", tournament.players);
 		parameters.put("date", date);
 		BufferedWriter out = new BufferedWriter(new FileWriter(file));

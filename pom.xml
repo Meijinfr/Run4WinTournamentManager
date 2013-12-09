@@ -69,36 +69,209 @@
 			<artifactId>jxls-reader</artifactId>
 			<version>1.0.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.servlet</artifactId>
-			<version>3.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-webapp</artifactId>
-			<version>8.1.5.v20120716</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>8.1.5.v20120716</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-util</artifactId>
-			<version>8.1.5.v20120716</version>
-		</dependency>
 	</dependencies>
-
-	<properties>
-		<lang>french</lang>
-	</properties>
 
 	<profiles>
 		<profile>
+			<id>standalone</id>
+			<activation>
+				<property>
+					<name>standalone</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.glassfish</groupId>
+					<artifactId>javax.servlet</artifactId>
+					<version>3.0</version>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-webapp</artifactId>
+					<version>8.1.5.v20120716</version>
+				</dependency>
+				<dependency>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-server</artifactId>
+					<version>8.1.5.v20120716</version>
+				</dependency>
+				<dependency>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-util</artifactId>
+					<version>8.1.5.v20120716</version>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>2.5.1</version>
+						<configuration>
+							<source>1.6</source>
+							<target>1.6</target>
+							<encoding>UTF-8</encoding>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-shade-plugin</artifactId>
+						<version>1.4</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>shade</goal>
+								</goals>
+								<configuration>
+									<createDependencyReducedPom>true</createDependencyReducedPom>
+									<transformers>
+										<transformer
+											implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+											<mainClass>fr.meijin.run4win.webapp.main.Main</mainClass>
+										</transformer>
+										<transformer
+											implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
+											<resource>pages</resource>
+											<file>src/main/webapp/${lang}/pages/*</file>
+										</transformer>
+									</transformers>
+									<filters>
+										<filter>
+											<artifact>*:*</artifact>
+											<excludes>
+												<exclude>META-INF/*.SF</exclude>
+												<exclude>META-INF/*.DSA</exclude>
+												<exclude>META-INF/*.RSA</exclude>
+											</excludes>
+										</filter>
+									</filters>
+									<finalName>${project.artifactId}</finalName>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- The main class needs to be in the root of the war in order to be 
+						runnable -->
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>move-main-class</id>
+								<phase>compile</phase>
+								<configuration>
+									<tasks>
+										<move todir="${project.build.directory}/${project.artifactId}">
+											<fileset dir="${project.build.directory}/classes/">
+												<include
+													name="fr/meijin/run4win/webapp/context/AppContextBuilder.class" />
+												<include name="fr/meijin/run4win/webapp/main/Launcher.class" />
+												<include name="fr/meijin/run4win/webapp/main/Main.class" />
+												<include name="fr/meijin/run4win/webapp/server/JettyServer.class" />
+												<include
+													name="fr/meijin/run4win/webapp/server/ServerRunner.class" />
+												<include
+													name="fr/meijin/run4win/webapp/server/ServerRunner$1.class" />
+											</fileset>
+										</move>
+										<move todir="${project.build.directory}/${project.artifactId}">
+											<fileset dir="${project.build.directory}/classes/">
+												<include name="splash.jpg" />
+												<include name="credit.png" />
+											</fileset>
+										</move>
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<webResources>
+								<resource>
+									<filtering>true</filtering>
+									<directory>src/main/webapp/${lang}/pages</directory>
+									<targetPath>pages</targetPath>
+									<includes>
+										<include>**/*</include>
+									</includes>
+								</resource>
+							</webResources>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>web</id>
+			<activation>
+				<property>
+					<name>standalone</name>
+					<value>false</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>2.5.1</version>
+						<configuration>
+							<source>1.6</source>
+							<target>1.6</target>
+							<encoding>UTF-8</encoding>
+							<excludes>
+								<exclude>fr/meijin/run4win/webapp/**/*.java</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<webResources>
+								<resource>
+									<filtering>true</filtering>
+									<directory>src/main/webapp/${lang}/pages</directory>
+									<targetPath>pages</targetPath>
+									<includes>
+										<include>**/*</include>
+									</includes>
+								</resource>
+							</webResources>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>FR</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<lang>french</lang>
+			</properties>
+		</profile>
+		<profile>
 			<id>EN</id>
+			<properties>
+				<lang>english</lang>
+			</properties>
+		</profile>
+		<profile>
+			<id>WEB-FR</id>
+			<properties>
+				<lang>french</lang>
+			</properties>
+		</profile>
+		<profile>
+			<id>WEB-EN</id>
 			<properties>
 				<lang>english</lang>
 			</properties>
@@ -126,110 +299,11 @@
 		</resources>
 		<plugins>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<configuration>
 					<downloadSources>true</downloadSources>
 					<wtpversion>2.0</wtpversion>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<webResources>
-						<resource>
-							<filtering>true</filtering>
-							<directory>src/main/webapp/${lang}/pages</directory>
-							<targetPath>pages</targetPath>
-							<includes>
-								<include>**/*</include>
-							</includes>
-						</resource>
-					</webResources>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>1.4</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<createDependencyReducedPom>true</createDependencyReducedPom>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>fr.meijin.run4win.webapp.main.Main</mainClass>
-								</transformer>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
-									<resource>pages</resource>
-									<file>src/main/webapp/${lang}/pages/*</file>
-								</transformer>
-							</transformers>
-							<filters>
-								<filter>
-									<artifact>*:*</artifact>
-									<excludes>
-										<exclude>META-INF/*.SF</exclude>
-										<exclude>META-INF/*.DSA</exclude>
-										<exclude>META-INF/*.RSA</exclude>
-									</excludes>
-								</filter>
-							</filters>
-							<finalName>${project.artifactId}</finalName>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- The main class needs to be in the root of the war in order to be 
-				runnable -->
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>move-main-class</id>
-						<phase>compile</phase>
-						<configuration>
-							<tasks>
-								<move todir="${project.build.directory}/${project.artifactId}">
-									<fileset dir="${project.build.directory}/classes/">
-										<include
-											name="fr/meijin/run4win/webapp/context/AppContextBuilder.class" />
-										<include name="fr/meijin/run4win/webapp/main/Launcher.class" />
-										<include name="fr/meijin/run4win/webapp/main/Main.class" />
-										<include name="fr/meijin/run4win/webapp/server/JettyServer.class" />
-										<include name="fr/meijin/run4win/webapp/server/ServerRunner.class" />
-										<include
-											name="fr/meijin/run4win/webapp/server/ServerRunner$1.class" />
-									</fileset>
-								</move>
-								<move todir="${project.build.directory}/${project.artifactId}">
-									<fileset dir="${project.build.directory}/classes/">
-										<include name="splash.jpg" />
-										<include name="credit.png" />
-									</fileset>
-								</move>
-							</tasks>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
