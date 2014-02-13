@@ -16,6 +16,7 @@ import org.zkoss.zul.ListitemRenderer;
 
 import fr.meijin.run4win.converter.IdentityConverter;
 import fr.meijin.run4win.model.Player;
+import fr.meijin.run4win.util.identity.IdentityEnum;
 import fr.meijin.run4win.util.lang.LangEnum;
 import fr.meijin.run4win.util.lang.LangUtils;
 
@@ -35,8 +36,8 @@ public class ListPlayerRenderer implements ListitemRenderer<Player> {
 		createListcellButtons(p).setParent(item);
 	}
 
-	private Component createIdCell(String id) {
-		if (StringUtils.isNotBlank(id)){
+	private Component createIdCell(IdentityEnum id) {
+		if (StringUtils.isNotBlank(id.name())){
 			Listcell cell = new Listcell();
 			Hlayout h = new Hlayout();
 			Image image = new Image();

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.meijin.run4win.util.identity.IdentityEnum;
+
 
 public class Player implements Comparable<Player>, Serializable {
 	
@@ -12,14 +14,11 @@ public class Player implements Comparable<Player>, Serializable {
 	public int id;
 	
 	public String firstName;
-	
 	public String lastName;
-	
 	public String nickname;
 	
-	public String idRunner;
-	
-	public String idCorporation;
+	public IdentityEnum idRunner;
+	public IdentityEnum idCorporation;
 	
 	public boolean forfeit;
 	
@@ -28,6 +27,12 @@ public class Player implements Comparable<Player>, Serializable {
 	public int tieBreak;
 	
 	public int malusPrestige;
+	
+	public int prestige;
+	public int weakestSideWins;
+	public int opponentsStrength;
+	public int points;
+	public int opponentsPoints;
 	
 	public Player () {
 		super();
@@ -39,50 +44,146 @@ public class Player implements Comparable<Player>, Serializable {
 	public int getPrestige(){
 		switch (tieBreak) {
 		case 1:
-			return getPrestigeV2();
+			this.prestige = calculatePrestigeV2(games.size());
+			return prestige;
 
 		default:
-			return getPrestigeV1();
+			this.prestige = calculatePrestigeV1(games.size());
+			return prestige;
 		}
 	}
 	
-	public int getPrestige(int roundNumber){
+	public int getPrestigeByRound(int roundNumber){
 		switch (tieBreak) {
 		case 1:
-			return getPrestigeV2(roundNumber);
+			this.prestige = calculatePrestigeV2(roundNumber);
+			return prestige;
 
 		default:
-			return getPrestigeV1(roundNumber);
+			this.prestige = calculatePrestigeV1(roundNumber);
+			return prestige;
 		}
 	}
+
+	public int getPoints(){
+		this.points = calculatePoints(games.size());
+		return points;
+	}
+
+	public int getPointsByRound(int roundNumber){
+		return calculatePoints(roundNumber);
+	}
 	
-	public int getPrestigeV1(){
-		int ret = 0;
-		
-		if(this.id == 0)
-			return 0;
-		
-		for(Game g : games.values()){
-			ret+=getPrestigeV1(g);
+	public int getOpponentsStrength(){
+		this.opponentsStrength = calculateOpponentsStrength(games.size());
+		return opponentsStrength;
+	}
+	
+	public int getOpponentsStrengthByRound (int roundNumber){
+		return calculateOpponentsStrength(roundNumber);
+	}
+	
+	public int getOpponentsPoints (){
+		this.opponentsPoints = calculateOpponentPoints(games.size());
+		return opponentsPoints;
+	}
+
+	public int getOpponentsPointsByPoints(int roundNumber){
+		return calculateOpponentPoints(roundNumber);
+	}
+	
+	public int getWeakestSideWins() {
+		this.weakestSideWins = calculateWeakestSideWins(games.size());
+		return weakestSideWins;
+	}
+	
+	public int getWeakestSideWins(int roundNumber) {
+		return calculateWeakestSideWins(roundNumber);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Player){
+			Player p = (Player) obj;
+			return p.id == this.id;
 		}
+		return false;
+	}
+
+	@Override
+	public int compareTo(Player p) {
+		int ret = 0;
+
+		switch(tieBreak) {
+		case 1 :
+			ret += (p.getPrestige() - this.getPrestige())*100000;
+			if (ret == 0)
+				ret += (p.getWeakestSideWins() - this.getWeakestSideWins())*1000;
+			if(ret == 0)
+				ret += (p.getOpponentsStrength() - this.getOpponentsStrength())*10;
+			break;
+		default :
+			ret += (p.getPrestige() - this.getPrestige())*100000;
+			if(ret == 0)
+				ret += (p.getOpponentsStrength() - this.getOpponentsStrength())*1000;
+			
+			if (ret == 0)
+				ret += (p.getPoints() - this.getPoints())*10;
+			break;
+		}
+		
+		if(ret == 0)
+			ret -= p.getOpponentsPoints() - this.getOpponentsPoints();
 		
 		return ret;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public IdentityEnum getIdRunner() {
+		return idRunner;
+	}
+
+	public IdentityEnum getIdCorporation() {
+		return idCorporation;
+	}
+
+	public boolean isForfeit() {
+		return forfeit;
+	}
+
+	public Map<String, Game> getGames() {
+		return games;
+	}
 	
-	public int getPrestigeV1(int roundNumber){
+	private int calculatePrestigeV1(int roundNumber){
 		int ret = 0;
 		
 		if(this.id == 0)
 			return 0;
 		
 		for(int i = 1; i <= roundNumber; i++){
-			ret+=getPrestigeV1(games.get(String.valueOf(i)));
+			ret+=calculatePrestigeV1(games.get(String.valueOf(i)));
 		}
 		
 		return ret;
 	}
 	
-	private int getPrestigeV1(Game g) {
+	private int calculatePrestigeV1(Game g) {
 		
 		if(g.p1Result.resultCorporation == g.p2Result.resultCorporation 
 				&& g.p1Result.resultRunner == g.p2Result.resultRunner 
@@ -142,252 +243,25 @@ public class Player implements Comparable<Player>, Serializable {
 		
 		return 0;
 	}
-
-	public int getPoints(){
+	
+	private int calculatePrestigeV2(int roundNumber){
 		int ret = 0;
 		
 		if(this.id == 0)
 			return 0;
 		
-		for(Game g : games.values()){
-			
-			if(g.player1.id == this.id){
-				ret += g.p1Result.resultCorporation + g.p1Result.resultRunner;
-			} else {
-				ret += g.p2Result.resultCorporation + g.p2Result.resultRunner;
-			}
-		}
-		return ret;
-	}
-	
-	public int getPoints(int roundNumber){
-		int ret = 0;
-		for(int i=1;i <= games.values().size() && i < roundNumber; i++){
-			Game g = games.get(String.valueOf(i));
-			if(g != null){
-				if(g.player1.id == this.id){
-					ret+= g.p1Result.resultCorporation + g.p1Result.resultRunner;
-				} else {
-					ret+= g.p2Result.resultCorporation + g.p2Result.resultRunner;
-				}
-			}
-		}
-		return ret;
-	}
-	
-	public int getOpponentsStrength (){
-		int ret = 0;
-		
-		if(this.id == 0)
-			return 0;
-		
-		for(Game g : games.values()){
-			
-			if(g.player1.id == this.id){
-				
-				switch(tieBreak){
-				case 1:
-					ret += g.player2.getPrestigeV2();
-					break;
-				default : 
-					ret += g.player2.getPrestigeV1();
-					break;
-				}
-				
-			} else {
-				switch(tieBreak){
-				case 1:
-					ret += g.player1.getPrestigeV2();
-					break;
-				default : 
-					ret += g.player1.getPrestigeV1();
-					break;
-				}
-			}
-		}
-		
-		return ret;
-	}
-	
-	public int getOpponentsStrength (int roundNumber){
-		int ret = 0;
-		
-		if(this.id == 0)
-			return 0;
-		
-		for(int i = 1; i <= roundNumber; i++){
-			Game g = games.get(String.valueOf(i));
-			if(g.player1.id == this.id){
-				
-				switch(tieBreak){
-				case 1:
-					ret += g.player2.getPrestigeV2();
-					break;
-				default : 
-					ret += g.player2.getPrestigeV1();
-					break;
-				}
-				
-			} else {
-				switch(tieBreak){
-				case 1:
-					ret += g.player1.getPrestigeV2();
-					break;
-				default : 
-					ret += g.player1.getPrestigeV1();
-					break;
-				}
-			}
-		}
-		
-		return ret;
-	}
-	
-	public int getOpponentsPoints (){
-		int ret = 0;
-		
-		if(this.id == 0)
-			return 0;
-		
-		for(Game g : games.values()){
-			
-			if(g.player1.id == this.id){
-				ret += g.p2Result.resultCorporation+g.p2Result.resultRunner;
-			} else if (g.player2.id == this.id) {
-				ret += g.p1Result.resultCorporation+g.p1Result.resultRunner;
-			}
-		}
-
-		return ret;
-	}
-
-	public int getOpponentsPoints(int roundNumber){
-		int ret = 0;
-		for(int i=1;i <= roundNumber; i++){
-			Game g = games.get(String.valueOf(i));
-			if(g != null){
-				if(g.player1.id == this.id){
-					ret+= g.p2Result.resultCorporation+g.p2Result.resultRunner;
-				} else if (g.player2.id == this.id) {
-					ret+= g.p1Result.resultCorporation+g.p1Result.resultRunner;
-				}
-			}
-		}
-		return ret;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof Player){
-			Player p = (Player) obj;
-			return p.id == this.id;
-		}
-		return false;
-	}
-
-	@Override
-	public int compareTo(Player p) {
-		int ret = 0;
-
-		switch(tieBreak) {
-		case 1 :
-			ret += (this.getPrestigeV2() - p.getPrestigeV2())*100000;
-			if (ret == 0)
-				ret += (this.getWeakestSide() - p.getWeakestSide())*1000;
-			if(ret == 0)
-				ret += (this.getOpponentsStrength() - p.getOpponentsStrength())*10;
-			break;
-		default :
-			ret += (this.getPrestigeV1() - p.getPrestigeV1())*100000;
-			if(ret == 0)
-				ret += (this.getOpponentsStrength() - p.getOpponentsStrength())*1000;
-			
-			if (ret == 0)
-				ret += (this.getPoints() - p.getPoints())*10;
-			break;
-		}
-		
-		if(ret == 0)
-			ret -= this.getOpponentsPoints() - p.getOpponentsPoints();
-		
-		return ret;
-	}
-
-	public int getWeakestSide() {
-		int winRunner = 0;
-		int winCorp = 0;
-		
-		if(this.id == 0)
-			return 0;
-		
-		for(Game g : games.values()){
-			if(g.player1.id == -1 || g.player2.id == -1){
-				continue;
-			}
-			
-			if(g.player1.id == this.id){
-				winCorp += (g.p1Result.resultCorporation > g.p2Result.resultRunner) ? 1 : 0;
-				winRunner += (g.p1Result.resultRunner > g.p2Result.resultCorporation) ? 1 : 0;
-			} else if (g.player2.id == this.id) {
-				winCorp += (g.p2Result.resultCorporation > g.p1Result.resultRunner) ? 1 : 0;
-				winRunner += (g.p2Result.resultRunner > g.p1Result.resultCorporation) ? 1 : 0;
-			}
-		}
-
-		return winRunner <= winCorp ? winRunner : winCorp;
-	}
-	
-	public int getWeakestSide(int roundNumber) {
-		int winRunner = 0;
-		int winCorp = 0;
-		
-		if(this.id == 0)
-			return 0;
-		
-		for(int i = 1; i <= roundNumber; i++){
-			Game g = games.get(String.valueOf(i));
-			if(g.player1.id == this.id){
-				winCorp += (g.p1Result.resultCorporation > g.p2Result.resultRunner) ? 1 : 0;
-				winRunner += (g.p1Result.resultRunner > g.p2Result.resultCorporation) ? 1 : 0;
-			} else if (g.player2.id == this.id) {
-				winCorp += (g.p2Result.resultCorporation > g.p1Result.resultRunner) ? 1 : 0;
-				winRunner += (g.p2Result.resultRunner > g.p1Result.resultCorporation) ? 1 : 0;
-			}
-		}
-
-		return winRunner <= winCorp ? winRunner : winCorp;
-	}
-	
-	public int getPrestigeV2(){
-		int ret = 0;
-		
-		if(this.id == 0)
-			return 0;
-		
-		for(Game g : games.values()){
-			ret+=getPrestigeV2(g);
-		}
-		
-		return ret;
-	}
-	
-	public int getPrestigeV2(int roundNumber){
-		int ret = 0;
-		
-		if(this.id == 0)
-			return 0;
 		
 		for(int i = 1; i <= roundNumber; i++){
 			System.out.println("Get prestige for round "+i+" : "+games.get(String.valueOf(i)));
-			ret+=getPrestigeV2(games.get(String.valueOf(i)));
+			ret+=calculatePrestigeV2(games.get(String.valueOf(i)));
 		}
 		
 		return ret;
 	}
 	
-	private int getPrestigeV2(Game g) {
-		
+	private int calculatePrestigeV2(Game g) {
 		int prestige = 0;
+		
 
 		if(g.player1.id == this.id){
 			
@@ -420,37 +294,96 @@ public class Player implements Comparable<Player>, Serializable {
 		
 		return prestige;
 	}
-
-	public int getId() {
-		return id;
+	
+	private int calculatePoints(int roundNumber) {
+		int ret = 0;
+		
+		if(this.id == 0)
+			return 0;
+		
+		for(int i=1;i <= games.values().size() && i < roundNumber; i++){
+			Game g = games.get(String.valueOf(i));
+			if(g != null){
+				if(g.player1.id == this.id){
+					ret+= g.p1Result.resultCorporation + g.p1Result.resultRunner;
+				} else {
+					ret+= g.p2Result.resultCorporation + g.p2Result.resultRunner;
+				}
+			}
+		}
+		
+		return ret;
 	}
+	
+	private int calculateOpponentsStrength(int roundNumber){
+		int ret = 0;
+		
+		if(this.id == 0)
+			return 0;
+		
 
-	public String getFirstName() {
-		return firstName;
+		for(int i = 1; i <= roundNumber; i++){
+			Game g = games.get(String.valueOf(i));
+			if(g.player1.id == this.id){
+					
+				switch(tieBreak){
+				case 1:
+					ret += g.player2.calculatePrestigeV2(0);
+					break;
+				default : 
+					ret += g.player2.calculatePrestigeV1(0);
+					break;
+				}
+					
+			} else {
+				switch(tieBreak){
+				case 1:
+					ret += g.player1.calculatePrestigeV2(0);
+					break;
+				default : 
+					ret += g.player1.calculatePrestigeV1(0);
+					break;
+				}
+			}
+		}
+		
+		return ret;
 	}
-
-	public String getLastName() {
-		return lastName;
+	
+	private int calculateOpponentPoints(int roundNumber){
+		int ret = 0;
+		for(int i=1;i <= roundNumber; i++){
+			Game g = games.get(String.valueOf(i));
+			if(g != null){
+				if(g.player1.id == this.id){
+					ret+= g.p2Result.resultCorporation+g.p2Result.resultRunner;
+				} else if (g.player2.id == this.id) {
+					ret+= g.p1Result.resultCorporation+g.p1Result.resultRunner;
+				}
+			}
+		}
+		return ret;
 	}
+	
+	private int calculateWeakestSideWins(int roundNumber) {
+		int winRunner = 0;
+		int winCorp = 0;
+		
+		if(this.id == 0)
+			return 0;
+		
+		for(int i = 1; i <= roundNumber; i++){
+			Game g = games.get(String.valueOf(i));
+			if(g.player1.id == this.id){
+				winCorp += (g.p1Result.resultCorporation > g.p2Result.resultRunner) ? 1 : 0;
+				winRunner += (g.p1Result.resultRunner > g.p2Result.resultCorporation) ? 1 : 0;
+			} else if (g.player2.id == this.id) {
+				winCorp += (g.p2Result.resultCorporation > g.p1Result.resultRunner) ? 1 : 0;
+				winRunner += (g.p2Result.resultRunner > g.p1Result.resultCorporation) ? 1 : 0;
+			}
+		}
 
-	public String getNickname() {
-		return nickname;
-	}
-
-	public String getIdRunner() {
-		return idRunner;
-	}
-
-	public String getIdCorporation() {
-		return idCorporation;
-	}
-
-	public boolean isForfeit() {
-		return forfeit;
-	}
-
-	public Map<String, Game> getGames() {
-		return games;
+		return winRunner <= winCorp ? winRunner : winCorp;
 	}
 
 }

@@ -22,8 +22,8 @@ import fr.meijin.run4win.model.Game;
 import fr.meijin.run4win.model.Player;
 import fr.meijin.run4win.model.Round;
 import fr.meijin.run4win.model.Tournament;
-import fr.meijin.run4win.util.PrintUtils;
-import fr.meijin.run4win.util.TournamentUtils;
+import fr.meijin.run4win.util.MatchingUtils;
+import fr.meijin.run4win.util.file.ExportUtils;
 import fr.meijin.run4win.util.lang.LangEnum;
 import fr.meijin.run4win.util.lang.LangUtils;
 
@@ -90,7 +90,7 @@ public class SingleRoundComposer extends GenericForwardComposer<Listbox> {
 				int index = tournament.roundsList.indexOf(round);
 				tournament.roundsList.remove(index);
 
-				round = TournamentUtils.doSingleMatch(tournament.rounds, tournament.roundsList.subList(0, (newGame.roundNumber-1)), toMatch, round.challenges);
+				round = MatchingUtils.doSingleMatch(tournament.rounds, tournament.roundsList.subList(0, (newGame.roundNumber-1)), toMatch, round.challenges);
 				
 				round.setChallenges(matched);
 				
@@ -130,14 +130,12 @@ public class SingleRoundComposer extends GenericForwardComposer<Listbox> {
 	}
 	
 	public void onClick$printAppariement (Event e) throws Exception{
-		PrintUtils utils = new PrintUtils();
-		File roundFile = utils.exportAppariement(round);
+		File roundFile = ExportUtils.exportMatchesAsHTML(round);
 		Filedownload.save(roundFile, "application/excel");
 	}
 	
 	public void onClick$printFeuilleResultat (Event e) throws Exception{
-		PrintUtils utils = new PrintUtils();
-		File roundFile = utils.exportFeuilleResultat(round);
+		File roundFile = ExportUtils.exportRoundAsXLS(round);
 		Filedownload.save(roundFile, "application/excel");
 	}
 }

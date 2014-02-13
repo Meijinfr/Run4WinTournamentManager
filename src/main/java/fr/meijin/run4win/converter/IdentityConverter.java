@@ -1,12 +1,13 @@
 package fr.meijin.run4win.converter;
 
-import org.apache.commons.lang.StringUtils;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zkplus.databind.TypeConverter;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 
-import fr.meijin.run4win.util.IdentityEnum;
+import fr.meijin.run4win.util.identity.CorporationIdentityEnum;
+import fr.meijin.run4win.util.identity.IdentityEnum;
+import fr.meijin.run4win.util.identity.RunnerIdentityEnum;
 
 public class IdentityConverter implements TypeConverter {
 
@@ -18,34 +19,41 @@ public class IdentityConverter implements TypeConverter {
 
 	@Override
 	public Object coerceToUi(Object o, Component c) {
-		if(o instanceof String){
-			String id = (String) o;
+		if(o instanceof IdentityEnum){
+			IdentityEnum id = (IdentityEnum) o;
+			
+			
 			if (c instanceof Image) {
-				
-				return "/images/"+id.replaceAll(" ", "").toLowerCase()+".png";
+				return "/images/"+id.getFilename()+".png";
 			} else if (c instanceof Label) {
-
-				return IdentityEnum.getDisplayName(id);
+				return id.getDisplayName();
+			} else {
+				return id.getDisplayName();
 			}
 		}
 		return "";
 	}
 	
-	public static String coerceToHTML(String id) {
+	public static String coerceToHTML(IdentityEnum id) {
 		if(id == null)
 			return "";
 		
-		if (StringUtils.equals(IdentityEnum.CHAOS_THEORY.getFilename(), id))
+		if (RunnerIdentityEnum.CHAOS_THEORY ==  id)
 			return "http://www.run4games.com/forum/images/smilies/chaostheory.png";
-		else if (StringUtils.equals(IdentityEnum.CUSTOM_BIOTICS_ENGINEERED_FOR_SUCCESS.getFilename(), id))
+		else if (CorporationIdentityEnum.CUSTOM_BIOTICS == id)
 			return "http://www.run4games.com/forum/images/smilies/custombiotic.png";
-		else if (StringUtils.equals(IdentityEnum.THE_PROFESSOR.getFilename(), id))
+		else if (RunnerIdentityEnum.THE_PROFESSOR == id)
 			return "http://www.run4games.com/forum/images/smilies/theprofessor.png";
-		else if (StringUtils.equals(IdentityEnum.RIELLE.getFilename(), id))
+		else if (RunnerIdentityEnum.RIELLE == id)
 			return "http://www.run4games.com/forum/images/smilies/rielle.png";
-		else if (StringUtils.equals(IdentityEnum.EXILE.getFilename(), id))
+		else if (RunnerIdentityEnum.EXILE == id)
 			return "http://www.run4games.com/forum/images/smilies/exile.png";
 
 		return "http://www.run4games.com/forum/images/smilies/"+ id + ".gif";
+	}
+
+	public String displayFromName(String name) {
+		IdentityEnum identity = CorporationIdentityEnum.valueOf(name) != null ? CorporationIdentityEnum.valueOf(name) : RunnerIdentityEnum.valueOf(name);
+		return identity.getDisplayName();
 	}
 }

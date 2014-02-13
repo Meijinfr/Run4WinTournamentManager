@@ -1,8 +1,18 @@
-.title {
-	background-color : #ccc;
-	margin-top : 25px;
-}
-
 .red_border {
 	border : 1px solid #d77;
+}
+
+.dm-menuitem {
+	width: 100%;
+}
+
+.dm-menuitem .z-menu-item-cnt, .dm-menuitem .dm-menuitem-btn {
+	display: none;
+}
+
+.title .z-menu-item-cnt, .title .title-btn {
+	color : black; 
+	font-weight : bolder; 
+	border : none;
+	background : transparent;
 }

@@ -49,7 +49,7 @@
 		<rows id="player2Rows">
 			<row>
 				<div>
-					<image src="@{pageScope.game.player2.idCorporation,converter='fr.meijin.run4win.converter.IdentityConverter'}"/>
+					<image src="@{pageScope.game.player2.idCorporation,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" height="36px"/>
 					<label value="Corporation result :"/>
 				</div>
 				<div>
@@ -59,7 +59,7 @@
 			</row>
 			<row>
 				<div>
-					<image src="@{pageScope.game.player2.idRunner,converter='fr.meijin.run4win.converter.IdentityConverter'}"/>
+					<image src="@{pageScope.game.player2.idRunner,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" height="36px"/>
 					<label value="Runner result :"/>
 				</div>
 				<div>

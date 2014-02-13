@@ -7,11 +7,15 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.SimpleListModel;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import fr.meijin.run4win.model.Player;
 import fr.meijin.run4win.model.Tournament;
+import fr.meijin.run4win.util.identity.CorporationIdentityEnum;
+import fr.meijin.run4win.util.identity.IdentityEnum;
+import fr.meijin.run4win.util.identity.RunnerIdentityEnum;
 import fr.meijin.run4win.util.lang.LangEnum;
 import fr.meijin.run4win.util.lang.LangUtils;
 
@@ -32,13 +36,17 @@ public class AddPlayerComposer extends GenericForwardComposer<Window>{
 	public void doAfterCompose(Window comp) throws Exception {
 		super.doAfterCompose(comp);
 		binder = new AnnotateDataBinder(comp);
+		
+		page.setAttribute("runnerIdentities", new SimpleListModel<RunnerIdentityEnum>(RunnerIdentityEnum.values()));
+		page.setAttribute("corporationIdentities", new SimpleListModel<CorporationIdentityEnum>(CorporationIdentityEnum.values()));
+		
 		Player oldPlayer = (Player) arg.get("oldPlayer");
 		if(oldPlayer != null){
 			firstNameTextbox.setValue(oldPlayer.getFirstName());
 			lastNameTextbox.setValue(oldPlayer.getLastName());
 			nicknameTextbox.setValue(oldPlayer.nickname);
-			idCorporationCombobox.setValue(oldPlayer.idCorporation);
-			idRunnerCombobox.setValue(oldPlayer.idRunner);
+			idCorporationCombobox.setValue(oldPlayer.idCorporation.getDisplayName());
+			idRunnerCombobox.setValue(oldPlayer.idRunner.getDisplayName());
 			forfeitCheckbox.setChecked(oldPlayer.forfeit);
 		}
 		binder.loadAll();
@@ -69,14 +77,14 @@ public class AddPlayerComposer extends GenericForwardComposer<Window>{
 		p.lastName = lastNameTextbox.getValue();
 		p.nickname = nicknameTextbox.getValue();
 		if(idCorporationCombobox.getSelectedItem() != null)
-			p.idCorporation = idCorporationCombobox.getSelectedItem().getValue();
+			p.idCorporation = CorporationIdentityEnum.valueOf((String) idCorporationCombobox.getSelectedItem().getValue());
 		else 
-			p.idCorporation = idCorporationCombobox.getValue();
+			p.idCorporation = CorporationIdentityEnum.valueOf(idCorporationCombobox.getValue());
 		
 		if(idRunnerCombobox.getSelectedItem() != null)
-			p.idRunner = idRunnerCombobox.getSelectedItem().getValue();
+			p.idRunner = RunnerIdentityEnum.valueOf((String) idRunnerCombobox.getSelectedItem().getValue());
 		else
-			p.idRunner = idRunnerCombobox.getValue();
+			p.idRunner = RunnerIdentityEnum.valueOf((String) idRunnerCombobox.getValue());
 		
 		p.forfeit = forfeitCheckbox.isChecked();
 		p.tieBreak = tournament.tieBreak;

@@ -35,17 +35,29 @@
 			</div>
 		</div>
 		<div>
-			<div align="left" >
-				<button id="loadTournament" label="Ouvrir" mold="trendy" upload="true"/>
-				<button id="saveTournament" label="Sauvegarder" mold="trendy" />
-			</div>
-			<div align="center" style="margin-top : -25px; margin-left : -60px;">
-				<button id="resetTournament" label="Reset" mold="trendy" style="padding-top : -200px;"/> 
-				<button id="exportData" label="Exporter les données" mold="trendy" />
-			</div>
-			<div align="right" style="margin-top : -25px;" >
-				<button id="addRound" label="Ajouter une ronde" mold="trendy"/>
-			</div>
+		
+			<menubar id="menubar" width="100%">
+				<menu label="Importer">
+					<menupopup>
+						<menuitem id="r4wUpload" label="un fichier R4W"/>
+						<menuitem id="jsonUpload" label="un fichier JSON (NRTM)"/>
+						<menuitem id="csvUpload" label="un fichier CSV"/>
+					</menupopup>
+				</menu>
+				<menu label="Exporter">
+					<menupopup>
+						<menuitem id="r4wDownload" label="au format R4W"/>
+						<menuitem id="jsonDownload" label="au format JSON (NRTM)"/>
+						<menuitem id="csvDownload" label="au format CSV"/>
+					</menupopup>
+				</menu>
+				<menu label="Options">
+					<menupopup>
+						<menuitem id="deleteTournament" label="Supprimer les données"/>
+					</menupopup>
+				</menu>
+				<menuitem id="addRound" label="Ajouter une Ronde" left="500px"/>
+			</menubar>
 		</div>
 		<tabbox id="singleTabbox" width="100%" style="margin-top : 20px;">
 			<tabs>

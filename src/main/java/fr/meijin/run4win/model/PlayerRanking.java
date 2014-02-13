@@ -9,7 +9,7 @@ public class PlayerRanking implements Serializable {
 	public String nickname;
 	
 	public int prestige;
-	public int weakestSide;
+	public int weakestSideWins;
 	public int points;
 	public int opponentsStrength;
 	public int opponentsPoints;
@@ -24,8 +24,8 @@ public class PlayerRanking implements Serializable {
 		return prestige;
 	}
 	
-	public int getWeakestSide() {
-		return weakestSide;
+	public int getWeakestSideWins() {
+		return weakestSideWins;
 	}
 	
 	public int getPoints() {

@@ -2,7 +2,6 @@ package fr.meijin.run4win.composer;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
@@ -23,6 +22,7 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Filedownload;
+import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Listbox;
@@ -38,8 +38,12 @@ import fr.meijin.run4win.model.PlayerRanking;
 import fr.meijin.run4win.model.Ranking;
 import fr.meijin.run4win.model.Round;
 import fr.meijin.run4win.model.Tournament;
-import fr.meijin.run4win.util.DocumentUtils;
+import fr.meijin.run4win.util.MatchingUtils;
+import fr.meijin.run4win.util.RankingUtils;
 import fr.meijin.run4win.util.TournamentUtils;
+import fr.meijin.run4win.util.file.ExportUtils;
+import fr.meijin.run4win.util.identity.CorporationIdentityEnum;
+import fr.meijin.run4win.util.identity.RunnerIdentityEnum;
 import fr.meijin.run4win.util.lang.LangEnum;
 import fr.meijin.run4win.util.lang.LangUtils;
 
@@ -72,13 +76,16 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		binder.loadAll();
 	}
 	
+	/*-------------------------------------------------------
+	 * 					MENU BAR
+	 --------------------------------------------------------*/
+	
 	public void onClick$addRound (Event e) throws InterruptedException{
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
-		TournamentUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
+		RankingUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
 		boolean addBye = false;
 		
 		Collections.sort(tournament.players);
-		Collections.reverse(tournament.players);
 		if(tournament.rounds >= 1){
 			Ranking ranking = new Ranking();
 			ranking.roundNumber = tournament.rounds;
@@ -86,7 +93,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 				PlayerRanking pr = new PlayerRanking();
 				pr.nickname = p.nickname;
 				pr.prestige = p.getPrestige();
-				pr.weakestSide = p.getWeakestSide();
+				pr.weakestSideWins = p.getWeakestSideWins();
 				pr.opponentsStrength = p.getOpponentsStrength();
 				pr.opponentsPoints = p.getOpponentsPoints();
 				pr.points = p.getPoints();
@@ -128,8 +135,8 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 			p.id=0;
 			p.nickname = "BYE";
 			p.forfeit = true;
-			p.idCorporation = "";
-			p.idRunner = "";
+			p.idCorporation = CorporationIdentityEnum.BLANK;
+			p.idRunner = RunnerIdentityEnum.BLANK;
 			toMatch.add(p);
 		}
 		
@@ -137,12 +144,11 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		
 		
 		Collections.sort(toMatch);
-		Collections.reverse(toMatch);
 			
 		if(tournament.rounds == 1)
 			Collections.shuffle(toMatch);
 		
-		Round r = TournamentUtils.doSingleMatch(tournament.rounds,tournament.roundsList, toMatch, new ArrayList<Game>());
+		Round r = MatchingUtils.doSingleMatch(tournament.rounds,tournament.roundsList, toMatch, new ArrayList<Game>());
 		tournament.roundsList.add(r);
 		
 		Tab tab = addRoundTab(r);
@@ -151,35 +157,29 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		tab.setSelected(true);
 		binder.loadAll();
 	}
-
 	
-
-	public void onClick$resultTab (Event e){
-		
+	public void onClick$htmlDownload (Event e) throws Exception{
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
-		TournamentUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
-		Collections.sort(tournament.players);
-		Collections.reverse(tournament.players);
-		session.setAttribute("tournament",tournament);
-		playersResultsGrid.invalidate();
-		playersResultsGrid.renderAll();
-		binder.loadComponent(playersResultsGrid);
-	}
-	
-	public void onClick$exportData (Event e) throws Exception{
-		Tournament tournament = (Tournament) session.getAttribute("tournament");
-		File exportFile = DocumentUtils.exportTournamentData(tournament);
+		RankingUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
+		File exportFile = ExportUtils.exportAsHTML(tournament);
 		Filedownload.save(exportFile, "text/plain");
 	}
-
-	public void onClick$addPlayerButton(Event e) throws Exception {
-		Window window = (Window) Executions.createComponents("add_player.zul", null, null);
-		window.doModal();
-		onPlayerChange();
+	
+	public void onClick$jsonDownload (Event e) throws Exception{
+		Tournament tournament = (Tournament) session.getAttribute("tournament");
+		RankingUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
+		File exportFile = ExportUtils.exportAsJSON(tournament);
+		Filedownload.save(exportFile, "text/plain");
 	}
 	
+	public void onClick$csvDownload (Event e) throws Exception{
+		Tournament tournament = (Tournament) session.getAttribute("tournament");
+		RankingUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
+		File exportFile = ExportUtils.exportAsCSV(tournament);
+		Filedownload.save(exportFile, "text/csv");
+	}
 
-	public void onClick$resetTournament (Event e){
+	public void onClick$newTournament (Event e){
 		int ret = Messagebox.show(LangUtils.getMessage(LangEnum.RESET), "Reset", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
 		
 		if(ret == Messagebox.YES){
@@ -192,33 +192,13 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		binder.loadAll();
 	}
 	
-	public void onClick$saveTournament (Event e) throws IOException {
+	public void onClick$fileSave (Event e) throws Exception {
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
-		
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-		String date = format.format(new Date());
-		
-		String fileTitle = "Run4Win_"+tournament.name+"_"+date+".r4w";
-		
-		StringBuilder finalName = new StringBuilder();
-		for (char c : fileTitle.toCharArray()) {
-			if (c=='.' || Character.isJavaIdentifierPart(c)) {
-				finalName.append(c);
-			}
-		}
-		File file = new File(finalName.toString());
-		FileOutputStream fos = new FileOutputStream(file);
-		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(tournament);
-		oos.flush();
-		oos.close();
-		fos.flush();
-		fos.close();
-		Filedownload.save(file, "text/plain");
-		binder.loadAll();
+		File exportFile = ExportUtils.exportAsR4W(tournament);
+		Filedownload.save(exportFile, "text/plain");
 	}
 	
-	public void onUpload$loadTournament (UploadEvent e) throws IOException, ClassNotFoundException {
+	public void onUpload$fileOpen (UploadEvent e) throws Exception {
 		Media m = e.getMedia();
 		if(m != null){
 			ObjectInputStream ois = new ObjectInputStream(m.getStreamData());
@@ -229,7 +209,19 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 			session.setAttribute("tournament",tournament);
 			ois.close();
 		}
+		
 		binder.loadAll();
+	}
+	
+	public void onClick$resultTab (Event e){
+		
+		Tournament tournament = (Tournament) session.getAttribute("tournament");
+		RankingUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
+		Collections.sort(tournament.players);
+		session.setAttribute("tournament",tournament);
+		playersResultsGrid.invalidate();
+		playersResultsGrid.renderAll();
+		binder.loadComponent(playersResultsGrid);
 	}
 	
 	public void onSelect$tieBreakCombobox(Event e){
@@ -240,17 +232,22 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		
 		for(Player p : tournament.players){
 			p.tieBreak = tieBreak;
-			
 		}
 		
 		page.setAttribute("V2Visibility", (tieBreak == 1));
-		reloadRanking(tournament);
+		TournamentUtils.reloadRanking(tournament);
 		
 		deleteTabs();
 		tournament = reloadTabs(tournament);
 		tournament = reloadPlayerRankingTab(tournament);
 		session.setAttribute("tournament", tournament);
 		binder.loadAll();
+	}
+	
+	public void onClick$addPlayerButton(Event e) throws Exception {
+		Window window = (Window) Executions.createComponents("add_player.zul", null, null);
+		window.doModal();
+		onPlayerChange();
 	}
 	
 	public void onEditPlayer(Event e){
@@ -328,14 +325,14 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 				}
 			}
 			
-			TournamentUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
+			RankingUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
 
 			
 		}
 
 		deleteTabs();
 		reloadTabs(tournament);
-		reloadRanking(tournament);
+		TournamentUtils.reloadRanking(tournament);
 		reloadPlayerRankingTab(tournament);
 		
 		session.setAttribute("tournament", tournament);
@@ -410,29 +407,6 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		inc.setDynamicProperty("ranking", ranking);
 		inc.setId("ranking"+ranking.roundNumber+"Include");
 		inc.setParent(panel);
-	}
-	
-	private void reloadRanking(Tournament tournament){
-		tournament.rankings = new ArrayList<Ranking>();
-		TournamentUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
-		if(tournament.rounds >= 1){
-			for(int i = 1; i < tournament.roundsList.size(); i++){
-				Ranking ranking = new Ranking();
-				ranking.roundNumber = i;
-				for(Player p : tournament.players){
-					PlayerRanking pr = new PlayerRanking();
-					pr.nickname = p.nickname;
-					pr.prestige = p.getPrestige(i);
-					pr.weakestSide = p.getWeakestSide(i);
-					pr.opponentsStrength = p.getOpponentsStrength(i);
-					pr.opponentsPoints = p.getOpponentsPoints(i);
-					pr.points = p.getPoints(i);
-					ranking.playerRankings.add(pr);
-				}
-				
-				tournament.rankings.add(ranking);
-			}
-		}
 	}
 
 }
