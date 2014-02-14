@@ -15,9 +15,9 @@ public enum RunnerIdentityEnum implements IdentityEnum {
 	SILHOUETTE								("silhouette","Silhouette","color : #3e6ea9;","05030","Criminal"),
 	
 	KATE									("kate","Kate 'Mac' McCaffrey","color : #6b9141;","01033","Shaper"),
-	CHAOS_THEORY							("chaostheory","Chaos Theory","color : #6b9141;","02046","Shaper"),
+	CHAOS_THEORY							("chaos_theory","Chaos Theory","color : #6b9141;","02046","Shaper"),
 	RIELLE									("rielle","Rielle 'Kit' Peddler","color : #6b9141;","03028","Shaper"),
-	THE_PROFESSOR							("theprofessor","The Professor","color : #6b9141;","03029","Shaper"),
+	THE_PROFESSOR							("the_professor","The Professor","color : #6b9141;","03029","Shaper"),
 	EXILE									("exile","Exile","color : #6b9141;","03030","Shaper"),
 	NASIR_MEIDAN							("nasir","Nasir Meidan","color : #6b9141;","06017","Shaper");
 											

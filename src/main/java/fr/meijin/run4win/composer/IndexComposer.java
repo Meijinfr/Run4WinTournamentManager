@@ -76,9 +76,25 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		binder.loadAll();
 	}
 	
-	/*-------------------------------------------------------
-	 * 					MENU BAR
-	 --------------------------------------------------------*/
+	private void deleteTabs (){
+		List<Component> componentsToRemove = new ArrayList<Component>();
+		for(Component c : page.getFellows()){
+			if(c.getId().matches("(round)?(ranking)?[0-9]+(Panel)?(Tab)?(Include)?")){
+				componentsToRemove.add(c);
+			}
+		}
+		
+		for(Component c : componentsToRemove){
+			c.setParent(null);
+			c.detach();
+			c.setId(null);
+			c = null;
+		}
+	}
+	
+	/*-------------------------------------------------------------------------------
+	 * 								MENU BAR
+	 --------------------------------------------------------------------------------*/
 	
 	public void onClick$addRound (Event e) throws InterruptedException{
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
@@ -172,10 +188,16 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		Filedownload.save(exportFile, "text/plain");
 	}
 	
-	public void onClick$csvDownload (Event e) throws Exception{
+	public void onClick$csvDownloadRanking (Event e) throws Exception{
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
 		RankingUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
-		File exportFile = ExportUtils.exportAsCSV(tournament);
+		File exportFile = ExportUtils.exportRankingAsCSV(tournament);
+		Filedownload.save(exportFile, "text/csv");
+	}
+	
+	public void onClick$csvDownloadRounds (Event e) throws Exception{
+		Tournament tournament = (Tournament) session.getAttribute("tournament");
+		File exportFile = ExportUtils.exportRoundsAsCSV(tournament);
 		Filedownload.save(exportFile, "text/csv");
 	}
 
@@ -213,6 +235,10 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		binder.loadAll();
 	}
 	
+	/*-------------------------------------------------------------------------------
+	 * 								Result Tab
+	 --------------------------------------------------------------------------------*/
+	
 	public void onClick$resultTab (Event e){
 		
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
@@ -243,6 +269,36 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		session.setAttribute("tournament", tournament);
 		binder.loadAll();
 	}
+	
+	private Tournament reloadPlayerRankingTab(Tournament tournament) {
+		if(tournament.rankings.size() != 0){
+			for(Ranking r : tournament.rankings){
+				System.out.println("Reloading player ranking on round "+r.roundNumber);
+				addResultTab(r);
+			}
+		}
+		return tournament;
+	}
+
+	private void addResultTab(Ranking ranking){
+		System.out.println("Adding result for round "+ranking.roundNumber);
+		Tab tab = new Tab(LangUtils.getMessage(LangEnum.RESULT)+" "+ranking.roundNumber);
+		tab.setId("ranking"+ranking.roundNumber+"Tab");
+		
+		tab.setParent(resultTabbox.getTabs());
+		Tabpanel panel = new Tabpanel();
+		panel.setId("ranking"+ranking.roundNumber+"Panel");
+		panel.setParent(resultTabbox.getTabpanels());
+		
+		Include inc = new Include("ranking.zul");
+		inc.setDynamicProperty("ranking", ranking);
+		inc.setId("ranking"+ranking.roundNumber+"Include");
+		inc.setParent(panel);
+	}
+	
+	/*-------------------------------------------------------------------------------
+	 * 								Player Tab
+	 --------------------------------------------------------------------------------*/
 	
 	public void onClick$addPlayerButton(Event e) throws Exception {
 		Window window = (Window) Executions.createComponents("add_player.zul", null, null);
@@ -300,6 +356,10 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		playersList.renderAll();
 		binder.loadAll();
 	}
+	
+	/*-------------------------------------------------------------------------------
+	 * 								Round Tabs
+	 --------------------------------------------------------------------------------*/
 	
 	public void onDeleteRound(Event e){
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
@@ -366,47 +426,4 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		
 		return tab;
 	}
-
-	private void deleteTabs (){
-		List<Component> componentsToRemove = new ArrayList<Component>();
-		for(Component c : page.getFellows()){
-			if(c.getId().matches("(round)?(ranking)?[0-9]+(Panel)?(Tab)?(Include)?")){
-				componentsToRemove.add(c);
-			}
-		}
-		
-		for(Component c : componentsToRemove){
-			c.setParent(null);
-			c.detach();
-			c.setId(null);
-			c = null;
-		}
-	}
-	
-	private Tournament reloadPlayerRankingTab(Tournament tournament) {
-		if(tournament.rankings.size() != 0){
-			for(Ranking r : tournament.rankings){
-				System.out.println("Reloading player ranking on round "+r.roundNumber);
-				addResultTab(r);
-			}
-		}
-		return tournament;
-	}
-
-	private void addResultTab(Ranking ranking){
-		System.out.println("Adding result for round "+ranking.roundNumber);
-		Tab tab = new Tab(LangUtils.getMessage(LangEnum.RESULT)+" "+ranking.roundNumber);
-		tab.setId("ranking"+ranking.roundNumber+"Tab");
-		
-		tab.setParent(resultTabbox.getTabs());
-		Tabpanel panel = new Tabpanel();
-		panel.setId("ranking"+ranking.roundNumber+"Panel");
-		panel.setParent(resultTabbox.getTabpanels());
-		
-		Include inc = new Include("ranking.zul");
-		inc.setDynamicProperty("ranking", ranking);
-		inc.setId("ranking"+ranking.roundNumber+"Include");
-		inc.setParent(panel);
-	}
-
 }

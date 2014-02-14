@@ -53,8 +53,6 @@ public class AddSingleResultComposer extends GenericForwardComposer<Window>{
 			player1Combobox.appendItem(p.nickname);
 			player2Combobox.appendItem(p.nickname);
 		}
-		player1Combobox.setValue(g.player1.nickname);
-		player2Combobox.setValue(g.player2.nickname);
 		
 		page.setAttribute("game", g);
 		binder.loadAll();

@@ -24,22 +24,32 @@
 				<menupopup>
 					<menuitem id="newTournament" label="Nouveau" />
 					<menuitem id="fileOpen" label="Ouvrir" upload="true" />
-					<menuitem id="fileSave" label="Enregistrer sous..." />
+					<menuitem id="fileSave" label="Enregistrer" />
 				</menupopup>
 			</menu>
 			
 			<menu label="Exporter">
 				<menupopup>
-					<menuitem id="htmlDownload" label="les résultats au format HTML" />
-					<menuitem id="jsonDownload" label="les résultats au format JSON (NRTM)" />
-					<menuitem id="csvDownload" label="les résultats au format CSV" />
+					<menuitem id="htmlDownload" label="Résultats au format HTML" />
+					<menuitem id="jsonDownload" label="Résultats au format JSON (NRTM)" disabled="true"/>
+					<menu label="au format CSV...">
+						<menupopup>
+							<menuitem id="csvDownloadRanking" label="Classement des joueurs" />
+							<menuitem id="csvDownloadRounds" label="Résultats des rondes" />
+						</menupopup>
+					</menu>
 				</menupopup>
 			</menu>
 			
 			<menu label="Importer">
 				<menupopup>
-					<menuitem id="jsonUpload" label="un fichier JSON (NRTM)" />
-					<menuitem id="csvUpload" label="un fichier CSV" />
+					<menuitem id="jsonUpload" label="un fichier JSON (NRTM)"  disabled="true"/>
+					<menu id="csvUpload" label="un fichier CSV...">
+						<menupopup>
+							<menuitem id="csvUploadRanking" label="Classement des joueurs" disabled="true" />
+							<menuitem id="csvUploadRounds" label="Résultats des rondes" disabled="true" />
+						</menupopup>
+					</menu>
 				</menupopup>
 			</menu>
 			

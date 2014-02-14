@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import fr.meijin.run4win.model.Game;
 import fr.meijin.run4win.model.Player;
 import fr.meijin.run4win.model.Round;
 
 public class MatchingUtils {
 
-public static boolean matches (int roundNumber, List<Player> toMatch, List<Player> matchedPlayers,List<Round> lastRounds, List<Game> matched) {
-		
+	public static boolean matches (int roundNumber, List<Player> toMatch, List<Player> matchedPlayers,List<Round> lastRounds, List<Game> matched) {
 		boolean foundMatch = false;
 		
 		while(toMatch.size()>0){
@@ -33,7 +34,6 @@ public static boolean matches (int roundNumber, List<Player> toMatch, List<Playe
 							
 							matched.add(g);
 							foundMatch = true;
-							System.out.println("Matched : "+g.player1.nickname+" ["+g.player1.getPrestige()+"] vs "+g.player2.nickname+" ["+g.player2.getPrestige()+"] on "+g.tableNumber);
 							break;
 						}
 					}
@@ -62,7 +62,6 @@ public static boolean matches (int roundNumber, List<Player> toMatch, List<Playe
 			if(pass < matched.size()) pass++;
 			
 			if(!foundMatch){
-				System.out.println("Error in matching, splitting and re-matching from sublist !");
 				int split = 0;
 				if(matched.size() % 2 == 0){
 					split = matched.size() / 2;
@@ -70,10 +69,7 @@ public static boolean matches (int roundNumber, List<Player> toMatch, List<Playe
 					split = (matched.size() / 2)-pass;
 				}
 				
-				System.out.println("Splitting from "+split);
 				List<Game> matchedGames = matched.subList(0, split);
-				
-				
 				matchedPlayers.addAll(toMatch);
 				toMatch.clear();
 				
@@ -89,9 +85,6 @@ public static boolean matches (int roundNumber, List<Player> toMatch, List<Playe
 				toMatch = matchedPlayers;
 				matchedPlayers = sublistMatchedPlayers;
 				Collections.reverse(toMatch);
-				System.out.println("Size of matched game "+matched.size());
-				System.out.println("#players to match "+toMatch.size());
-				System.out.println("#matched players "+matchedPlayers.size());
 			}
 		}
 		
@@ -107,7 +100,6 @@ public static boolean matches (int roundNumber, List<Player> toMatch, List<Playe
 		
 		int tableNumber = 1;
 		for(Game g : matched){
-			System.out.println("Table Number = "+g.tableNumber);
 			if(g.tableNumber == tableNumber)
 				tableNumber++;
 			else

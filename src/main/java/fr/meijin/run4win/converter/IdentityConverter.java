@@ -37,19 +37,8 @@ public class IdentityConverter implements TypeConverter {
 	public static String coerceToHTML(IdentityEnum id) {
 		if(id == null)
 			return "";
-		
-		if (RunnerIdentityEnum.CHAOS_THEORY ==  id)
-			return "http://www.run4games.com/forum/images/smilies/chaostheory.png";
-		else if (CorporationIdentityEnum.CUSTOM_BIOTICS == id)
-			return "http://www.run4games.com/forum/images/smilies/custombiotic.png";
-		else if (RunnerIdentityEnum.THE_PROFESSOR == id)
-			return "http://www.run4games.com/forum/images/smilies/theprofessor.png";
-		else if (RunnerIdentityEnum.RIELLE == id)
-			return "http://www.run4games.com/forum/images/smilies/rielle.png";
-		else if (RunnerIdentityEnum.EXILE == id)
-			return "http://www.run4games.com/forum/images/smilies/exile.png";
 
-		return "http://www.run4games.com/forum/images/smilies/"+ id + ".gif";
+		return "http://meijin91.free.fr/idnetrunner/"+ id.getFilename() + ".png";
 	}
 
 	public String displayFromName(String name) {

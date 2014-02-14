@@ -88,7 +88,7 @@ public class Player implements Comparable<Player>, Serializable {
 		return opponentsPoints;
 	}
 
-	public int getOpponentsPointsByPoints(int roundNumber){
+	public int getOpponentsPointsByRound(int roundNumber){
 		return calculateOpponentPoints(roundNumber);
 	}
 	
@@ -252,7 +252,6 @@ public class Player implements Comparable<Player>, Serializable {
 		
 		
 		for(int i = 1; i <= roundNumber; i++){
-			System.out.println("Get prestige for round "+i+" : "+games.get(String.valueOf(i)));
 			ret+=calculatePrestigeV2(games.get(String.valueOf(i)));
 		}
 		
@@ -321,29 +320,12 @@ public class Player implements Comparable<Player>, Serializable {
 		if(this.id == 0)
 			return 0;
 		
-
 		for(int i = 1; i <= roundNumber; i++){
 			Game g = games.get(String.valueOf(i));
 			if(g.player1.id == this.id){
-					
-				switch(tieBreak){
-				case 1:
-					ret += g.player2.calculatePrestigeV2(0);
-					break;
-				default : 
-					ret += g.player2.calculatePrestigeV1(0);
-					break;
-				}
-					
+				ret += g.player2.getPrestigeByRound(roundNumber);
 			} else {
-				switch(tieBreak){
-				case 1:
-					ret += g.player1.calculatePrestigeV2(0);
-					break;
-				default : 
-					ret += g.player1.calculatePrestigeV1(0);
-					break;
-				}
+				ret += g.player1.getPrestigeByRound(roundNumber);
 			}
 		}
 		

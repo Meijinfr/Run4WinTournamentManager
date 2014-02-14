@@ -1,77 +1,74 @@
 <?page title="Add result" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Edit Result" border="normal" apply="fr.meijin.run4win.composer.AddSingleResultComposer"
+<window title="Edit results" border="normal" apply="fr.meijin.run4win.composer.AddSingleResultComposer"
 	closable="true" >
-	<hlayout>
-	<grid width="350px">
+	<hlayout spacing="20px">
+	<grid width="200px" oddRowSclass="false">
 		<auxhead>
 			<auxheader colspan="2">
-				<combobox id="player1Combobox" inplace="true"/>
+				<combobox id="player1Combobox" inplace="true" value="@{pageScope.game.player1.nickname}"/>
 			</auxheader>
 		</auxhead>
-		<columns  visible="false">
-			<column height="0px"/>
-			<column height="0px"/>
+		<columns visible="false">
+			<column height="0px" width="60px"/>
+			<column height="0px" width="140px"/>
 		</columns>
 		<rows id="player1Rows">
 			<row>
-				<div>
-					<image src="@{pageScope.game.player1.idRunner,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" height="36px"/>
-					<label value="Runner result :"/>
+				<div height="36px">
+					<image src="@{pageScope.game.player1.idRunner,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" />
 				</div>
 				<div>
 					<intbox id="intboxP1ResultRunner"  value="${arg.game.p1Result.resultRunner }" width="30px" focus="true"/>
-					<checkbox id="checkboxP1Mill" label="Mill ?"/>
+					<checkbox id="checkboxP1Mill" label="Mill"/>
 				</div>
 			</row>
 			<row>
-				<div>
-					<image src="@{pageScope.game.player1.idCorporation,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" height="36px"/>
-					<label value="Corporation result :"/>
+				<div height="36px">
+					<image src="@{pageScope.game.player1.idCorporation,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" />
 				</div>
 				<div>
 					<intbox id="intboxP1ResultCorporation"  value="${arg.game.p1Result.resultCorporation }" width="30px"/>
-					<checkbox id="checkboxP1Flatline" label="Flatline ?"/>
+					<checkbox id="checkboxP1Flatline" label="Flatline"/>
 				</div>
 			</row>
 		</rows>
 	</grid>
-	<grid width="350px">
+	<grid width="200px">
 		<auxhead>
 			<auxheader colspan="2">
-				<combobox id="player2Combobox" inplace="true"/>
+				<combobox id="player2Combobox" inplace="true" value="@{pageScope.game.player2.nickname}"/>
 			</auxheader>
 		</auxhead>
 		<columns visible="false">
-			<column height="0px" />
-			<column height="0px"/>
+			<column height="0px" width="60px"/>
+			<column height="0px" width="140px"/>
 		</columns>
 		<rows id="player2Rows">
 			<row>
-				<div>
-					<image src="@{pageScope.game.player2.idCorporation,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" height="36px"/>
-					<label value="Corporation result :"/>
+				<div height="36px">
+					<image src="@{pageScope.game.player2.idCorporation,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px"/>
 				</div>
+				
 				<div>
 					<intbox id="intboxP2ResultCorporation"  value="${arg.game.p2Result.resultCorporation }" width="30px"/>
-					<checkbox id="checkboxP2Flatline" label="Flatline ?"/>
+					<checkbox id="checkboxP2Flatline" label="Flatline"/>
 				</div>
 			</row>
 			<row>
-				<div>
-					<image src="@{pageScope.game.player2.idRunner,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" height="36px"/>
-					<label value="Runner result :"/>
+				<div height="36px">
+					<image src="@{pageScope.game.player2.idRunner,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" />
 				</div>
 				<div>
 					<intbox id="intboxP2ResultRunner"  value="${arg.game.p2Result.resultRunner }" width="30px"/>
-					<checkbox id="checkboxP2Mill" label="Mill ?"/>
+					<checkbox id="checkboxP2Mill" label="Mill"/>
 				</div>
 			</row>
 		</rows>
 	</grid>
 	</hlayout>
-	<div align="right">
-		<button id="validateButton" label="OK" mold="trendy"/>
+	<div align="right" style="margin-top : 10px;">
+		<button id="validateButton" label="Ok" mold="trendy"/>
 		<button id="cancelButton" label="Cancel" mold="trendy"/>
 	</div>
 </window>

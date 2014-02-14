@@ -24,7 +24,7 @@ public class TournamentUtils {
 					pr.prestige = p.getPrestigeByRound(i);
 					pr.weakestSideWins = p.getWeakestSideWins(i);
 					pr.opponentsStrength = p.getOpponentsStrengthByRound(i);
-					pr.opponentsPoints = p.getOpponentsPointsByPoints(i);
+					pr.opponentsPoints = p.getOpponentsPointsByRound(i);
 					pr.points = p.getPointsByRound(i);
 					ranking.playerRankings.add(pr);
 				}

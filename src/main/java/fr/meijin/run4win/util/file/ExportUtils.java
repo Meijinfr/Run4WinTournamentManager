@@ -103,11 +103,21 @@ public class ExportUtils {
 		return file;
 	}
 	
-	public static File exportAsCSV (Tournament tournament) throws Exception {
+	public static File exportRankingAsCSV (Tournament tournament) throws Exception {
 		
-		File file = new File(generateFileName(tournament.name, ".csv"));
+		File file = new File(generateFileName(tournament.name+"_ranking", ".csv"));
 		
 		CSVWriter writer = new CSVWriter(new FileWriter(file), ';');
+		
+		writer.writeNext  (new String[]{	"rank",
+											"nickname",
+											"prestige",
+											"weakest_side_wins",
+											"opponents_strength",
+											"id_corp",
+											"id_runner"
+										}
+							);
 		
 		Collections.sort(tournament.players);
 		
@@ -122,6 +132,65 @@ public class ExportUtils {
 					 							player.idRunner.getOctgnCode()
 					 						}
 					 			);
+		}
+		
+		writer.close();
+		
+		return file;
+	}
+	
+	public static File exportRoundsAsCSV (Tournament tournament) throws Exception {
+		
+		File file = new File(generateFileName(tournament.name+"_match_results", ".csv"));
+		
+		CSVWriter writer = new CSVWriter(new FileWriter(file), ';');
+
+		writer.writeNext  (new String[]{	"round_number",
+											"table",
+											
+											"player1",
+											"id_corp_player1",
+											"result_corp_player1",
+											"flatline_win__player1",
+											"id_runner_player_1",
+											"result_runner_player1",
+											"mill_win_player1",
+											
+											"player2",
+											"id_corp_player2",
+											"result_corp_player2",
+											"flatline_win__player2",
+											"id_runner_player_2",
+											"result_runner_player2",
+											"mill_win_player2"
+										}
+							);
+		
+		for(Round round : tournament.roundsList){
+			for(Game game : round.games){
+				
+			
+				 writer.writeNext  (new String[]{	String.valueOf(round.roundNumber),
+						 							String.valueOf(game.tableNumber),
+						 							
+						 							game.player1.nickname,
+						 							game.player1.idCorporation.getDisplayName(),
+						 							String.valueOf(game.p1Result.resultCorporation),
+						 							String.valueOf(game.p1Result.flatlineWin),
+						 							game.player1.idRunner.getDisplayName(),
+													String.valueOf(game.p1Result.resultRunner),
+													String.valueOf(game.p1Result.millWin),
+													
+													game.player2.nickname,
+						 							game.player2.idCorporation.getDisplayName(),
+						 							String.valueOf(game.p2Result.resultCorporation),
+						 							String.valueOf(game.p2Result.flatlineWin),
+						 							game.player2.idRunner.getDisplayName(),
+													String.valueOf(game.p2Result.resultRunner),
+													String.valueOf(game.p2Result.millWin),
+						 						}
+						 			);
+			}
 		}
 		
 		writer.close();
