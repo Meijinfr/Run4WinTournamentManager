@@ -14,7 +14,6 @@ import org.zkoss.zul.Window;
 import fr.meijin.run4win.model.Player;
 import fr.meijin.run4win.model.Tournament;
 import fr.meijin.run4win.util.identity.CorporationIdentityEnum;
-import fr.meijin.run4win.util.identity.IdentityEnum;
 import fr.meijin.run4win.util.identity.RunnerIdentityEnum;
 import fr.meijin.run4win.util.lang.LangEnum;
 import fr.meijin.run4win.util.lang.LangUtils;

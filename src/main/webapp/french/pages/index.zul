@@ -30,12 +30,12 @@
 			
 			<menu label="Exporter">
 				<menupopup>
-					<menuitem id="htmlDownload" label="les résultats au format HTML" />
-					<menuitem id="jsonDownload" label="les résultats au format JSON (NRTM)" disabled="true"/>
+					<menuitem id="htmlDownload" label="Résultats au format HTML" />
+					<menuitem id="jsonDownload" label="Résultats au format JSON (NRTM)" disabled="true"/>
 					<menu label="au format CSV...">
 						<menupopup>
-							<menuitem id="csvDownloadRanking" label="le classement des joueurs" />
-							<menuitem id="csvDownloadRounds" label="les résultats des rondes" />
+							<menuitem id="csvDownloadRanking" label="Classement des joueurs" />
+							<menuitem id="csvDownloadRounds" label="Résultats des rondes" />
 						</menupopup>
 					</menu>
 				</menupopup>
@@ -46,8 +46,8 @@
 					<menuitem id="jsonUpload" label="un fichier JSON (NRTM)"  disabled="true"/>
 					<menu id="csvUpload" label="un fichier CSV...">
 						<menupopup>
-							<menuitem id="csvUploadRanking" label="le classement des joueurs" />
-							<menuitem id="csvUploadRounds" label="les résultats des rondes" />
+							<menuitem id="csvUploadRanking" label="Classement des joueurs" disabled="true" />
+							<menuitem id="csvUploadRounds" label="Résultats des rondes" disabled="true" />
 						</menupopup>
 					</menu>
 				</menupopup>

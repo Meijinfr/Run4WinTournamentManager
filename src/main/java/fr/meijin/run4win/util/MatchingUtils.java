@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import fr.meijin.run4win.model.Game;
 import fr.meijin.run4win.model.Player;
 import fr.meijin.run4win.model.Round;
 
 public class MatchingUtils {
+
 
 	public static boolean matches (int roundNumber, List<Player> toMatch, List<Player> matchedPlayers,List<Round> lastRounds, List<Game> matched) {
 		boolean foundMatch = false;
@@ -92,6 +91,16 @@ public class MatchingUtils {
 		return round;
 	}
 	
+	private static boolean havePlayedEachOther(List<Round> lastRounds, Player p1, Player p2){
+		for(Round r : lastRounds){
+			for(Game m : r.games){
+				if(m.player1 == p1 && m.player2 == p2 || m.player1 == p2 && m.player2 == p1)
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	private static Game createMatchGame(int roundNumber, List<Round> lastRounds, Player p1, Player p2, List<Game> matched) {
 		Game sg = new Game();
 		sg.player1 = p1;
@@ -123,13 +132,4 @@ public class MatchingUtils {
 		return sg;
 	}
 
-	private static boolean havePlayedEachOther(List<Round> lastRounds, Player p1, Player p2){
-		for(Round r : lastRounds){
-			for(Game g : r.games){
-				if(g.player1 == p1 && g.player2 == p2 || g.player1 == p2 && g.player2 == p1)
-					return true;
-			}
-		}
-		return false;
-	}
 }
