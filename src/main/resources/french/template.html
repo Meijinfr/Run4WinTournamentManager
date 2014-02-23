@@ -50,20 +50,20 @@
     			<th>Id Runner</th>
     		</thead>
     		#foreach( $player in $players )
-    		<tr>
+    		<tr height="30">
     			<td>$player.firstName</td>
     			<td>$player.lastName</td>
     			<td>$player.nickname</td>
     			<td>
 	    			#if($player.idCorporation != "")
-	    				<img src="$identityConverter.coerceToHTML($player.idCorporation)" height="30" width="30"/>
+	    				<img src="$identityConverter.coerceToHTML($player.idCorporation)" width="30"/>
 	    			#else
 	    				$player.idCorporation
 	    			#end
     			</td>
     			<td>
 	    			#if($player.idRunner != "")
-		    			<img src="$identityConverter.coerceToHTML($player.idRunner)" height="30" width="30"/>
+		    			<img src="$identityConverter.coerceToHTML($player.idRunner)" width="30"/>
 		    		#else
 		    			$player.idRunner
 		    		#end
@@ -90,7 +90,7 @@
 	    				<td>$game.player1.nickname</td>
 	    				<td>
 	    					#if($game.player1.idCorporation != "")
-		    					<img src="$identityConverter.coerceToHTML($game.player1.idCorporation)" height="30" width="30"/>
+		    					<img src="$identityConverter.coerceToHTML($game.player1.idCorporation)" width="30"/>
 		    				#end
 		    				$game.p1Result.resultCorporation 
 	    					#if($game.p1Result.flatlineWin)
@@ -99,7 +99,7 @@
 	    				</td>
 	    				<td>
 	    					#if($game.player1.idRunner != "")
-		    					<img src="$identityConverter.coerceToHTML($game.player1.idRunner)" height="30" width="30"/>
+		    					<img src="$identityConverter.coerceToHTML($game.player1.idRunner)" width="30"/>
 		    				#end
 		    				$game.p1Result.resultRunner 
 	    					#if($game.p1Result.millWin)
@@ -112,7 +112,7 @@
 	    				<td>$game.player2.nickname</td>
 	    				<td>
 	    					#if($game.player2.idCorporation != "")
-		    					<img src="$identityConverter.coerceToHTML($game.player2.idCorporation)" height="30" width="30"/>
+		    					<img src="$identityConverter.coerceToHTML($game.player2.idCorporation)" width="30"/>
 		    				#end
 		    				$game.p2Result.resultCorporation 
 	    					#if($game.p2Result.flatlineWin)
@@ -121,7 +121,7 @@
 	    				</td>
 	    				<td>
 	    					#if($game.player2.idRunner != "")
-		    					<img src="$identityConverter.coerceToHTML($game.player2.idRunner)" height="30" width="30"/>
+		    					<img src="$identityConverter.coerceToHTML($game.player2.idRunner)" width="30"/>
 		    				#end
 		    				$game.p2Result.resultRunner 
 	    					#if($game.p2Result.millWin)
@@ -152,7 +152,7 @@
     			<td>$i</td>
     			<td>$player.nickname</td>
     			<td>$player.prestige</td>
-    			<td>$player.weakestSide</td>
+    			<td>$player.weakestSideWins</td>
     			<td>$player.opponentsStrength</td>
     			<td>$player.points</td>
     			<td>$player.opponentsPoints</td>
