@@ -13,11 +13,9 @@
 		<listhead>
 			<listheader label="Table" hflex="1" align="center" sort="auto"/>
 			<listheader label="Player 1" hflex="2"/>
-			<listheader label="Corp. result Player 1" hflex="2"/>
-			<listheader label="Runner result Player 1" hflex="2"/>
+			<listheader label="Prestige Player 1 (C:R)" hflex="2"/>
 			<listheader label="Player 2" hflex="2"/>
-			<listheader label="Corp. result Player 2" hflex="2"/>
-			<listheader label="Runner result Player 2" hflex="2"/>
+			<listheader label="Prestige Player 2 (C:R)" hflex="2"/>
 			<listheader label="Action" hflex="1" align="center"/>
 		</listhead>
 	</listbox>

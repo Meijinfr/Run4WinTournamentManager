@@ -15,7 +15,6 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
-import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Grid;
@@ -37,8 +36,6 @@ import fr.meijin.run4win.util.MatchingUtils;
 import fr.meijin.run4win.util.RankingUtils;
 import fr.meijin.run4win.util.TournamentUtils;
 import fr.meijin.run4win.util.file.ExportUtils;
-import fr.meijin.run4win.util.identity.CorporationIdentityEnum;
-import fr.meijin.run4win.util.identity.RunnerIdentityEnum;
 import fr.meijin.run4win.util.lang.LangEnum;
 import fr.meijin.run4win.util.lang.LangUtils;
 
@@ -51,8 +48,6 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	private Tabbox resultTabbox;
 	private Listbox playersList;
 	private Grid playersResultsGrid;
-
-	private Combobox tieBreakCombobox;
 
 	public void doAfterCompose(Div div) throws Exception {
 		super.doAfterCompose(div);
@@ -94,7 +89,6 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	public void onClick$addRound (Event e) throws InterruptedException{
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
 		RankingUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
-		boolean addBye = false;
 		
 		Collections.sort(tournament.players);
 		if(tournament.rounds >= 1){
@@ -106,8 +100,6 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 				pr.prestige = p.getPrestige();
 				pr.weakestSideWins = p.getWeakestSideWins();
 				pr.opponentsStrength = p.getOpponentsStrength();
-				pr.opponentsPoints = p.getOpponentsPoints();
-				pr.points = p.getPoints();
 				ranking.playerRankings.add(pr);
 			}
 			
@@ -116,17 +108,13 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 			tournament.rankings.add(ranking);
 		}
 		
-		Collections.sort(tournament.players);
-		
 		List<Player> toMatch = new ArrayList<Player>(tournament.players);
-		
 		List<Player> forfeitPlayers = new ArrayList<Player>();
 		for(Player p : toMatch){
 			System.out.println("Player to match "+p.nickname);
 			if (p.forfeit && p.id !=0)
 				forfeitPlayers.add(p);
 		}
-		
 		toMatch.removeAll(forfeitPlayers);
 
 		if(toMatch.size()%2 == 1){
@@ -134,32 +122,42 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 			if(rep == Messagebox.NO){
 				return;
 			} else {
-				addBye = true;
+				toMatch.add(TournamentUtils.createByePlayer());
 			}
 		} else if (tournament.players.isEmpty()){
 			Messagebox.show(LangUtils.getMessage(LangEnum.NO_PLAYERS), LangUtils.getMessage(LangEnum.ERROR), Messagebox.OK, Messagebox.ERROR);
 			return;
 		}
-		
-		if(addBye){
-			Player p = new Player();
-			p.id=0;
-			p.nickname = "BYE";
-			p.forfeit = true;
-			p.idCorporation = CorporationIdentityEnum.BLANK;
-			p.idRunner = RunnerIdentityEnum.BLANK;
-			toMatch.add(p);
-		}
-		
+
 		tournament.rounds++;
 		
-		
 		Collections.sort(toMatch);
+		List<Game> matched = new ArrayList<Game>();
+		if(tournament.rounds == 1){
+			List<Player> byePlayers = new ArrayList<Player>();
+			for(Player p : toMatch){
+				if (p.byeFirstRound){
+					byePlayers.add(p);
+				}
+			}
 			
-		if(tournament.rounds == 1)
+			toMatch.removeAll(byePlayers);
+			
+			for(Player p : byePlayers){
+				Game game = new Game();
+				game.roundNumber = tournament.rounds;
+				game.tableNumber = 0;
+				game.player1 = p;
+				game.player2 = TournamentUtils.createByePlayer();
+				game.p1Result.resultCorporation = 2;
+				game.p1Result.resultRunner = 2;
+				matched.add(game);
+			}
+			
 			Collections.shuffle(toMatch);
+		}
 		
-		Round r = MatchingUtils.doSingleMatch(tournament.rounds,tournament.roundsList, toMatch, new ArrayList<Game>());
+		Round r = MatchingUtils.doSingleMatch(tournament.rounds,tournament.roundsList, toMatch, matched);
 		tournament.roundsList.add(r);
 		
 		Tab tab = addRoundTab(r);
@@ -243,26 +241,6 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		playersResultsGrid.invalidate();
 		playersResultsGrid.renderAll();
 		binder.loadComponent(playersResultsGrid);
-	}
-	
-	public void onSelect$tieBreakCombobox(Event e){
-		int tieBreak = Integer.parseInt((String) tieBreakCombobox.getSelectedItem().getValue());
-		Tournament tournament = (Tournament) session.getAttribute("tournament");
-		
-		tournament.tieBreak = tieBreak;
-		
-		for(Player p : tournament.players){
-			p.tieBreak = tieBreak;
-		}
-		
-		page.setAttribute("V2Visibility", (tieBreak == 1));
-		TournamentUtils.reloadRanking(tournament);
-		
-		deleteTabs();
-		tournament = reloadTabs(tournament);
-		tournament = reloadPlayerRankingTab(tournament);
-		session.setAttribute("tournament", tournament);
-		binder.loadAll();
 	}
 	
 	private Tournament reloadPlayerRankingTab(Tournament tournament) {

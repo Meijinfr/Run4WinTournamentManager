@@ -32,6 +32,10 @@
 					<label value="Forfeit" />
 					<checkbox id="forfeitCheckbox" />
 				</row>
+				<row>
+					<label value="Bye First Round" />
+					<checkbox id="byeFirstRoundCheckbox" />
+				</row>
 			</rows>
 		</grid>
 		<div align="right">

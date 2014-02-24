@@ -6,6 +6,8 @@ import fr.meijin.run4win.model.Player;
 import fr.meijin.run4win.model.PlayerRanking;
 import fr.meijin.run4win.model.Ranking;
 import fr.meijin.run4win.model.Tournament;
+import fr.meijin.run4win.util.identity.CorporationIdentityEnum;
+import fr.meijin.run4win.util.identity.RunnerIdentityEnum;
 
 
 
@@ -24,13 +26,21 @@ public class TournamentUtils {
 					pr.prestige = p.getPrestigeByRound(i);
 					pr.weakestSideWins = p.getWeakestSideWins(i);
 					pr.opponentsStrength = p.getOpponentsStrengthByRound(i);
-					pr.opponentsPoints = p.getOpponentsPointsByRound(i);
-					pr.points = p.getPointsByRound(i);
 					ranking.playerRankings.add(pr);
 				}
 				
 				tournament.rankings.add(ranking);
 			}
 		}
+	}
+	
+	public static Player createByePlayer(){
+		Player p = new Player();
+		p.id=0;
+		p.nickname = "BYE";
+		p.forfeit = true;
+		p.idCorporation = CorporationIdentityEnum.BLANK;
+		p.idRunner = RunnerIdentityEnum.BLANK;
+		return p;
 	}
 }

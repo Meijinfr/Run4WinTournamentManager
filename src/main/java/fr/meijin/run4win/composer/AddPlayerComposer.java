@@ -29,7 +29,7 @@ public class AddPlayerComposer extends GenericForwardComposer<Window>{
 	private Combobox idCorporationCombobox;
 	private Combobox idRunnerCombobox;
 	private Checkbox forfeitCheckbox;
-
+	private Checkbox byeFirstRoundCheckbox;
 	
 	@Override
 	public void doAfterCompose(Window comp) throws Exception {
@@ -47,6 +47,7 @@ public class AddPlayerComposer extends GenericForwardComposer<Window>{
 			idCorporationCombobox.setValue(oldPlayer.idCorporation.getDisplayName());
 			idRunnerCombobox.setValue(oldPlayer.idRunner.getDisplayName());
 			forfeitCheckbox.setChecked(oldPlayer.forfeit);
+			byeFirstRoundCheckbox.setChecked(oldPlayer.byeFirstRound);
 		}
 		binder.loadAll();
 	}
@@ -86,7 +87,7 @@ public class AddPlayerComposer extends GenericForwardComposer<Window>{
 			p.idRunner = RunnerIdentityEnum.valueOf((String) idRunnerCombobox.getValue());
 		
 		p.forfeit = forfeitCheckbox.isChecked();
-		p.tieBreak = tournament.tieBreak;
+		p.byeFirstRound = byeFirstRoundCheckbox.isChecked();
 		
 		page.setAttribute("newPlayer",p);
 		self.detach();

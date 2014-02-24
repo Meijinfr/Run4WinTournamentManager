@@ -46,7 +46,6 @@ public class ExportUtils {
 			JSONObject jsonPlayer = new JSONObject();
 			jsonPlayer.put("id", player.id);
 			jsonPlayer.put("corpFaction", player.idCorporation.getFaction());
-			jsonPlayer.put("matchPoints", player.getPoints());
 			jsonPlayer.put("corpIdentity", player.idCorporation.getDisplayName());
 			jsonPlayer.put("opponentStrength", player.getOpponentsStrength());
 			jsonPlayer.put("runnerFaction", player.idRunner.getFaction());

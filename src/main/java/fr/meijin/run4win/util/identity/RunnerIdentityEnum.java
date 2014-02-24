@@ -7,7 +7,7 @@ public enum RunnerIdentityEnum implements IdentityEnum {
 	
 	NOISE									("noise","Noise","color : #e45f30;","01001","Anarch"),
 	WHIZZARD								("whizzard","Whizzard","color : #e45f30;","02001","Anarch"),
-	REINA_ROJA								("reinaroja","Reina Roja","color : #e45f30;","04041","Anarch"),
+	REINA_ROJA								("reina","Reina Roja","color : #e45f30;","04041","Anarch"),
 	
 	GABRIEL									("gabriel","Gabriel Santiago","color : #3e6ea9;","01017","Criminal"),
 	ANDROMEDA								("andromeda","Andromeda","color : #3e6ea9;","02083","Criminal"),

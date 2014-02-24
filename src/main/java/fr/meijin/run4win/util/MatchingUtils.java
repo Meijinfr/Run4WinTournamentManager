@@ -10,6 +10,7 @@ import fr.meijin.run4win.model.Round;
 
 public class MatchingUtils {
 
+	private static int TABLE_NUMBER = 1;
 
 	public static boolean matches (int roundNumber, List<Player> toMatch, List<Player> matchedPlayers,List<Round> lastRounds, List<Game> matched) {
 		boolean foundMatch = false;
@@ -50,7 +51,7 @@ public class MatchingUtils {
 	public static Round doSingleMatch(int roundNumber, List<Round> lastRounds, List<Player> toMatch, List<Game> matched){
 		Round round = new Round();
 		round.roundNumber = roundNumber;
-		
+		TABLE_NUMBER = 1;
 		List<Player> matchedPlayers = new ArrayList<Player>();
 		
 		boolean foundMatch = false;
@@ -107,26 +108,16 @@ public class MatchingUtils {
 		sg.player2 = p2;
 		sg.roundNumber = roundNumber;
 		
-		int tableNumber = 1;
-		for(Game g : matched){
-			if(g.tableNumber == tableNumber)
-				tableNumber++;
-			else
-				break;
-		}
-		
-		sg.tableNumber = tableNumber;
-		
 		if(sg.player1.forfeit){
-			sg.p1Result.resultCorporation = 0;
-			sg.p1Result.resultRunner = 0;
-			sg.p2Result.resultCorporation = 10;
-			sg.p2Result.resultRunner = 10;
-		}else if (sg.player2.forfeit){
-			sg.p2Result.resultCorporation = 0;
-			sg.p2Result.resultRunner = 0;
-			sg.p1Result.resultCorporation = 10;
-			sg.p1Result.resultRunner = 10;
+			sg.tableNumber = 0;
+			sg.p2Result.resultCorporation = 2;
+			sg.p2Result.resultRunner = 2;
+		} else if (sg.player2.forfeit){
+			sg.tableNumber = 0;
+			sg.p1Result.resultCorporation = 2;
+			sg.p1Result.resultRunner = 2;
+		} else  {
+			sg.tableNumber = TABLE_NUMBER++;
 		}
 
 		return sg;

@@ -20,11 +20,9 @@ public class SingleRoundItemRenderer implements ListitemRenderer<Game>{
 	public void render(Listitem item, Game g, int i) throws Exception {
 		createLabelCell(String.valueOf(g.tableNumber)).setParent(item);
 		createLabelCell(g.player1.nickname).setParent(item);
-		createResultCorporationCell(g.p1Result).setParent(item);
-		createResultRunnerCell(g.p1Result).setParent(item);
+		createResultCell(g.p1Result).setParent(item);
 		createLabelCell(g.player2.nickname).setParent(item);
-		createResultCorporationCell(g.p2Result).setParent(item);
-		createResultRunnerCell(g.p2Result).setParent(item);
+		createResultCell(g.p2Result).setParent(item);
 		Listcell cell = createListcellButtons(g);
 		
 		if(g.p1Result.resultCorporation == 0 && g.p1Result.resultRunner == 0 
@@ -41,23 +39,19 @@ public class SingleRoundItemRenderer implements ListitemRenderer<Game>{
 		return new Listcell();
 	}
 	
-	private Listcell createResultCorporationCell(Result result) {
+	private Listcell createResultCell(Result result) {
+		
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append(result.resultCorporation+result.resultRunner);
 		
 		if (result.flatlineWin)
-			return new Listcell(result.resultCorporation+" (Flatline)");
-		else if(result.resultCorporation != null)
-			return new Listcell(result.resultCorporation.toString());
-		
-		return new Listcell();
-	}
-	
-	private Listcell createResultRunnerCell(Result result) {
+			builder.append(" (Flatline)");
+
 		if (result.millWin)
-			return new Listcell(result.resultRunner+" ("+LangUtils.getMessage(LangEnum.MILL)+")");
-		else if(result.resultRunner != null)
-			return new Listcell(result.resultRunner.toString());
+			builder.append(" "+LangUtils.getMessage(LangEnum.MILL));
 		
-		return new Listcell();
+		return new Listcell(builder.toString());
 	}
 	
 	private Listcell createListcellButtons(final Game g){

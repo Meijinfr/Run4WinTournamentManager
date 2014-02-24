@@ -81,18 +81,7 @@
 						</listhead>
 					</listbox>
 				</tabpanel>
-				<tabpanel>
-					<div style="margin-top : 5px; margin-bottom : 5px; margin-left : 10px;">
-						<label value="Calcul du prestige"/>
-						<combobox id="tieBreakCombobox">
-							<attribute name="onCreate">
-								self.setSelectedIndex(1);
-							</attribute>
-							<comboitem value="0" label="V1" />
-							<comboitem value="1" label="V2" />
-						</combobox>
-					</div>
-								
+				<tabpanel>		
 					<tabbox id="resultTabbox" width="100%"  style="margin-top : 20px;">
 						<tabs>
 							<tab id="currentResultTab" closable="false" label="En cours" />
@@ -106,10 +95,8 @@
 										<column label="Rang" align="center" hflex="1" />
 										<column label="Pseudo" hflex="2" />
 										<column label="Prestige pris" hflex="2" />
-										<column label="Côté faible" hflex="2" visible="@{pageScope.V2Visibility}" />
+										<column label="Côté faible" hflex="2" />
 										<column label="Force adversaires" hflex="2" />
-										<column label="Agendas pris" hflex="2" />
-										<column label="Agendas laissés" hflex="2" />
 									</columns>
 									<rows>
 										<row self="@{each='player'}"
@@ -117,10 +104,8 @@
 											<label value="@{self.parent.index, converter='fr.meijin.run4win.converter.RankingConverter'}" />
 											<label value="@{player.nickname}" />
 											<label value="@{player.prestige}" />
-											<label value="@{player.weakestSideWins}" visible="@{pageScope.V2Visibility}"/>
+											<label value="@{player.weakestSideWins}" />
 											<label value="@{player.opponentsStrength}" />
-											<label value="@{player.points}" />
-											<label value="@{player.opponentsPoints}" />
 										</row>
 									</rows>
 								</grid>
