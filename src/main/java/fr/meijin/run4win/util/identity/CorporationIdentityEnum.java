@@ -14,6 +14,8 @@ public enum CorporationIdentityEnum implements IdentityEnum {
 	JINTEKI_PERSONAL_EVOLUTION				("personal_evolution","Personal Evolution","color : #c53127;","01067","Jinteki"),
 	JINTEKI_REPLICATING_PERFECTION			("replicating_perfection","Replicating Perfection","color : #c53127;","02031","Jinteki"),
 	HARMONY_MEDTECH							("harmony_medtech","Harmony Medtech","color : #c53127;", "05001","Jinteki"),
+	TENNIN_INSTITUTE						("tennin_institute","Tennin Institute","color : #c53127;", "05002","Jinteki"),
+	NISEI_DIVISION							("nisei_division","Nisei Division","color : #c53127;", "05003","Jinteki"),
 	
 	NBN_MAKING_NEWS							("making_news","Making News","color : #ecaa2c;","01080","NBN"),
 	NBN_THE_WORLD_IS_YOURS					("the_world_is_yours","The World is Yours","color : #ecaa2c;","02114","NBN"),

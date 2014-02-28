@@ -49,7 +49,7 @@ public class SingleRoundItemRenderer implements ListitemRenderer<Game>{
 			builder.append(" (Flatline)");
 
 		if (result.millWin)
-			builder.append(" "+LangUtils.getMessage(LangEnum.MILL));
+			builder.append(" ("+LangUtils.getMessage(LangEnum.MILL)+")");
 		
 		return new Listcell(builder.toString());
 	}
