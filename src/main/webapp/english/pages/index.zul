@@ -20,7 +20,7 @@
 		<menubar id="menubar" width="100%">
 			<menuitem label="Run 4 Win" disabled="true" zclass="title" />
 			
-			<menu label="Fichier">
+			<menu label="File">
 				<menupopup>
 					<menuitem id="newTournament" label="New" />
 					<menuitem id="fileOpen" label="Open" upload="true" />

@@ -65,13 +65,34 @@ public class AddSingleResultComposer extends GenericForwardComposer<Window>{
 			return;
 		}
 		
-		if(intboxP1ResultRunner.getValue() == 10 && intboxP2ResultCorporation.getValue() == 10){
+		if(intboxP1ResultRunner.getValue() == 2 && intboxP2ResultCorporation.getValue() == 2){
 			intboxP1ResultRunner.setSclass("red_border");
 			intboxP2ResultCorporation.setSclass("red_border");
 			binder.loadAll();
 			return;
-		} else if(intboxP2ResultRunner.getValue() == 10 && intboxP1ResultCorporation.getValue() == 10){
+			
+		} else if(intboxP2ResultRunner.getValue() == 2 && intboxP1ResultCorporation.getValue() == 2){
 			intboxP2ResultRunner.setSclass("red_border");
+			intboxP1ResultCorporation.setSclass("red_border");
+			binder.loadAll();
+			return;
+			
+		} else if(intboxP2ResultRunner.getValue() > 2){
+			intboxP2ResultRunner.setSclass("red_border");
+			binder.loadAll();
+			return;
+			
+		} else if(intboxP1ResultRunner.getValue() > 2){
+			intboxP1ResultRunner.setSclass("red_border");
+			binder.loadAll();
+			return;
+			
+		} else if(intboxP2ResultCorporation.getValue() > 2){
+			intboxP2ResultCorporation.setSclass("red_border");
+			binder.loadAll();
+			return;
+			
+		} else if(intboxP1ResultCorporation.getValue() > 2){
 			intboxP1ResultCorporation.setSclass("red_border");
 			binder.loadAll();
 			return;
@@ -121,17 +142,30 @@ public class AddSingleResultComposer extends GenericForwardComposer<Window>{
 	}
 	
 	public void onChangeResult (){
-		
-		if(intboxP1ResultRunner.getValue() == 10 && intboxP2ResultCorporation.getValue() == 10){
+		validateButton.setDisabled(true);
+		if(intboxP1ResultRunner.getValue() == 2 && intboxP2ResultCorporation.getValue() == 2){
 			intboxP1ResultRunner.setSclass("red_border");
 			intboxP2ResultCorporation.setSclass("red_border");
-			validateButton.setDisabled(true);
-		} else if(intboxP2ResultRunner.getValue() == 10 && intboxP1ResultCorporation.getValue() == 10){
+			
+		} else if(intboxP2ResultRunner.getValue() == 2 && intboxP1ResultCorporation.getValue() == 2){
 			intboxP2ResultRunner.setSclass("red_border");
 			intboxP1ResultCorporation.setSclass("red_border");
-			validateButton.setDisabled(true);
+			
+		} else if(intboxP2ResultRunner.getValue() > 2){
+			intboxP2ResultRunner.setSclass("red_border");
+			
+		} else if(intboxP1ResultRunner.getValue() > 2){
+			intboxP1ResultRunner.setSclass("red_border");
+			
+		} else if(intboxP2ResultCorporation.getValue() > 2){
+			intboxP2ResultCorporation.setSclass("red_border");
+			
+		} else if(intboxP1ResultCorporation.getValue() > 2){
+			intboxP1ResultCorporation.setSclass("red_border");
+			
 		} else {
 			validateButton.setDisabled(false);
+			
 		}
 		
 		

@@ -19,7 +19,7 @@
 					<image src="@{pageScope.game.player1.idRunner,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" />
 				</div>
 				<div>
-					<intbox id="intboxP1ResultRunner"  value="${arg.game.p1Result.resultRunner }" width="30px" focus="true"/>
+					<intbox id="intboxP1ResultRunner"  value="${arg.game.p1Result.resultRunner }" width="30px" focus="true" constraint="no negative"/>
 					<checkbox id="checkboxP1Mill" label="Mill"/>
 				</div>
 			</row>
@@ -28,7 +28,7 @@
 					<image src="@{pageScope.game.player1.idCorporation,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" />
 				</div>
 				<div>
-					<intbox id="intboxP1ResultCorporation"  value="${arg.game.p1Result.resultCorporation }" width="30px"/>
+					<intbox id="intboxP1ResultCorporation"  value="${arg.game.p1Result.resultCorporation }" width="30px" constraint="no negative"/>
 					<checkbox id="checkboxP1Flatline" label="Flatline"/>
 				</div>
 			</row>
@@ -51,7 +51,7 @@
 				</div>
 				
 				<div>
-					<intbox id="intboxP2ResultCorporation"  value="${arg.game.p2Result.resultCorporation }" width="30px"/>
+					<intbox id="intboxP2ResultCorporation"  value="${arg.game.p2Result.resultCorporation }" width="30px" constraint="no negative"/>
 					<checkbox id="checkboxP2Flatline" label="Flatline"/>
 				</div>
 			</row>
@@ -60,7 +60,7 @@
 					<image src="@{pageScope.game.player2.idRunner,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" />
 				</div>
 				<div>
-					<intbox id="intboxP2ResultRunner"  value="${arg.game.p2Result.resultRunner }" width="30px"/>
+					<intbox id="intboxP2ResultRunner"  value="${arg.game.p2Result.resultRunner }" width="30px" constraint="no negative"/>
 					<checkbox id="checkboxP2Mill" label="Mill"/>
 				</div>
 			</row>
