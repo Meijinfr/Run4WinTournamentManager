@@ -13,6 +13,7 @@ import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Filedownload;
+import org.zkoss.zul.Grid;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.SimpleListModel;
@@ -27,7 +28,7 @@ import fr.meijin.run4win.util.file.ExportUtils;
 import fr.meijin.run4win.util.lang.LangEnum;
 import fr.meijin.run4win.util.lang.LangUtils;
 
-public class SingleRoundComposer extends GenericForwardComposer<Listbox> {
+public class SingleRoundComposer extends GenericForwardComposer<Grid> {
 
 	private static final long serialVersionUID = 8348836580852634722L;
 
@@ -35,16 +36,16 @@ public class SingleRoundComposer extends GenericForwardComposer<Listbox> {
 	
 	private Round round;
 	
-	private Listbox listboxRound;
+	private Grid gridRound;
 	
-	public void doAfterCompose (Listbox listbox) throws Exception{
-		super.doAfterCompose(listbox);
-		binder = new AnnotateDataBinder(listbox);
+	public void doAfterCompose (Grid grid) throws Exception{
+		super.doAfterCompose(grid);
+		binder = new AnnotateDataBinder(grid);
 		round = (Round) execution.getAttribute("round");
 		
 		Collections.sort(round.games);
 		
-		listboxRound.setModel(new SimpleListModel<Game>(round.games));
+		gridRound.setModel( new SimpleListModel<Game>(round.games));
 		page.setAttribute("round", round);
 		binder.loadAll();
 	}
@@ -97,7 +98,7 @@ public class SingleRoundComposer extends GenericForwardComposer<Listbox> {
 				tournament.roundsList.add(index, round);
 				
 				Collections.sort(round.games);
-				listboxRound.setModel(new SimpleListModel<Game>(round.games));
+				gridRound.setModel(new SimpleListModel<Game>(round.games));
 				
 			} else {
 				System.out.println("Setting game");
@@ -115,9 +116,9 @@ public class SingleRoundComposer extends GenericForwardComposer<Listbox> {
 			
 		}
 		desktop.removeAttribute("newGame");
-		listboxRound.setModel(new SimpleListModel<Game>(round.games));
-		listboxRound.renderAll();
-		listboxRound.invalidate();
+		gridRound.setModel(new SimpleListModel<Game>(round.games));
+		gridRound.renderAll();
+		gridRound.invalidate();
 		binder.loadAll();
 	}
 	

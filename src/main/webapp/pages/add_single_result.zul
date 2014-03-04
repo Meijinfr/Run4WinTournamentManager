@@ -19,8 +19,11 @@
 					<image src="@{pageScope.game.player1.idRunner,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" />
 				</div>
 				<div>
-					<intbox id="intboxP1ResultRunner"  value="${arg.game.p1Result.resultRunner }" width="30px" focus="true" constraint="no negative"/>
-					<checkbox id="checkboxP1Mill" label="Meule"/>
+					<hlayout spacing="0">
+						<image id="image0RunnerP1" src="/images/button_0_active.png" style="cursor : pointer;" />
+						<image id="image1RunnerP1" src="/images/button_1.png" style="cursor : pointer;" hover="/images/button_1_hover.png"/>
+						<image id="image2RunnerP1" src="/images/button_2.png" style="cursor : pointer;" hover="/images/button_2_hover.png"/>
+					</hlayout>
 				</div>
 			</row>
 			<row>
@@ -28,8 +31,11 @@
 					<image src="@{pageScope.game.player1.idCorporation,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" />
 				</div>
 				<div>
-					<intbox id="intboxP1ResultCorporation"  value="${arg.game.p1Result.resultCorporation }" width="30px" constraint="no negative"/>
-					<checkbox id="checkboxP1Flatline" label="Flatline"/>
+					<hlayout spacing="0">
+						<image id="image0CorporationP1" src="/images/button_0_active.png" style="cursor : pointer;" />
+						<image id="image1CorporationP1" src="/images/button_1.png" style="cursor : pointer;" hover="/images/button_1_hover.png"/>
+						<image id="image2CorporationP1" src="/images/button_2.png" style="cursor : pointer;" hover="/images/button_2_hover.png"/>
+					</hlayout>
 				</div>
 			</row>
 		</rows>
@@ -51,8 +57,11 @@
 				</div>
 				
 				<div>
-					<intbox id="intboxP2ResultCorporation"  value="${arg.game.p2Result.resultCorporation }" width="30px" constraint="no negative"/>
-					<checkbox id="checkboxP2Flatline" label="Flatline"/>
+					<hlayout spacing="0">
+						<image id="image0RunnerP2" src="/images/button_0_active.png" style="cursor : pointer;" />
+						<image id="image1RunnerP2" src="/images/button_1.png" style="cursor : pointer;" hover="/images/button_1_hover.png"/>
+						<image id="image2RunnerP2" src="/images/button_2.png" style="cursor : pointer;" hover="/images/button_2_hover.png"/>
+					</hlayout>
 				</div>
 			</row>
 			<row>
@@ -60,8 +69,11 @@
 					<image src="@{pageScope.game.player2.idRunner,converter='fr.meijin.run4win.converter.IdentityConverter'}" width="36px" />
 				</div>
 				<div>
-					<intbox id="intboxP2ResultRunner"  value="${arg.game.p2Result.resultRunner }" width="30px" constraint="no negative"/>
-					<checkbox id="checkboxP2Mill" label="Meule"/>
+					<hlayout spacing="0">
+						<image id="image0CorporationP2" src="/images/button_0_active.png" style="cursor : pointer;" />
+						<image id="image1CorporationP2" src="/images/button_1.png" style="cursor : pointer;" hover="/images/button_1_hover.png"/>
+						<image id="image2CorporationP2" src="/images/button_2.png" style="cursor : pointer;" hover="/images/button_2_hover.png"/>
+					</hlayout>
 				</div>
 			</row>
 		</rows>

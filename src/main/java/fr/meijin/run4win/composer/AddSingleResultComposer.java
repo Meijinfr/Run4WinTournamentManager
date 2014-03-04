@@ -5,9 +5,8 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
-import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Image;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Rows;
 import org.zkoss.zul.Window;
@@ -24,15 +23,21 @@ public class AddSingleResultComposer extends GenericForwardComposer<Window>{
 	
 	private AnnotateDataBinder binder;
 
-	private Intbox intboxP1ResultRunner;
-	private Intbox intboxP1ResultCorporation;
-	private Intbox intboxP2ResultRunner;
-	private Intbox intboxP2ResultCorporation;
+	private Image image0RunnerP1;
+	private Image image1RunnerP1;
+	private Image image2RunnerP1;
 	
-	private Checkbox checkboxP1Flatline;
-	private Checkbox checkboxP1Mill;
-	private Checkbox checkboxP2Flatline;
-	private Checkbox checkboxP2Mill;
+	private Image image0CorporationP1;
+	private Image image1CorporationP1;
+	private Image image2CorporationP1;
+	
+	private Image image0RunnerP2;
+	private Image image1RunnerP2;
+	private Image image2RunnerP2;
+	
+	private Image image0CorporationP2;
+	private Image image1CorporationP2;
+	private Image image2CorporationP2;
 
 	private Combobox player1Combobox;
 	private Combobox player2Combobox;
@@ -54,59 +59,102 @@ public class AddSingleResultComposer extends GenericForwardComposer<Window>{
 			player2Combobox.appendItem(p.nickname);
 		}
 		
+		setImages(g);
+		
 		page.setAttribute("game", g);
 		binder.loadAll();
 	}
 	
+	private void setImages(Game g) {
+		switch(g.p1Result.resultCorporation){
+		case 2:
+			setInactive(image0CorporationP1,0);
+			setInactive(image1CorporationP1,1);
+			setActive(image2CorporationP1,2);
+			break;
+		case 1:
+			setInactive(image0CorporationP1,0);
+			setInactive(image2CorporationP1,2);
+			setActive(image1CorporationP1,1);
+			break;
+		default:
+			setInactive(image2CorporationP1,2);
+			setInactive(image1CorporationP1,1);
+			setActive(image0CorporationP1,0);
+			break;
+		}
+		
+		switch(g.p1Result.resultRunner){
+		case 2:
+			setInactive(image0RunnerP1,0);
+			setInactive(image1RunnerP1,1);
+			setActive(image2RunnerP1,2);
+			break;
+		case 1:
+			setInactive(image0RunnerP1,0);
+			setInactive(image2RunnerP1,2);
+			setActive(image1RunnerP1,1);
+			break;
+		default:
+			setInactive(image2RunnerP1,2);
+			setInactive(image1RunnerP1,1);
+			setActive(image0RunnerP1,0);
+			break;
+		}
+		
+		switch(g.p2Result.resultCorporation){
+		case 2:
+			setInactive(image0CorporationP2,0);
+			setInactive(image1CorporationP2,1);
+			setActive(image2CorporationP2,2);
+			break;
+		case 1:
+			setInactive(image0CorporationP2,0);
+			setInactive(image2CorporationP2,2);
+			setActive(image1CorporationP2,1);
+			break;
+		default:
+			setInactive(image2CorporationP2,2);
+			setInactive(image1CorporationP2,1);
+			setActive(image0CorporationP2,0);
+			break;
+		}
+		
+		switch(g.p2Result.resultRunner){
+		case 2:
+			setInactive(image0RunnerP2,0);
+			setInactive(image1RunnerP2,1);
+			setActive(image2RunnerP2,2);
+			break;
+		case 1:
+			setInactive(image0RunnerP2,0);
+			setInactive(image2RunnerP2,2);
+			setActive(image1RunnerP2,1);
+			break;
+		default:
+			setInactive(image2RunnerP2,2);
+			setInactive(image1RunnerP2,1);
+			setActive(image0RunnerP2,0);
+			break;
+		}
+	}
+
+	private void setActive(Image image, int value) {
+		image.setHover(null);
+		image.setSrc("/images/button_"+value+"_active.png");
+	}
+
+	private void setInactive(Image image, int value) {
+		image.setHover("/images/button_"+value+"_hover.png");
+		image.setSrc("/images/button_"+value+".png");
+	}
+
 	public void onClick$validateButton (Event e){
 		Game g = (Game) page.getAttribute("game");
 		if(StringUtils.equals(player2Combobox.getText(), player1Combobox.getText())){
 			Messagebox.show(LangUtils.getMessage(LangEnum.IMPOSSIBLE_MATCH));
 			return;
 		}
-		
-		if(intboxP1ResultRunner.getValue() == 2 && intboxP2ResultCorporation.getValue() == 2){
-			intboxP1ResultRunner.setSclass("red_border");
-			intboxP2ResultCorporation.setSclass("red_border");
-			binder.loadAll();
-			return;
-			
-		} else if(intboxP2ResultRunner.getValue() == 2 && intboxP1ResultCorporation.getValue() == 2){
-			intboxP2ResultRunner.setSclass("red_border");
-			intboxP1ResultCorporation.setSclass("red_border");
-			binder.loadAll();
-			return;
-			
-		} else if(intboxP2ResultRunner.getValue() > 2){
-			intboxP2ResultRunner.setSclass("red_border");
-			binder.loadAll();
-			return;
-			
-		} else if(intboxP1ResultRunner.getValue() > 2){
-			intboxP1ResultRunner.setSclass("red_border");
-			binder.loadAll();
-			return;
-			
-		} else if(intboxP2ResultCorporation.getValue() > 2){
-			intboxP2ResultCorporation.setSclass("red_border");
-			binder.loadAll();
-			return;
-			
-		} else if(intboxP1ResultCorporation.getValue() > 2){
-			intboxP1ResultCorporation.setSclass("red_border");
-			binder.loadAll();
-			return;
-		}
-		
-		g.p1Result.resultCorporation = intboxP1ResultCorporation.getValue();
-		g.p1Result.resultRunner = intboxP1ResultRunner.getValue();
-		g.p1Result.flatlineWin = checkboxP1Flatline.isChecked();
-		g.p1Result.millWin = checkboxP1Mill.isChecked();
-		
-		g.p2Result.resultCorporation = intboxP2ResultCorporation.getValue();
-		g.p2Result.resultRunner = intboxP2ResultRunner.getValue();
-		g.p2Result.flatlineWin = checkboxP2Flatline.isChecked();
-		g.p2Result.millWin = checkboxP2Mill.isChecked();
 
 		Tournament t = (Tournament) session.getAttribute("tournament");
 		
@@ -141,35 +189,93 @@ public class AddSingleResultComposer extends GenericForwardComposer<Window>{
 		self.detach();
 	}
 	
-	public void onChangeResult (){
-		validateButton.setDisabled(true);
-		if(intboxP1ResultRunner.getValue() == 2 && intboxP2ResultCorporation.getValue() == 2){
-			intboxP1ResultRunner.setSclass("red_border");
-			intboxP2ResultCorporation.setSclass("red_border");
-			
-		} else if(intboxP2ResultRunner.getValue() == 2 && intboxP1ResultCorporation.getValue() == 2){
-			intboxP2ResultRunner.setSclass("red_border");
-			intboxP1ResultCorporation.setSclass("red_border");
-			
-		} else if(intboxP2ResultRunner.getValue() > 2){
-			intboxP2ResultRunner.setSclass("red_border");
-			
-		} else if(intboxP1ResultRunner.getValue() > 2){
-			intboxP1ResultRunner.setSclass("red_border");
-			
-		} else if(intboxP2ResultCorporation.getValue() > 2){
-			intboxP2ResultCorporation.setSclass("red_border");
-			
-		} else if(intboxP1ResultCorporation.getValue() > 2){
-			intboxP1ResultCorporation.setSclass("red_border");
-			
-		} else {
-			validateButton.setDisabled(false);
-			
-		}
-		
-		
+	/** RESULT BUTTONS **/
+	
+	public void onClick$image0RunnerP1 (Event e){
+		Game g = (Game) page.getAttribute("game");
+		g.p1Result.resultRunner = 0;
+		setImages(g);
+		page.setAttribute("game", g);
 		binder.loadAll();
-		return;
+	}
+	public void onClick$image1RunnerP1 (Event e){
+		Game g = (Game) page.getAttribute("game");
+		g.p1Result.resultRunner = 1;
+		setImages(g);
+		page.setAttribute("game", g);
+		binder.loadAll();
+	}
+	public void onClick$image2RunnerP1 (Event e){
+		Game g = (Game) page.getAttribute("game");
+		g.p1Result.resultRunner = 2;
+		setImages(g);
+		page.setAttribute("game", g);
+		binder.loadAll();
+	}
+	
+	public void onClick$image0CorporationP1 (Event e){
+		Game g = (Game) page.getAttribute("game");
+		g.p1Result.resultCorporation = 0;
+		setImages(g);
+		page.setAttribute("game", g);
+		binder.loadAll();
+	}
+	public void onClick$image1CorporationP1 (Event e){
+		Game g = (Game) page.getAttribute("game");
+		g.p1Result.resultCorporation = 1;
+		setImages(g);
+		page.setAttribute("game", g);
+		binder.loadAll();
+	}
+	public void onClick$image2CorporationP1 (Event e){
+		Game g = (Game) page.getAttribute("game");
+		g.p1Result.resultCorporation = 2;
+		setImages(g);
+		page.setAttribute("game", g);
+		binder.loadAll();
+	}
+	
+	public void onClick$image0RunnerP2 (Event e){
+		Game g = (Game) page.getAttribute("game");
+		g.p2Result.resultRunner = 0;
+		setImages(g);
+		page.setAttribute("game", g);
+		binder.loadAll();
+	}
+	public void onClick$image1RunnerP2 (Event e){
+		Game g = (Game) page.getAttribute("game");
+		g.p2Result.resultRunner = 1;
+		setImages(g);
+		page.setAttribute("game", g);
+		binder.loadAll();
+	}
+	public void onClick$image2RunnerP2 (Event e){
+		Game g = (Game) page.getAttribute("game");
+		g.p2Result.resultRunner = 2;
+		setImages(g);
+		page.setAttribute("game", g);
+		binder.loadAll();
+	}
+	
+	public void onClick$image0CorporationP2 (Event e){
+		Game g = (Game) page.getAttribute("game");
+		g.p2Result.resultCorporation = 0;
+		setImages(g);
+		page.setAttribute("game", g);
+		binder.loadAll();
+	}
+	public void onClick$image1CorporationP2 (Event e){
+		Game g = (Game) page.getAttribute("game");
+		g.p2Result.resultCorporation = 1;
+		setImages(g);
+		page.setAttribute("game", g);
+		binder.loadAll();
+	}
+	public void onClick$image2CorporationP2 (Event e){
+		Game g = (Game) page.getAttribute("game");
+		g.p2Result.resultCorporation = 2;
+		setImages(g);
+		page.setAttribute("game", g);
+		binder.loadAll();
 	}
 }

@@ -3,7 +3,7 @@ package fr.meijin.run4win.util.identity;
 
 public enum CorporationIdentityEnum implements IdentityEnum {
 
-	BLANK									("","","","",""),
+	BLANK									("cross","","","",""),
 	
 	HB_ENGINEERING_THE_FUTURE				("engineering_the_future","Engineering the Future", "color : #ac69bb;","01054","Haas-Bioroid"),
 	HB_STRONGER_TOGETHER					("stronger_together","Stronger Together","color : #ac69bb;","02010","Haas-Bioroid"),

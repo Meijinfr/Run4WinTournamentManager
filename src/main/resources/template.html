@@ -80,19 +80,23 @@
     			<table class="table-3">
     				<thead>
     					<th>N. Table</th>
-    					<th>Pseudo</th>
-    					<th>R&#233;sultat Corporation</th>
-    					<th>R&#233;sultat Runner</th>
+    					<th>Joueur 1</th>
+    					<th>Runner</th>
+    					<th>Corp.</th>
+    					<th>Joueur 2</th>
+    					<th>Runner</th>
+    					<th>Corp.</th>
     				</thead>
 	    			#foreach ( $game in $round.games )
 	    			<tr>
 	    				<td>$game.tableNumber</td>
-	    				<td>$game.player1.nickname</td>
+	    				<td>$game.player1.nickname </td>
 	    				<td>
 	    					#if($game.player1.idCorporation != "")
 		    					<img src="$identityConverter.coerceToHTML($game.player1.idCorporation)" width="30"/>
 		    				#end
-		    				$game.p1Result.resultCorporation 
+		    				$game.p1Result.resultCorporation
+		    			
 	    					#if($game.p1Result.flatlineWin)
 							(Flatline)
 	    					#end
@@ -106,9 +110,6 @@
 							(Meule)
 	    					#end
 	    				</td>
-	    			</tr>
-	    			<tr>
-	    				<td>$game.tableNumber</td>
 	    				<td>$game.player2.nickname</td>
 	    				<td>
 	    					#if($game.player2.idCorporation != "")

@@ -8,15 +8,15 @@
 		<button id="printFeuilleResultat" label="Result sheet (XLS)" mold="trendy"/>
 		<button id="deleteRound" label="Delete round" mold="trendy"/>
 	</div>
-	<listbox id="listboxRound" apply="fr.meijin.run4win.composer.SingleRoundComposer" class="printable"
-		itemRenderer="fr.meijin.run4win.renderer.SingleRoundItemRenderer"  height="99%">
-		<listhead>
-			<listheader label="Table" hflex="1" align="center" sort="auto"/>
-			<listheader label="Player 1" hflex="2"/>
-			<listheader label="Prestige Player 1 (C:R)" hflex="2"/>
-			<listheader label="Player 2" hflex="2"/>
-			<listheader label="Prestige Player 2 (C:R)" hflex="2"/>
-			<listheader label="Action" hflex="1" align="center"/>
-		</listhead>
-	</listbox>
+	<grid id="gridRound" apply="fr.meijin.run4win.composer.SingleRoundComposer" class="printable"
+		rowRenderer="fr.meijin.run4win.renderer.SingleRoundRowRenderer"  height="99%">
+		<columns>
+			<column label="Table" hflex="1" align="center" sort="auto"/>
+			<column label="Player 1" hflex="2"/>
+			<column label="Player 1 results" hflex="5"/>
+			<column label="Player 2" hflex="2"/>
+			<column label="Player 2 results" hflex="5"/>
+			<!-- <listheader label="Action" hflex="1" align="center"/>  -->
+		</columns>
+	</grid>
 </zk>

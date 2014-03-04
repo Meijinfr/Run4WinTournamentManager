@@ -3,7 +3,7 @@ package fr.meijin.run4win.util.identity;
 
 public enum RunnerIdentityEnum implements IdentityEnum {
 
-	BLANK									("","","","",""),
+	BLANK									("cross","","","",""),
 	
 	NOISE									("noise","Noise","color : #e45f30;","01001","Anarch"),
 	WHIZZARD								("whizzard","Whizzard","color : #e45f30;","02001","Anarch"),
@@ -13,6 +13,8 @@ public enum RunnerIdentityEnum implements IdentityEnum {
 	ANDROMEDA								("andromeda","Andromeda","color : #3e6ea9;","02083","Criminal"),
 	LARAMY_FISK								("laramy","Laramy Fisk","color : #3e6ea9;","00002","Criminal"),
 	SILHOUETTE								("silhouette","Silhouette","color : #3e6ea9;","05030","Criminal"),
+	KEN										("ken","Ken","color : #3e6ea9;","05029","Criminal"),
+	IAIN_STIRLING							("iain_stirling","Iain Stirling","color : #3e6ea9;","05028","Criminal"),
 	
 	KATE									("kate","Kate 'Mac' McCaffrey","color : #6b9141;","01033","Shaper"),
 	CHAOS_THEORY							("chaos_theory","Chaos Theory","color : #6b9141;","02046","Shaper"),

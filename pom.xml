@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.meijin</groupId>
 	<artifactId>Run4WinTournamentManager</artifactId>
-	<version>1.9-beta</version>
+	<version>1.9.1-beta</version>
 	<name>Run 4 Win Android:Netrunner Tournament Manager</name>
 	<packaging>war</packaging>
 

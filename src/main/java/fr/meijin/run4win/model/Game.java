@@ -78,5 +78,5 @@ public class Game implements Comparable<Game>,Serializable {
 		Integer gTable = g.tableNumber;
 		return thisTable.compareTo(gTable);
 	}
-	
+
 }
