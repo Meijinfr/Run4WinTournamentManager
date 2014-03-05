@@ -10,31 +10,31 @@
 			<rows>
 				<row>
 					<label value="First Name" />
-					<textbox id="firstNameTextbox" forward="onOk" />
+					<textbox id="firstNameTextbox" value="@{arg.oldPlayer.firstName }" forward="onOk" width="155px"/>
 				</row>
 				<row>
 					<label value="Last Name" />
-					<textbox id="lastNameTextbox" forward="onOk" />
+					<textbox id="lastNameTextbox" value="@{arg.oldPlayer.lastName }" forward="onOk" width="155px"/>
 				</row>
 				<row>
 					<label value="Nickname" />
-					<textbox id="nicknameTextbox" forward="onOk" constraint="no empty"/>
+					<textbox id="nicknameTextbox" value="@{arg.oldPlayer.nickname }" forward="onOk" constraint="no empty" width="155px"/>
 				</row>
 				<row>
 					<label value="Runner Id" />
-					<combobox id="idRunnerCombobox" readonly="true" model="@{pageScope.runnerIdentities }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" />
+					<listbox id="idRunnerListbox" mold="select" model="@{pageScope.runnerIdentities }" selectedItem="@{arg.oldPlayer.idRunner }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
 				</row>
 				<row>
 					<label value="Corporation Id" />
-					<combobox id="idCorporationCombobox" readonly="true" model="@{pageScope.corporationIdentities }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" />
+					<listbox id="idCorporationListbox" mold="select" model="@{pageScope.corporationIdentities }" selectedItem="@{arg.oldPlayer.idCorporation }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
 				</row>
 				<row>
 					<label value="Forfeit" />
-					<checkbox id="forfeitCheckbox" />
+					<checkbox id="forfeitCheckbox" value="@{arg.oldPlayer.forfeit }" />
 				</row>
 				<row>
 					<label value="Bye First Round" />
-					<checkbox id="byeFirstRoundCheckbox" />
+					<checkbox id="byeFirstRoundCheckbox" value="@{arg.oldPlayer.byeFirstRound }" />
 				</row>
 			</rows>
 		</grid>

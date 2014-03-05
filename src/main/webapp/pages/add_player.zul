@@ -2,39 +2,39 @@
 <zk>
 	<window apply="fr.meijin.run4win.composer.AddPlayerComposer" closable="true"
 		id="windowPlayer" title="Ajouter un joueur" border="normal">
-		<grid width="270px">
+		<grid width="280px">
 			<columns>
 				<column width="100px"/>
-				<column width="170px"/>
+				<column width="180px"/>
 			</columns>
 			<rows>
 				<row>
 					<label value="Prénom" />
-					<textbox id="firstNameTextbox" forward="onOk" />
+					<textbox id="firstNameTextbox" value="@{arg.oldPlayer.firstName }" forward="onOk" width="155px"/>
 				</row>
 				<row>
 					<label value="Nom" />
-					<textbox id="lastNameTextbox" forward="onOk" />
+					<textbox id="lastNameTextbox" value="@{arg.oldPlayer.lastName }" forward="onOk" width="155px"/>
 				</row>
 				<row>
 					<label value="Pseudo" />
-					<textbox id="nicknameTextbox" forward="onOk" constraint="no empty"/>
+					<textbox id="nicknameTextbox" value="@{arg.oldPlayer.nickname }" forward="onOk" constraint="no empty" width="155px"/>
 				</row>
 				<row>
 					<label value="Id Runner" />
-					<combobox id="idRunnerCombobox" readonly="true" model="@{pageScope.runnerIdentities }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" />
+					<listbox id="idRunnerListbox" mold="select" model="@{pageScope.runnerIdentities }" selectedItem="@{arg.oldPlayer.idRunner }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
 				</row>
 				<row>
 					<label value="Id Corporation" />
-					<combobox id="idCorporationCombobox" readonly="true" model="@{pageScope.corporationIdentities }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" />
+					<listbox id="idCorporationListbox" mold="select" model="@{pageScope.corporationIdentities }" selectedItem="@{arg.oldPlayer.idCorporation }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
 				</row>
 				<row>
 					<label value="Abandon" />
-					<checkbox id="forfeitCheckbox" />
+					<checkbox id="forfeitCheckbox" value="@{arg.oldPlayer.forfeit }" />
 				</row>
 				<row>
 					<label value="Bye Première Ronde" />
-					<checkbox id="byeFirstRoundCheckbox" />
+					<checkbox id="byeFirstRoundCheckbox" value="@{arg.oldPlayer.byeFirstRound }" />
 				</row>
 			</rows>
 		</grid>
