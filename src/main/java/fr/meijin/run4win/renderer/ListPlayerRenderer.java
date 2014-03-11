@@ -34,6 +34,7 @@ public class ListPlayerRenderer implements ListitemRenderer<Player> {
 		createIdCell(p.idRunner).setParent(item);
 
 		createListcellButtons(p).setParent(item);
+		item.setSclass("player_item");
 	}
 
 	private Component createIdCell(IdentityEnum id) {
@@ -59,11 +60,13 @@ public class ListPlayerRenderer implements ListitemRenderer<Player> {
 		return new Listcell();
 	}
 
-	private Listcell createLabelCell(String label) {
-		if (label != null)
-			return new Listcell(label);
-
-		return new Listcell();
+	private Listcell createLabelCell(String value) {
+		Label label = new Label(value);
+		Listcell cell = new Listcell();
+		
+		label.setParent(cell);
+		
+		return cell;
 	}
 	
 	private Listcell createListcellButtons(final Player p){

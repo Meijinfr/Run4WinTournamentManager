@@ -21,15 +21,14 @@ OLD CSS
 
 body {
 	font-family : Verdana;
-	background : url(../images/navbar-bg.png) #f0eee3 repeat-x;
-	
+	background : url(../images/style/navbar-bg.png) #f0eee3 repeat-x;
 }
 
 /***************************** GROUPBOX STYLE *****************************/
 
 .z-groupbox-3d-hm {
 	background: transparent repeat-x 0 0;
-	background-image: url(../images/bar-bg.png);
+	background-image: url(../images/style/bar-bg.png);
 	overflow: hidden;
 	border: 1px solid #f5f5f5;
 	zoom: 1;
@@ -57,10 +56,14 @@ body {
 	height : 100%;
 }
 
+.z-row-cnt .z-label {
+	color : #222;
+}
+
 /***************************** MENU BAR *****************************/
 
 .navbar-logo {
-	background : url(../images/navbar-logo.png) transparent no-repeat;
+	background : url(../images/style/navbar-logo.png) transparent no-repeat;
 	width : 428px;
 	height : 50px;
 	border : none;
@@ -86,7 +89,7 @@ body {
 /***************************** BUTTON STYLE *****************************/
 
 .button {
-	background : url(../images/navbar-bg.png) transparent repeat-x;
+	background : url(../images/style/navbar-bg.png) transparent repeat-x;
 	color : white;
 	-moz-border-radius:8px;
 	-webkit-border-radius:8px;
@@ -101,7 +104,7 @@ body {
 }
 
 .button:hover {
-	background : url(../images/navbar-bg-inverse.png) transparent repeat-x;
+	background : url(../images/style/navbar-bg-inverse.png) transparent repeat-x;
 }
 .button:active {
 	position:relative;
@@ -111,18 +114,27 @@ body {
 
 /***************************** LISTBOX STYLE *****************************/
 
-.z-listheader {
-	background : url(../images/navbar-bg.png) transparent repeat-x;
+.z-listheader, .z-columns {
+	background : url(../images/style/navbar-bg.png) transparent repeat-x;
 }
 
-div.z-listheader-cnt, span.z-tab-text {
+div.z-listheader-cnt, span.z-tab-text, div.z-column-cnt {
 	color : white;
+}
+
+div.z-column-cnt {
+	height : 20px;
+	margin-top : 5px;
+}
+
+.z-listcell-cnt .z-label {
+	color : #222;
 }
 
 /***************************** TAB STYLE *****************************/
 
-.z-tab, .z-tab-hl, .z-tab-hm, .z-tab-hl, .z-tab-hr {
-	background : url(../images/navbar-bg.png) transparent repeat-x;
+.z-tab, .z-tab-hm, .z-tab-hl, .z-tab-hr {
+	background : url(../images/style/navbar-bg.png) transparent repeat-x;
 	color : white;
 	margins : 0;
 	padding: 0;
@@ -133,8 +145,21 @@ div.z-listheader-cnt, span.z-tab-text {
 	border-top-right-radius:      8px;
 }
 
-.z-tab:hover, .z-tab-hl:hover, .z-tab-hm:hover, .z-tab-hl:hover, .z-tab-hr:hover {
-	background : url(../images/navbar-bg-inverse.png) transparent repeat-x;
+.z-tab-ver, .z-tab-ver-hm, .z-tab-ver-hl, .z-tab-ver-hr, 
+.z-tab-ver-hl .z-tab-ver-hr, .z-tab-ver .z-tab-ver-hm {
+	background : url(../images/style/navbar-bg.png) transparent repeat-x;
+	color : white;
+	margins : 0;
+	padding: 0;
+	
+	-moz-border-radius-topleft:  8px;
+	border-top-left-radius:      8px;
+	-moz-border-radius-bottomleft:  8px;
+	border-bottom-left-radius:      8px;
+}
+
+.z-tab:hover, .z-tab-hl:hover, .z-tab-hm:hover, .z-tab-hr:hover {
+	background : url(../images/style/navbar-bg-inverse.png) transparent repeat-x;
 	color : white;
 	margins : 0;
 	padding: 0;
@@ -145,40 +170,41 @@ div.z-listheader-cnt, span.z-tab-text {
 	border-top-right-radius:      8px;
 }
 
-.z-tab {
+.z-tab-ver:hover, .z-tab-ver-hm:hover, .z-tab-ver-hl:hover, .z-tab-ver-hr:hover, 
+.z-tab-ver:hover .z-tab-ver-hm:hover, .z-tab-ver-hl:hover .z-tab-ver-hr:hover {
+	background : url(../images/style/navbar-bg-inverse.png) transparent repeat-x;
+	color : white;
+	margins : 0;
+	padding: 0;
+	
 	-moz-border-radius-topleft:  8px;
 	border-top-left-radius:      8px;
+	-moz-border-radius-bottomleft:  8px;
+	border-bottom-left-radius:      8px;
+}
+
+.z-tab, .z-tab-ver {
 	border:1px solid #888;
 }
 
-.z-tab .z-tab-text {
-	padding-left : 10px;
-	font-size : 11pt;
-	font-weight : bolder;
-	padding-top : 6px;
-}
-
-li.z-tab-seld .z-tab-text {
-	background : url(../images/navbar-bg-inverse.png) transparent repeat-x;
-	padding-left : 10px;
-	font-size : 11pt;
-	font-weight : bolder;
-	padding-bottom : 5px;
-	padding-top : 6px;
-}
-
-.z-tab .z-tab-text {
+.z-tab .z-tab-text, .z-tab-ver .z-tab-ver-text  {
 	color : white;
+	
+	font-size : 11pt;
+	font-weight : bolder;
+	
 	padding-left : 10px;
 	padding-right : 10px;
 	padding-bottom : 5px;
 	padding-top : 6px;
 }
 
-.z-tab:hover .z-tab-text:hover {
-	color : white;
+li.z-tab-seld .z-tab-text, li.z-tab-ver-seld .z-tab-text {
+	background : url(../images/style/navbar-bg-inverse.png) transparent repeat-x;
 	padding-left : 10px;
-	padding-right : 10px;
+	font-size : 11pt;
+	font-weight : bolder;
+	padding-bottom : 5px;
 	padding-top : 6px;
 }
 
@@ -188,5 +214,54 @@ li.z-tab-seld .z-tab-text {
 }
 
 .result_tab {
-	background : url(../images/navbar-bg.png) transparent repeat-x;
+	background : url(../images/style/navbar-bg.png) transparent repeat-x;
+}
+
+.round_tab {
+	background : url(../images/style/navbar-bg.png) transparent repeat-x;
+	padding-top : 5px; 
+	padding-bottom : 5px;
+}
+
+/***************************** MODAL WINDOW *****************************/
+
+.modal .modal-shadow {
+	background : url(../images/style/navbar-bg.png) #f0eee3 repeat-x;
+}
+
+.modal {
+	background : url(../images/style/navbar-bg.png) #f0eee3 repeat-x;
+	-moz-border-radius-topleft:  8px;
+	border-top-left-radius:      8px;
+	-moz-border-radius-topright:  8px;
+	border-top-right-radius:      8px;
+}
+
+.modal .modal-hl, .modal-header {
+	height : 35px;
+	color : white;
+	padding-top : 8px;
+	padding-left : 10px;
+	font-weight : bolder;
+}
+
+.modal-cnt {
+	padding-left : 10px;
+	padding-right : 10px;
+	padding-bottom : 5px;
+	padding-top : 16px;
+	
+	border-left: 1px solid #888;
+	border-right: 1px solid #888;
+	border-bottom: 1px solid #888;
+	
+	-moz-border-radius-bottomleft:  8px;
+	border-bottom-left-radius:      8px;
+	-moz-border-radius-bottomright:  8px;
+	border-bottom-right-radius:      8px;
+}
+
+.modal .z-grid, .modal-cnt .z-grid-body, .modal-cnt .z-grid-body .z-row-inner {
+	background : transparent;
+	border : none;
 }

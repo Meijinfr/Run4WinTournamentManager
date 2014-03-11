@@ -1,9 +1,9 @@
 <?page title="add_player" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window apply="fr.meijin.run4win.composer.AddPlayerComposer" closable="true"
-		id="windowPlayer" title="Ajouter un joueur" border="normal">
+		id="windowPlayer" title="Ajouter un joueur" border="normal" zclass="modal">
 		<style src="/css/run4win.css" />
-		<grid width="280px" zclass="tournament_grid">
+		<grid width="280px" style="background : transparent;" oddRowSclass="false">
 			<columns>
 				<column width="100px"/>
 				<column width="180px"/>
@@ -40,8 +40,8 @@
 			</rows>
 		</grid>
 		<div align="right">
-			<button id="validateButton" label="Valider" mold="trendy" />
-			<button id="cancelButton" label="Annuler" mold="trendy" />
+			<button id="validateButton" label="Valider" class="button" />
+			<button id="cancelButton" label="Annuler" class="button" />
 		</div>
 	</window>
 </zk>

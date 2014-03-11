@@ -66,22 +66,22 @@ public class SingleRoundRowRenderer implements RowRenderer<Game>{
 		imageMill.setTooltiptext(LangUtils.getMessage(LangEnum.MILL));
 		imageMill.setStyle("margin-top : 6px; cursor : pointer;");
 		if(result.millWin){
-			imageMill.setSrc("/images/button_mill_active.png");
-			imageMill.setHover("/images/button_mill_hover_active.png");
+			imageMill.setSrc("/images/results/button_mill_active.png");
+			imageMill.setHover("/images/results/button_mill_hover_active.png");
 		} else {
-			imageMill.setSrc("/images/button_mill.png");
-			imageMill.setHover("/images/button_mill_hover.png");
+			imageMill.setSrc("/images/results/button_mill.png");
+			imageMill.setHover("/images/results/button_mill_hover.png");
 		}
 		imageMill.addEventListener("onClick", new EventListener<Event>() {
 			@Override
 			public void onEvent(Event e) throws Exception {
 				result.millWin = !result.millWin;
 				if(result.millWin){
-					imageMill.setSrc("/images/button_mill_active.png");
-					imageMill.setHover("/images/button_mill_hover_active.png");
+					imageMill.setSrc("/images/results/button_mill_active.png");
+					imageMill.setHover("/images/results/button_mill_hover_active.png");
 				} else {
-					imageMill.setSrc("/images/button_mill.png");
-					imageMill.setHover("/images/button_mill_hover.png");
+					imageMill.setSrc("/images/results/button_mill.png");
+					imageMill.setHover("/images/results/button_mill_hover.png");
 				}
 			}
 		});
@@ -104,22 +104,22 @@ public class SingleRoundRowRenderer implements RowRenderer<Game>{
 		imageFlat.setStyle("margin-top : 6px; cursor : pointer;");
 		imageFlat.setTooltiptext("Flatline");
 		if(result.flatlineWin){
-			imageFlat.setSrc("/images/button_flat_active.png");
-			imageFlat.setHover("/images/button_flat_hover_active.png");
+			imageFlat.setSrc("/images/results/button_flat_active.png");
+			imageFlat.setHover("/images/results/button_flat_hover_active.png");
 		} else {
-			imageFlat.setSrc("/images/button_flat.png");
-			imageFlat.setHover("/images/button_flat_hover.png");
+			imageFlat.setSrc("/images/results/button_flat.png");
+			imageFlat.setHover("/images/results/button_flat_hover.png");
 		}
 		imageFlat.addEventListener("onClick", new EventListener<Event>() {
 			@Override
 			public void onEvent(Event e) throws Exception {
 				result.flatlineWin = !result.flatlineWin;
 				if(result.flatlineWin){
-					imageFlat.setSrc("/images/button_flat_active.png");
-					imageFlat.setHover("/images/button_flat_hover_active.png");
+					imageFlat.setSrc("/images/results/button_flat_active.png");
+					imageFlat.setHover("/images/results/button_flat_hover_active.png");
 				} else {
-					imageFlat.setSrc("/images/button_flat.png");
-					imageFlat.setHover("/images/button_flat_hover.png");
+					imageFlat.setSrc("/images/results/button_flat.png");
+					imageFlat.setHover("/images/results/button_flat_hover.png");
 				}
 			}
 		});
@@ -130,12 +130,12 @@ public class SingleRoundRowRenderer implements RowRenderer<Game>{
 
 	private void setActive(Image image, int value) {
 		image.setHover(null);
-		image.setSrc("/images/button_"+value+"_active.png");
+		image.setSrc("/images/results/button_"+value+"_active.png");
 	}
 
 	private void setInactive(Image image, int value) {
-		image.setHover("/images/button_"+value+"_hover.png");
-		image.setSrc("/images/button_"+value+".png");
+		image.setHover("/images/results/button_"+value+"_hover.png");
+		image.setSrc("/images/results/button_"+value+".png");
 	}
 	
 	private Hlayout createResultHlayoutCorporation(final Result result){

@@ -23,7 +23,7 @@ public class IdentityConverter implements TypeConverter {
 			IdentityEnum id = (IdentityEnum) o;
 			
 			if (c instanceof Image) {
-				return "/images/"+id.getFilename()+".png";
+				return "/images/identities/"+id.getFilename()+".png";
 			} else if (c instanceof Label) {
 				return id.getDisplayName();
 			} else {

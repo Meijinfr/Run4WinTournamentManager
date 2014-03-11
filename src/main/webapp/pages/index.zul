@@ -58,9 +58,9 @@
 <!-- 		</menubar> -->
 		
 		<hlayout class="navbar">
-			<a href="/" width="428px" height="50px" image="/images/navbar-logo.png" style="margin-left : 5px;"/>
+			<a href="/" width="428px" height="50px" image="/images/style/navbar-logo.png" style="margin-left : 5px;"/>
 			
-			<hlayout width="100%" style="margin-top : 0.5em;">
+			<hlayout width="100%" style="margin-top : 0.5em; margin-left : 25%;">
 				<button id="newTournament" label="Nouveau" class="button"/>
 				<button id="fileOpen" label="Ouvrir" class="button"/>
 				<button id="fileSave" label="Enregistrer" class="button"/>
@@ -86,33 +86,31 @@
 						model="@{sessionScope.tournament.players}" width="100%" style="padding-right : -20px;">
 						<listhead>
 							<listheader label="N°" hflex="1" align="center"/>
-							<listheader label="Prénom" hflex="3"/>
-							<listheader label="Nom" hflex="3"/>
-							<listheader label="Pseudo" hflex="3"/>
-							<listheader label="Id Corporation" hflex="3"/>
-							<listheader label="Id Runner" hflex="3"/>
-							<listheader hflex="3">
+							<listheader label="Prénom" hflex="3" align="left"/>
+							<listheader label="Nom" hflex="3" align="left"/>
+							<listheader label="Pseudo" hflex="3" align="left"/>
+							<listheader label="Id Corporation" hflex="3" align="left"/>
+							<listheader label="Id Runner" hflex="3" align="left"/>
+							<listheader hflex="3" align="left">
 								<button id="addPlayerButton" label="Ajouter un joueur" class="button"/>
 							</listheader>
 						</listhead>
 					</listbox>
 				</tabpanel>
 				<tabpanel>		
-					<tabbox id="resultTabbox" width="100%" zclass="result_tab">
+					<tabbox id="resultTabbox" width="100%" zclass="result_tab" orient="horizontal">
 						<tabs width="150px">
 							<tab id="currentResultTab" closable="false" label="En cours"/>
 						</tabs>
 						<tabpanels>
 							<tabpanel>
-								
-								
 								<grid id="playersResultsGrid" model="@{sessionScope.tournament.players}" zclass="tournament_grid">
 									<columns sizable="true">
 										<column label="Rang" align="center" hflex="1" />
-										<column label="Pseudo" hflex="2" />
-										<column label="Prestige pris" hflex="2" />
-										<column label="Côté faible" hflex="2" />
-										<column label="Force adversaires" hflex="2" />
+										<column label="Pseudo" hflex="2" align="left"/>
+										<column label="Prestige pris" hflex="2" align="left"/>
+										<column label="Côté faible" hflex="2" align="left"/>
+										<column label="Force adversaires" hflex="2" align="left"/>
 									</columns>
 									<rows>
 										<row self="@{each='player'}"
