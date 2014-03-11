@@ -80,7 +80,7 @@ public class ListPlayerRenderer implements ListitemRenderer<Player> {
 			
 		});
 		editButton.setStyle("margin-right : 10px;");
-		editButton.setMold("trendy");
+		editButton.setSclass("button");
 		editButton.setParent(listcell);
 		
 		Button deleteButton = new Button(LangUtils.getMessage(LangEnum.DELETE));
@@ -92,7 +92,7 @@ public class ListPlayerRenderer implements ListitemRenderer<Player> {
 			}
 			
 		});
-		deleteButton.setMold("trendy");
+		deleteButton.setSclass("button");
 		deleteButton.setParent(listcell);
 		
 		return listcell;

@@ -1,6 +1,6 @@
 <?page title="Ranking" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<grid apply="fr.meijin.run4win.composer.RankingComposer" model="@{pageScope.playerRankings}">
+	<grid apply="fr.meijin.run4win.composer.RankingComposer" model="@{pageScope.playerRankings}" zclass="tournament_grid">
 		<columns sizable="true">
 			<column label="Rang" align="center" hflex="1" />
 			<column label="Pseudo" hflex="2" />

@@ -1,3 +1,5 @@
+/*
+OLD CSS
 .red_border {
 	border : 1px solid #d77;
 }
@@ -15,4 +17,176 @@
 	font-weight : bolder; 
 	border : none;
 	background : transparent;
+}*/
+
+body {
+	font-family : Verdana;
+	background : url(../images/navbar-bg.png) #f0eee3 repeat-x;
+	
+}
+
+/***************************** GROUPBOX STYLE *****************************/
+
+.z-groupbox-3d-hm {
+	background: transparent repeat-x 0 0;
+	background-image: url(../images/bar-bg.png);
+	overflow: hidden;
+	border: 1px solid #f5f5f5;
+	zoom: 1;
+	cursor: default;
+	color : white;
+}
+
+.z-groupbox-3d-cnt {
+	border: 1px solid #f5f5f5;
+	padding: 0px;
+}
+
+.z-groupbox-3d-hl .z-groupbox-3d-header {
+    color: #fff;
+    font-family: arial,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/***************************** GRID STYLE *****************************/
+
+.tournament_grid {
+	background : #FBF5EF;
+	font-size : 8pt;
+	height : 100%;
+}
+
+/***************************** MENU BAR *****************************/
+
+.navbar-logo {
+	background : url(../images/navbar-logo.png) transparent no-repeat;
+	width : 428px;
+	height : 50px;
+	border : none;
+}
+
+.logo-btn {
+	border : none; 
+	background : transparent;
+}
+
+.logo-cnt, .logo-disd {
+	height : 50px;
+}
+
+.navbar {
+	
+	height : 50px;
+	width : 100%;
+	margin-left : -10px;
+	padding-right : 15px;
+}
+
+/***************************** BUTTON STYLE *****************************/
+
+.button {
+	background : url(../images/navbar-bg.png) transparent repeat-x;
+	color : white;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	border:1px solid #888;
+	display:inline-block;
+	cursor:pointer;
+	font-weight : 700;
+	text-shadow:0px 1px 0px #000;
+	padding-top : 7px;
+	padding-bottom : 7px;
+}
+
+.button:hover {
+	background : url(../images/navbar-bg-inverse.png) transparent repeat-x;
+}
+.button:active {
+	position:relative;
+	top:1px;
+	border : none;
+}
+
+/***************************** LISTBOX STYLE *****************************/
+
+.z-listheader {
+	background : url(../images/navbar-bg.png) transparent repeat-x;
+}
+
+div.z-listheader-cnt, span.z-tab-text {
+	color : white;
+}
+
+/***************************** TAB STYLE *****************************/
+
+.z-tab, .z-tab-hl, .z-tab-hm, .z-tab-hl, .z-tab-hr {
+	background : url(../images/navbar-bg.png) transparent repeat-x;
+	color : white;
+	margins : 0;
+	padding: 0;
+	
+	-moz-border-radius-topleft:  8px;
+	border-top-left-radius:      8px;
+	-moz-border-radius-topright:  8px;
+	border-top-right-radius:      8px;
+}
+
+.z-tab:hover, .z-tab-hl:hover, .z-tab-hm:hover, .z-tab-hl:hover, .z-tab-hr:hover {
+	background : url(../images/navbar-bg-inverse.png) transparent repeat-x;
+	color : white;
+	margins : 0;
+	padding: 0;
+	
+	-moz-border-radius-topleft:  8px;
+	border-top-left-radius:      8px;
+	-moz-border-radius-topright:  8px;
+	border-top-right-radius:      8px;
+}
+
+.z-tab {
+	-moz-border-radius-topleft:  8px;
+	border-top-left-radius:      8px;
+	border:1px solid #888;
+}
+
+.z-tab .z-tab-text {
+	padding-left : 10px;
+	font-size : 11pt;
+	font-weight : bolder;
+	padding-top : 6px;
+}
+
+li.z-tab-seld .z-tab-text {
+	background : url(../images/navbar-bg-inverse.png) transparent repeat-x;
+	padding-left : 10px;
+	font-size : 11pt;
+	font-weight : bolder;
+	padding-bottom : 5px;
+	padding-top : 6px;
+}
+
+.z-tab .z-tab-text {
+	color : white;
+	padding-left : 10px;
+	padding-right : 10px;
+	padding-bottom : 5px;
+	padding-top : 6px;
+}
+
+.z-tab:hover .z-tab-text:hover {
+	color : white;
+	padding-left : 10px;
+	padding-right : 10px;
+	padding-top : 6px;
+}
+
+.z-tabpanel {
+	background-color : #888;
+	padding : 1px;
+}
+
+.result_tab {
+	background : url(../images/navbar-bg.png) transparent repeat-x;
 }

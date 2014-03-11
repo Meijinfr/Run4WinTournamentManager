@@ -1,11 +1,17 @@
 package fr.meijin.run4win.renderer;
 
+import javax.crypto.ExemptionMechanismSpi;
+
+import org.zkoss.zk.ui.AbstractComponent;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Hlayout;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.RowRenderer;
 import org.zkoss.zul.Separator;
@@ -34,13 +40,6 @@ public class SingleRoundRowRenderer implements RowRenderer<Game>{
 		
 		createResultLayout(g.player2, g.p2Result).setParent(row);
 		
-		/*Listcell cell = createListcellButtons(g);
-		
-		if(g.p1Result.resultCorporation == 0 && g.p1Result.resultRunner == 0 
-			&& g.p2Result.resultCorporation == 0 && g.p2Result.resultRunner == 0){
-			cell.setStyle("background : #FFADAD;");
-		}*/
-		//cell.setParent(item);
 	}
 
 	private Label createLabel(String label) {
@@ -65,7 +64,7 @@ public class SingleRoundRowRenderer implements RowRenderer<Game>{
 		
 		final Image imageMill = new Image();
 		imageMill.setTooltiptext(LangUtils.getMessage(LangEnum.MILL));
-		imageMill.setStyle("margin-top : 6px");
+		imageMill.setStyle("margin-top : 6px; cursor : pointer;");
 		if(result.millWin){
 			imageMill.setSrc("/images/button_mill_active.png");
 			imageMill.setHover("/images/button_mill_hover_active.png");

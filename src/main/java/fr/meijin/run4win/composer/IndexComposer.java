@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import nl.bitwalker.useragentutils.UserAgent;
+
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -21,21 +23,22 @@ import org.zkoss.zul.Grid;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Row;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
+import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import fr.meijin.run4win.model.Game;
 import fr.meijin.run4win.model.Player;
-import fr.meijin.run4win.model.PlayerRanking;
 import fr.meijin.run4win.model.Ranking;
 import fr.meijin.run4win.model.Round;
 import fr.meijin.run4win.model.Tournament;
-import fr.meijin.run4win.util.MatchingUtils;
 import fr.meijin.run4win.util.RankingUtils;
 import fr.meijin.run4win.util.TournamentUtils;
 import fr.meijin.run4win.util.file.ExportUtils;
+import fr.meijin.run4win.util.identity.CorporationIdentityEnum;
 import fr.meijin.run4win.util.lang.LangEnum;
 import fr.meijin.run4win.util.lang.LangUtils;
 
@@ -88,79 +91,20 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	
 	public void onClick$addRound (Event e) throws InterruptedException{
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
-		RankingUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
 		
-		Collections.sort(tournament.players);
-		if(tournament.rounds >= 1){
-			Ranking ranking = new Ranking();
-			ranking.roundNumber = tournament.rounds;
-			for(Player p : tournament.players){
-				PlayerRanking pr = new PlayerRanking();
-				pr.nickname = p.nickname;
-				pr.prestige = p.getPrestige();
-				pr.weakestSideWins = p.getWeakestSideWins();
-				pr.opponentsStrength = p.getOpponentsStrength();
-				ranking.playerRankings.add(pr);
-			}
-			
-			addResultTab(ranking);
-			
-			tournament.rankings.add(ranking);
+		tournament = TournamentUtils.nextRound(tournament);
+		
+		if(tournament.rounds > 1){
+			if(tournament.rankings.size() == 1)
+				addResultTab(tournament.rankings.get(0));
+			else
+				addResultTab(tournament.rankings.get(tournament.rankings.size()-1));
 		}
-		
-		List<Player> toMatch = new ArrayList<Player>(tournament.players);
-		List<Player> forfeitPlayers = new ArrayList<Player>();
-		for(Player p : toMatch){
-			System.out.println("Player to match "+p.nickname);
-			if (p.forfeit && p.id !=0)
-				forfeitPlayers.add(p);
-		}
-		toMatch.removeAll(forfeitPlayers);
-
-		if(toMatch.size()%2 == 1){
-			int rep = Messagebox.show(LangUtils.getMessage(LangEnum.CREATE_BYE), LangUtils.getMessage(LangEnum.WARNING), Messagebox.YES | Messagebox.NO, Messagebox.EXCLAMATION);
-			if(rep == Messagebox.NO){
-				return;
-			} else {
-				toMatch.add(TournamentUtils.createByePlayer());
-			}
-		} else if (tournament.players.isEmpty()){
-			Messagebox.show(LangUtils.getMessage(LangEnum.NO_PLAYERS), LangUtils.getMessage(LangEnum.ERROR), Messagebox.OK, Messagebox.ERROR);
-			return;
-		}
-
-		tournament.rounds++;
-		
-		Collections.sort(toMatch);
-		List<Game> matched = new ArrayList<Game>();
-		if(tournament.rounds == 1){
-			List<Player> byePlayers = new ArrayList<Player>();
-			for(Player p : toMatch){
-				if (p.byeFirstRound){
-					byePlayers.add(p);
-				}
-			}
-			
-			toMatch.removeAll(byePlayers);
-			
-			for(Player p : byePlayers){
-				Game game = new Game();
-				game.roundNumber = tournament.rounds;
-				game.tableNumber = 0;
-				game.player1 = p;
-				game.player2 = TournamentUtils.createByePlayer();
-				game.p1Result.resultCorporation = 2;
-				game.p1Result.resultRunner = 2;
-				matched.add(game);
-			}
-			
-			Collections.shuffle(toMatch);
-		}
-		
-		Round r = MatchingUtils.doSingleMatch(tournament.rounds,tournament.roundsList, toMatch, matched);
-		tournament.roundsList.add(r);
-		
-		Tab tab = addRoundTab(r);
+		Tab tab = null;
+		if(tournament.roundsList.size() == 1)
+			tab = addRoundTab(tournament.roundsList.get(0));
+		else
+			tab = addRoundTab(tournament.roundsList.get(tournament.roundsList.size()-1));
 		
 		session.setAttribute("tournament", tournament);
 		tab.setSelected(true);
@@ -274,23 +218,37 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	 --------------------------------------------------------------------------------*/
 	
 	public void onClick$addPlayerButton(Event e) throws Exception {
-		Window window = (Window) Executions.createComponents("add_player.zul", null, null);
-		window.doModal();
+
+		if(Executions.getCurrent().getBrowser("mobile") !=null || Executions.getCurrent().getUserAgent().indexOf("Phone")!=-1){
+			Executions.sendRedirect("/pages/add_player_mobile.zul");
+		} else {
+			Window window = (Window) Executions.createComponents("add_player.zul", null, null);
+			window.doModal();
+		}
+		
 		onPlayerChange();
 	}
-	
+
 	public void onEditPlayer(Event e){
 		Player oldPlayer = (Player) e.getData();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("oldPlayer", oldPlayer);
-		Window window = (Window) Executions.createComponents("add_player.zul", null, map);
-		window.doModal();
+		
+		
+		if(Executions.getCurrent().getBrowser("mobile") !=null || Executions.getCurrent().getUserAgent().indexOf("Phone")!=-1){
+			execution.setAttribute("oldPlayer", oldPlayer);
+			Executions.sendRedirect("/pages/add_player_mobile.zul");
+		} else {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("oldPlayer", oldPlayer);
+			Window window = (Window) Executions.createComponents("add_player.zul", null, map);
+			window.doModal();
+		}
+
 		onPlayerChange();
 		page.removeAttribute("oldPlayer");
 	}
 	
 	private void onPlayerChange() {
-		Player newPlayer = (Player) page.getAttribute("newPlayer");
+		Player newPlayer = (Player) session.getAttribute("newPlayer");
 		
 		if(newPlayer != null){
 			Tournament tournament = (Tournament) session.getAttribute("tournament");
@@ -312,7 +270,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 					tournament.players.add(newPlayer);
 				}
 				
-				page.removeAttribute("newPlayer");
+				session.removeAttribute("newPlayer");
 				session.setAttribute("tournament", tournament);
 				playersList.renderAll();
 			}

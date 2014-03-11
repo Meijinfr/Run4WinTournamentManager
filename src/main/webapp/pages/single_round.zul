@@ -9,7 +9,7 @@
 		<button id="deleteRound" label="Supprimer la ronde" mold="trendy"/>
 	</div>
 	<grid id="gridRound" apply="fr.meijin.run4win.composer.SingleRoundComposer" class="printable"
-		rowRenderer="fr.meijin.run4win.renderer.SingleRoundRowRenderer"  height="99%">
+		rowRenderer="fr.meijin.run4win.renderer.SingleRoundRowRenderer" height="99%" zclass="tournament_grid">
 		<columns>
 			<column label="Table" hflex="1" align="center" sort="auto"/>
 			<column label="Joueur 1" hflex="2"/>

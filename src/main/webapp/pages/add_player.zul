@@ -2,7 +2,8 @@
 <zk>
 	<window apply="fr.meijin.run4win.composer.AddPlayerComposer" closable="true"
 		id="windowPlayer" title="Ajouter un joueur" border="normal">
-		<grid width="280px">
+		<style src="/css/run4win.css" />
+		<grid width="280px" zclass="tournament_grid">
 			<columns>
 				<column width="100px"/>
 				<column width="180px"/>
@@ -22,11 +23,11 @@
 				</row>
 				<row>
 					<label value="Id Runner" />
-					<listbox id="idRunnerListbox" mold="select" model="@{pageScope.runnerIdentities }" selectedItem="@{arg.oldPlayer.idRunner }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
+					<combobox id="idRunnerCombobox" model="@{pageScope.runnerIdentities }" value="@{arg.oldPlayer.idRunner.displayName }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
 				</row>
 				<row>
 					<label value="Id Corporation" />
-					<listbox id="idCorporationListbox" mold="select" model="@{pageScope.corporationIdentities }" selectedItem="@{arg.oldPlayer.idCorporation }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
+					<combobox id="idCorporationCombobox" model="@{pageScope.corporationIdentities }" value="@{arg.oldPlayer.idCorporation.displayName }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
 				</row>
 				<row>
 					<label value="Abandon" />

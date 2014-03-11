@@ -99,11 +99,11 @@ public class Player implements Comparable<Player>, Serializable {
 		
 		for(Game g : games.values()){
 			if(g.player1.id == this.id){
-				winCorp += (g.p1Result.resultCorporation > g.p2Result.resultRunner) ? 1 : 0;
-				winRunner += (g.p1Result.resultRunner > g.p2Result.resultCorporation) ? 1 : 0;
+				winCorp += (g.p1Result.resultCorporation == 2) ? 1 : 0;
+				winRunner += (g.p1Result.resultRunner == 2) ? 1 : 0;
 			} else if (g.player2.id == this.id) {
-				winCorp += (g.p2Result.resultCorporation > g.p1Result.resultRunner) ? 1 : 0;
-				winRunner += (g.p2Result.resultRunner > g.p1Result.resultCorporation) ? 1 : 0;
+				winCorp += (g.p2Result.resultCorporation == 2) ? 1 : 0;
+				winRunner += (g.p2Result.resultRunner == 2) ? 1 : 0;
 			}
 		}
 
@@ -120,11 +120,11 @@ public class Player implements Comparable<Player>, Serializable {
 		for(int i = 1; i <= roundNumber; i++){
 			Game g = games.get(String.valueOf(i));
 			if(g.player1.id == this.id){
-				winCorp += (g.p1Result.resultCorporation > g.p2Result.resultRunner) ? 1 : 0;
-				winRunner += (g.p1Result.resultRunner > g.p2Result.resultCorporation) ? 1 : 0;
+				winCorp += (g.p1Result.resultCorporation == 2) ? 1 : 0;
+				winRunner += (g.p1Result.resultRunner == 2) ? 1 : 0;
 			} else if (g.player2.id == this.id) {
-				winCorp += (g.p2Result.resultCorporation > g.p1Result.resultRunner) ? 1 : 0;
-				winRunner += (g.p2Result.resultRunner > g.p1Result.resultCorporation) ? 1 : 0;
+				winCorp += (g.p2Result.resultCorporation == 2) ? 1 : 0;
+				winRunner += (g.p2Result.resultRunner == 2) ? 1 : 0;
 			}
 		}
 
