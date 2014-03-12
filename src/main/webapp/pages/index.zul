@@ -17,46 +17,6 @@
 	</script>
 	<div id="divIndex" apply="fr.meijin.run4win.composer.IndexComposer" width="100%">
 		
-<!-- 		<separator height="20px"/> <menubar id="menubar" width="100%"> -->
-<!-- 			<menuitem label="Run 4 Win" disabled="true" zclass="title" /> -->
-			
-<!-- 			<menu label="Fichier"> -->
-<!-- 				<menupopup> -->
-<!-- 					<menuitem id="newTournament" label="Nouveau" /> -->
-<!-- 					<menuitem id="fileOpen" label="Ouvrir" upload="true" /> -->
-<!-- 					<menuitem id="fileSave" label="Enregistrer" /> -->
-<!-- 				</menupopup> -->
-<!-- 			</menu> -->
-			
-<!-- 			<menu label="Exporter"> -->
-<!-- 				<menupopup> -->
-<!-- 					<menuitem id="htmlDownload" label="Résultats au format HTML" /> -->
-<!-- 					<menuitem id="jsonDownload" label="Résultats au format JSON (NRTM)" disabled="true"/> -->
-<!-- 					<menu label="au format CSV..."> -->
-<!-- 						<menupopup> -->
-<!-- 							<menuitem id="csvDownloadRanking" label="Classement des joueurs" /> -->
-<!-- 							<menuitem id="csvDownloadRounds" label="Résultats des rondes" /> -->
-<!-- 						</menupopup> -->
-<!-- 					</menu> -->
-<!-- 				</menupopup> -->
-<!-- 			</menu> -->
-			
-<!-- 			<menu label="Importer"> -->
-<!-- 				<menupopup> -->
-<!-- 					<menuitem id="jsonUpload" label="un fichier JSON (NRTM)"  disabled="true"/> -->
-<!-- 					<menu id="csvUpload" label="un fichier CSV..."> -->
-<!-- 						<menupopup> -->
-<!-- 							<menuitem id="csvUploadRanking" label="Classement des joueurs" disabled="true" /> -->
-<!-- 							<menuitem id="csvUploadRounds" label="Résultats des rondes" disabled="true" /> -->
-<!-- 						</menupopup> -->
-<!-- 					</menu> -->
-<!-- 				</menupopup> -->
-<!-- 			</menu> -->
-			
-<!-- 			<menuitem zclass="dm-menuitem" /> -->
-<!-- 			<menuitem id="addRound" label="Ajouter une ronde" /> -->
-<!-- 		</menubar> -->
-		
 		<hlayout class="navbar">
 			<a href="/" width="428px" height="50px" image="/images/style/navbar-logo.png" style="margin-left : 5px;"/>
 			
@@ -108,9 +68,9 @@
 									<columns sizable="true">
 										<column label="Rang" align="center" hflex="1" />
 										<column label="Pseudo" hflex="2" align="left"/>
-										<column label="Prestige pris" hflex="2" align="left"/>
-										<column label="Côté faible" hflex="2" align="left"/>
-										<column label="Force adversaires" hflex="2" align="left"/>
+										<column label="Prestige" hflex="2" align="left"/>
+										<column label="Victoires Côté Faible" hflex="2" align="left"/>
+										<column label="Force Adversaires" hflex="2" align="left"/>
 									</columns>
 									<rows>
 										<row self="@{each='player'}"

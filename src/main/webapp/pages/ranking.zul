@@ -1,16 +1,19 @@
 <?page title="Ranking" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<grid apply="fr.meijin.run4win.composer.RankingComposer" model="@{pageScope.playerRankings}" zclass="tournament_grid">
+	<grid apply="fr.meijin.run4win.composer.RankingComposer"
+		model="@{pageScope.playerRankings}" zclass="tournament_grid">
 		<columns sizable="true">
 			<column label="Rang" align="center" hflex="1" />
-			<column label="Pseudo" hflex="2" />
-			<column label="Prestige pris" hflex="2" />
-			<column label="Côté faible" hflex="2" />
-			<column label="Force adversaires" hflex="2" />
+			<column label="Pseudo" hflex="2" align="left" />
+			<column label="Prestige" hflex="2" align="left" />
+			<column label="Victoires Côté Faible" hflex="2"
+				align="left" />
+			<column label="Force Adversaires" hflex="2" align="left" />
 		</columns>
 		<rows>
 			<row self="@{each='player'}" visible="${player.id != 0}">
-				<label value="@{self.parent.index, converter='fr.meijin.run4win.converter.RankingConverter'}" />
+				<label
+					value="@{self.parent.index, converter='fr.meijin.run4win.converter.RankingConverter'}" />
 				<label value="@{player.nickname}" />
 				<label value="@{player.prestige}" />
 				<label value="@{player.weakestSideWins}" />

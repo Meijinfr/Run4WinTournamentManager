@@ -1,11 +1,12 @@
 <?page title="add_player" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window apply="fr.meijin.run4win.composer.AddPlayerComposer" closable="true"
-		id="windowPlayer" title="Add a player" border="normal">
-		<grid width="270px">
+		id="windowPlayer" title="Add player" border="normal" zclass="modal">
+		<style src="/css/run4win.css" />
+		<grid width="280px" style="background : transparent;" oddRowSclass="false">
 			<columns>
 				<column width="100px"/>
-				<column width="170px"/>
+				<column width="180px"/>
 			</columns>
 			<rows>
 				<row>
@@ -22,25 +23,25 @@
 				</row>
 				<row>
 					<label value="Runner Id" />
-					<listbox id="idRunnerListbox" mold="select" model="@{pageScope.runnerIdentities }" selectedItem="@{arg.oldPlayer.idRunner }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
+					<combobox id="idRunnerCombobox" model="@{pageScope.runnerIdentities }" value="@{arg.oldPlayer.idRunner.displayName }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
 				</row>
 				<row>
 					<label value="Corporation Id" />
-					<listbox id="idCorporationListbox" mold="select" model="@{pageScope.corporationIdentities }" selectedItem="@{arg.oldPlayer.idCorporation }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
+					<combobox id="idCorporationCombobox" model="@{pageScope.corporationIdentities }" value="@{arg.oldPlayer.idCorporation.displayName }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
 				</row>
 				<row>
 					<label value="Forfeit" />
 					<checkbox id="forfeitCheckbox" value="@{arg.oldPlayer.forfeit }" />
 				</row>
 				<row>
-					<label value="Bye First Round" />
+					<label value="Bye first round" />
 					<checkbox id="byeFirstRoundCheckbox" value="@{arg.oldPlayer.byeFirstRound }" />
 				</row>
 			</rows>
 		</grid>
 		<div align="right">
-			<button id="validateButton" label="Ok" mold="trendy" />
-			<button id="cancelButton" label="Cancel" mold="trendy" />
+			<button id="validateButton" label="Ok" class="button" />
+			<button id="cancelButton" label="Cancel" class="button" />
 		</div>
 	</window>
 </zk>

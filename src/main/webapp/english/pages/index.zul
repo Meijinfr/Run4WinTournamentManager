@@ -16,48 +16,23 @@
   		ga('send', 'pageview');
 	</script>
 	<div id="divIndex" apply="fr.meijin.run4win.composer.IndexComposer" width="100%">
-		<separator height="20px"/>
-		<menubar id="menubar" width="100%">
-			<menuitem label="Run 4 Win" disabled="true" zclass="title" />
+		<hlayout class="navbar">
+			<a href="/" width="428px" height="50px" image="/images/style/navbar-logo.png" style="margin-left : 5px;"/>
 			
-			<menu label="File">
-				<menupopup>
-					<menuitem id="newTournament" label="New" />
-					<menuitem id="fileOpen" label="Open" upload="true" />
-					<menuitem id="fileSave" label="Save" />
-				</menupopup>
-			</menu>
-			
-			<menu label="Export">
-				<menupopup>
-					<menuitem id="htmlDownload" label="Results as HTML" />
-					<menuitem id="jsonDownload" label="Results as JSON (NRTM)" disabled="true"/>
-					<menu label="as CSV...">
-						<menupopup>
-							<menuitem id="csvDownloadRanking" label="Players ranking" />
-							<menuitem id="csvDownloadRounds" label="Rounds results" />
-						</menupopup>
-					</menu>
-				</menupopup>
-			</menu>
-			
-			<menu label="Import">
-				<menupopup>
-					<menuitem id="jsonUpload" label="A JSON file (NRTM)"  disabled="true"/>
-					<menu id="csvUpload" label="CSV file...">
-						<menupopup>
-							<menuitem id="csvUploadRanking" label="Players ranking" />
-							<menuitem id="csvUploadRounds" label="Rounds results" />
-						</menupopup>
-					</menu>
-				</menupopup>
-			</menu>
-			
-			<menuitem zclass="dm-menuitem" />
-			<menuitem id="addRound" label="Add round" />
-		</menubar>
+			<hlayout width="100%" style="margin-top : 0.5em; margin-left : 25%;">
+				<button id="newTournament" label="New" class="button"/>
+				<button id="fileOpen" label="Open" class="button"/>
+				<button id="fileSave" label="Save" class="button"/>
+				<button id="htmlDownload" label="Export (HTML)" class="button"/>
+				<button id="csvDownloadRanking" label="Export (CSV)" class="button"/>
+			</hlayout>
+		</hlayout>
 		
-		<separator height="20px"/>
+		<separator height="40px"/>
+		<div align="right">
+			<button id="addRound" label="Add Round" class="button"/>
+		</div>
+		<separator height="10px"/>
 		
 		<tabbox id="singleTabbox" width="100%">
 			<tabs>
@@ -66,37 +41,35 @@
 			</tabs>
 			<tabpanels>
 				<tabpanel>
-					<listbox id="playersList" itemRenderer="fr.meijin.run4win.renderer.ListPlayerRenderer"
-						model="@{sessionScope.tournament.players}" width="100%">
+					<listbox id="playersList" itemRenderer="fr.meijin.run4win.renderer.ListPlayerRenderer" zclass="tournament_grid"
+						model="@{sessionScope.tournament.players}" width="100%" style="padding-right : -20px;">
 						<listhead>
-							<listheader label="N°" hflex="1"/>
-							<listheader label="First Name" hflex="3"/>
-							<listheader label="Last Name" hflex="3"/>
-							<listheader label="Nickname" hflex="3"/>
-							<listheader label="Corporation Id" hflex="3"/>
-							<listheader label="Runner Id" hflex="3"/>
-							<listheader hflex="3">
-								<button id="addPlayerButton" label="Add player" mold="trendy"/>
+							<listheader label="N°" hflex="1" align="center"/>
+							<listheader label="First Name" hflex="3" align="left"/>
+							<listheader label="Last Name" hflex="3" align="left"/>
+							<listheader label="Nickname" hflex="3" align="left"/>
+							<listheader label="Corporation Id" hflex="3" align="left"/>
+							<listheader label="Runner Id" hflex="3" align="left"/>
+							<listheader hflex="3" align="left">
+								<button id="addPlayerButton" label="Add Player" class="button"/>
 							</listheader>
 						</listhead>
 					</listbox>
 				</tabpanel>
-				<tabpanel>
-					<tabbox id="resultTabbox" width="100%"  style="margin-top : 20px;">
-						<tabs>
-							<tab id="currentResultTab" closable="false" label="Current" />
+				<tabpanel>		
+					<tabbox id="resultTabbox" width="100%" zclass="result_tab" orient="horizontal">
+						<tabs width="150px">
+							<tab id="currentResultTab" closable="false" label="Current Round"/>
 						</tabs>
 						<tabpanels>
 							<tabpanel>
-								
-								
-								<grid id="playersResultsGrid" model="@{sessionScope.tournament.players}">
+								<grid id="playersResultsGrid" model="@{sessionScope.tournament.players}" zclass="tournament_grid">
 									<columns sizable="true">
 										<column label="Rank" align="center" hflex="1" />
-										<column label="Nickname" hflex="2" />
-										<column label="Prestige" hflex="2" />
-										<column label="Weakest Side Wins" hflex="2" />
-										<column label="Opponents Strength" hflex="2" />
+										<column label="Nickname" hflex="2" align="left"/>
+										<column label="Prestige" hflex="2" align="left"/>
+										<column label="Weakest Side Wins" hflex="2" align="left"/>
+										<column label="Opponents Strength" hflex="2" align="left"/>
 									</columns>
 									<rows>
 										<row self="@{each='player'}"

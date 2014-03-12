@@ -6,7 +6,7 @@
 	<div align="right" class="round_tab">
 		<button id="printAppariement" label="Imprimer les Appariements" class="button" />
 		<button id="printFeuilleResultat" label="Feuille de Résultat" class="button" />
-		<button id="deleteRound" label="Supprimer la ronde" class="button" />
+		<button id="deleteRound" label="Supprimer la Ronde" class="button" style="margin-right : 20px;"/>
 	</div>
 	<grid id="gridRound" apply="fr.meijin.run4win.composer.SingleRoundComposer" class="printable"
 		rowRenderer="fr.meijin.run4win.renderer.SingleRoundRowRenderer" height="99%" zclass="tournament_grid">
@@ -16,7 +16,6 @@
 			<column label="Résultats Joueur 1" hflex="5"/>
 			<column label="Joueur 2" hflex="2"/>
 			<column label="Résultats Joueur 2" hflex="5"/>
-			<!-- <listheader label="Action" hflex="1" align="center"/>  -->
 		</columns>
 	</grid>
 </zk>

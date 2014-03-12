@@ -1,17 +1,11 @@
 package fr.meijin.run4win.renderer;
 
-import javax.crypto.ExemptionMechanismSpi;
-
-import org.zkoss.zk.ui.AbstractComponent;
-import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zul.Checkbox;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Hlayout;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
-import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.RowRenderer;
 import org.zkoss.zul.Separator;
@@ -62,30 +56,26 @@ public class SingleRoundRowRenderer implements RowRenderer<Game>{
 		resultRunnerHlayout.setStyle("margin-top : 6px; cursor : pointer;");
 		resultRunnerHlayout.setParent(hlayout);
 		
-		final Image imageMill = new Image();
-		imageMill.setTooltiptext(LangUtils.getMessage(LangEnum.MILL));
-		imageMill.setStyle("margin-top : 6px; cursor : pointer;");
+		final Button buttonMill = new Button();
+		buttonMill.setTooltiptext(LangUtils.getMessage(LangEnum.MILL));
+		buttonMill.setImage("/images/style/mill.png");
 		if(result.millWin){
-			imageMill.setSrc("/images/results/button_mill_active.png");
-			imageMill.setHover("/images/results/button_mill_hover_active.png");
+			buttonMill.setSclass("button icon active");
 		} else {
-			imageMill.setSrc("/images/results/button_mill.png");
-			imageMill.setHover("/images/results/button_mill_hover.png");
+			buttonMill.setSclass("button icon");
 		}
-		imageMill.addEventListener("onClick", new EventListener<Event>() {
+		buttonMill.addEventListener("onClick", new EventListener<Event>() {
 			@Override
 			public void onEvent(Event e) throws Exception {
 				result.millWin = !result.millWin;
 				if(result.millWin){
-					imageMill.setSrc("/images/results/button_mill_active.png");
-					imageMill.setHover("/images/results/button_mill_hover_active.png");
+					buttonMill.setSclass("button icon active");
 				} else {
-					imageMill.setSrc("/images/results/button_mill.png");
-					imageMill.setHover("/images/results/button_mill_hover.png");
+					buttonMill.setSclass("button icon");
 				}
 			}
 		});
-		imageMill.setParent(hlayout);
+		buttonMill.setParent(hlayout);
 		
 		Separator separator = new Separator();
 		separator.setWidth("15px");
@@ -100,105 +90,115 @@ public class SingleRoundRowRenderer implements RowRenderer<Game>{
 		resultCorporationHlayout.setStyle("margin-top : 6px");
 		resultCorporationHlayout.setParent(hlayout);
 		
-		final Image imageFlat = new Image();
-		imageFlat.setStyle("margin-top : 6px; cursor : pointer;");
-		imageFlat.setTooltiptext("Flatline");
+		final Button buttonFlat = new Button();
+		buttonFlat.setImage("/images/style/flat.png");
+		buttonFlat.setTooltiptext("Flatline");
 		if(result.flatlineWin){
-			imageFlat.setSrc("/images/results/button_flat_active.png");
-			imageFlat.setHover("/images/results/button_flat_hover_active.png");
+			buttonFlat.setSclass("button icon active");
 		} else {
-			imageFlat.setSrc("/images/results/button_flat.png");
-			imageFlat.setHover("/images/results/button_flat_hover.png");
+			buttonFlat.setSclass("button icon");
 		}
-		imageFlat.addEventListener("onClick", new EventListener<Event>() {
+		buttonFlat.addEventListener("onClick", new EventListener<Event>() {
 			@Override
 			public void onEvent(Event e) throws Exception {
 				result.flatlineWin = !result.flatlineWin;
 				if(result.flatlineWin){
-					imageFlat.setSrc("/images/results/button_flat_active.png");
-					imageFlat.setHover("/images/results/button_flat_hover_active.png");
+					buttonFlat.setSclass("button icon active");
 				} else {
-					imageFlat.setSrc("/images/results/button_flat.png");
-					imageFlat.setHover("/images/results/button_flat_hover.png");
+					buttonFlat.setSclass("button icon");
 				}
 			}
 		});
-		imageFlat.setParent(hlayout);
+		buttonFlat.setParent(hlayout);
 		
 		return hlayout;
 	}
 
-	private void setActive(Image image, int value) {
-		image.setHover(null);
-		image.setSrc("/images/results/button_"+value+"_active.png");
+	private void setActive(Button button, int value) {
+		switch (value){
+		case 2:
+			button.setSclass("button right button_2");
+			break;
+		case 1:
+			button.setSclass("button center button_1");
+			break;
+		default:
+			button.setSclass("button left button_0");
+			break;
+		}
 	}
 
-	private void setInactive(Image image, int value) {
-		image.setHover("/images/results/button_"+value+"_hover.png");
-		image.setSrc("/images/results/button_"+value+".png");
+	private void setInactive(Button button, int value) {
+		switch (value){
+		case 2:
+			button.setSclass("button right");
+			break;
+		case 1:
+			button.setSclass("button center");
+			break;
+		default:
+			button.setSclass("button left");
+			break;
+		}
 	}
 	
 	private Hlayout createResultHlayoutCorporation(final Result result){
 		Hlayout hlayout = new Hlayout();
 		hlayout.setSpacing("0");
 		
-		final Image image0Corporation = new Image();
-		final Image image1Corporation  = new Image();
-		final Image image2Corporation  = new Image();
+		final Button button0Corporation = new Button("0");
+		final Button button1Corporation  = new Button("1");
+		final Button button2Corporation  = new Button("2");
 		
-		image0Corporation.addEventListener("onClick", new EventListener<Event>() {
+		button0Corporation.addEventListener("onClick", new EventListener<Event>() {
 			@Override
 			public void onEvent(Event e) throws Exception {
 				result.resultCorporation = 0;
-				setActive(image0Corporation , 0);
-				setInactive(image1Corporation , 1);
-				setInactive(image2Corporation , 2);
+				setActive(button0Corporation , 0);
+				setInactive(button1Corporation , 1);
+				setInactive(button2Corporation , 2);
 			}
 		});
-		image1Corporation.addEventListener("onClick", new EventListener<Event>() {
+		button1Corporation.addEventListener("onClick", new EventListener<Event>() {
 			@Override
 			public void onEvent(Event e) throws Exception {
 				result.resultCorporation = 1;
-				setActive(image1Corporation , 1);
-				setInactive(image0Corporation , 0);
-				setInactive(image2Corporation , 2);
+				setActive(button1Corporation , 1);
+				setInactive(button0Corporation , 0);
+				setInactive(button2Corporation , 2);
 			}
 		});
-		image2Corporation.addEventListener("onClick", new EventListener<Event>() {
+		button2Corporation.addEventListener("onClick", new EventListener<Event>() {
 			@Override
 			public void onEvent(Event e) throws Exception {
 				result.resultCorporation = 2;
-				setActive(image2Corporation , 2);
-				setInactive(image1Corporation , 1);
-				setInactive(image0Corporation , 0);
+				setActive(button2Corporation , 2);
+				setInactive(button1Corporation , 1);
+				setInactive(button0Corporation , 0);
 			}
 		});
 		
 		switch (result.resultCorporation) {
 		case 2:
-			setActive(image2Corporation, 2);
-			setInactive(image0Corporation, 0);
-			setInactive(image1Corporation, 1);
+			setActive(button2Corporation, 2);
+			setInactive(button0Corporation, 0);
+			setInactive(button1Corporation, 1);
 			break;
 		case 1:
-			setActive(image1Corporation, 1);
-			setInactive(image0Corporation, 0);
-			setInactive(image2Corporation, 2);
+			setActive(button1Corporation, 1);
+			setInactive(button0Corporation, 0);
+			setInactive(button2Corporation, 2);
 			break;
 		default:
-			setActive(image0Corporation, 0);
-			setInactive(image2Corporation, 2);
-			setInactive(image1Corporation, 1);
+			setActive(button0Corporation, 0);
+			setInactive(button2Corporation, 2);
+			setInactive(button1Corporation, 1);
 			break;
 		}
 		
-		image0Corporation.setStyle("cursor : pointer");
-		image1Corporation.setStyle("cursor : pointer");
-		image2Corporation.setStyle("cursor : pointer");
-		
-		image0Corporation.setParent(hlayout);
-		image1Corporation.setParent(hlayout);
-		image2Corporation.setParent(hlayout);
+		button0Corporation.setParent(hlayout);
+		button1Corporation.setParent(hlayout);
+		button2Corporation.setParent(hlayout);
 		
 		return hlayout;
 	}
@@ -207,63 +207,59 @@ public class SingleRoundRowRenderer implements RowRenderer<Game>{
 		Hlayout hlayout = new Hlayout();
 		hlayout.setSpacing("0");
 		
-		final Image image0Runner = new Image();
-		final Image image1Runner = new Image();
-		final Image image2Runner = new Image();
+		final Button button0Runner = new Button("0");
+		final Button button1Runner = new Button("1");
+		final Button button2Runner = new Button("2");
 		
-		image0Runner.addEventListener("onClick", new EventListener<Event>() {
+		button0Runner.addEventListener("onClick", new EventListener<Event>() {
 			@Override
 			public void onEvent(Event e) throws Exception {
 				result.resultRunner = 0;
-				setActive(image0Runner, 0);
-				setInactive(image1Runner, 1);
-				setInactive(image2Runner, 2);
+				setActive(button0Runner, 0);
+				setInactive(button1Runner, 1);
+				setInactive(button2Runner, 2);
 			}
 		});
-		image1Runner.addEventListener("onClick", new EventListener<Event>() {
+		button1Runner.addEventListener("onClick", new EventListener<Event>() {
 			@Override
 			public void onEvent(Event e) throws Exception {
 				result.resultRunner = 1;
-				setActive(image1Runner, 1);
-				setInactive(image0Runner, 0);
-				setInactive(image2Runner, 2);
+				setActive(button1Runner, 1);
+				setInactive(button0Runner, 0);
+				setInactive(button2Runner, 2);
 			}
 		});
-		image2Runner.addEventListener("onClick", new EventListener<Event>() {
+		button2Runner.addEventListener("onClick", new EventListener<Event>() {
 			@Override
 			public void onEvent(Event e) throws Exception {
 				result.resultRunner = 2;
-				setActive(image2Runner, 2);
-				setInactive(image1Runner, 1);
-				setInactive(image0Runner, 0);
+				setActive(button2Runner, 2);
+				setInactive(button1Runner, 1);
+				setInactive(button0Runner, 0);
 			}
 		});
 		
 		switch (result.resultRunner) {
 		case 2:
-			setActive(image2Runner, 2);
-			setInactive(image0Runner, 0);
-			setInactive(image1Runner, 1);
+			setActive(button2Runner, 2);
+			setInactive(button0Runner, 0);
+			setInactive(button1Runner, 1);
 			break;
 		case 1:
-			setActive(image1Runner, 1);
-			setInactive(image0Runner, 0);
-			setInactive(image2Runner, 2);
+			setActive(button1Runner, 1);
+			setInactive(button0Runner, 0);
+			setInactive(button2Runner, 2);
 			break;
 		default:
-			setActive(image0Runner, 0);
-			setInactive(image2Runner, 2);
-			setInactive(image1Runner, 1);
+			setActive(button0Runner, 0);
+			setInactive(button2Runner, 2);
+			setInactive(button1Runner, 1);
 			break;
 		}
 		
-		image0Runner.setStyle("cursor : pointer");
-		image1Runner.setStyle("cursor : pointer");
-		image2Runner.setStyle("cursor : pointer");
-		
-		image0Runner.setParent(hlayout);
-		image1Runner.setParent(hlayout);
-		image2Runner.setParent(hlayout);
+		button0Runner.setParent(hlayout);
+		button1Runner.setParent(hlayout);
+		button2Runner.setParent(hlayout);
 		
 		return hlayout;
 	}

@@ -3,20 +3,19 @@
 	xmlns="http://www.zkoss.org/2005/zul"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd ">
-	<div align="right" style="padding-top : 5px; padding-bottom : 5px;">
-		<button id="printAppariement" label="Print matches" mold="trendy"/>
-		<button id="printFeuilleResultat" label="Result sheet (XLS)" mold="trendy"/>
-		<button id="deleteRound" label="Delete round" mold="trendy"/>
+	<div align="right" class="round_tab">
+		<button id="printAppariement" label="Print Matches" class="button" />
+		<button id="printFeuilleResultat" label="Results Sheet" class="button" />
+		<button id="deleteRound" label="Delete Round" class="button" style="margin-right : 20px;"/>
 	</div>
 	<grid id="gridRound" apply="fr.meijin.run4win.composer.SingleRoundComposer" class="printable"
-		rowRenderer="fr.meijin.run4win.renderer.SingleRoundRowRenderer"  height="99%">
+		rowRenderer="fr.meijin.run4win.renderer.SingleRoundRowRenderer" height="99%" zclass="tournament_grid">
 		<columns>
 			<column label="Table" hflex="1" align="center" sort="auto"/>
 			<column label="Player 1" hflex="2"/>
-			<column label="Player 1 results" hflex="5"/>
+			<column label="Player 1 Results" hflex="5"/>
 			<column label="Player 2" hflex="2"/>
-			<column label="Player 2 results" hflex="5"/>
-			<!-- <listheader label="Action" hflex="1" align="center"/>  -->
+			<column label="Player 2 Results" hflex="5"/>
 		</columns>
 	</grid>
 </zk>

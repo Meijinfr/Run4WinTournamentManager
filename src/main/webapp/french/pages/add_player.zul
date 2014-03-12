@@ -1,11 +1,12 @@
 <?page title="add_player" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window apply="fr.meijin.run4win.composer.AddPlayerComposer" closable="true"
-		id="windowPlayer" title="Ajouter un joueur" border="normal">
-		<grid width="270px">
+		id="windowPlayer" title="Ajouter un joueur" border="normal" zclass="modal">
+		<style src="/css/run4win.css" />
+		<grid width="280px" style="background : transparent;" oddRowSclass="false">
 			<columns>
 				<column width="100px"/>
-				<column width="170px"/>
+				<column width="180px"/>
 			</columns>
 			<rows>
 				<row>
@@ -22,11 +23,11 @@
 				</row>
 				<row>
 					<label value="Id Runner" />
-					<listbox id="idRunnerListbox" mold="select" model="@{pageScope.runnerIdentities }" selectedItem="@{arg.oldPlayer.idRunner }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
+					<combobox id="idRunnerCombobox" model="@{pageScope.runnerIdentities }" value="@{arg.oldPlayer.idRunner.displayName }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
 				</row>
 				<row>
 					<label value="Id Corporation" />
-					<listbox id="idCorporationListbox" mold="select" model="@{pageScope.corporationIdentities }" selectedItem="@{arg.oldPlayer.idCorporation }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
+					<combobox id="idCorporationCombobox" model="@{pageScope.corporationIdentities }" value="@{arg.oldPlayer.idCorporation.displayName }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
 				</row>
 				<row>
 					<label value="Abandon" />
@@ -39,8 +40,8 @@
 			</rows>
 		</grid>
 		<div align="right">
-			<button id="validateButton" label="Valider" mold="trendy" />
-			<button id="cancelButton" label="Annuler" mold="trendy" />
+			<button id="validateButton" label="Valider" class="button" />
+			<button id="cancelButton" label="Annuler" class="button" />
 		</div>
 	</window>
 </zk>

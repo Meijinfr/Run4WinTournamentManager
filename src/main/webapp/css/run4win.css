@@ -56,6 +56,11 @@ body {
 	height : 100%;
 }
 
+.tournament_grid tr.z-row td.z-row-inner, .tournament_grid tr.z-row .z-cell {
+	background : #FBF5EF;
+	border : 1px solid #f5f5f5;
+}
+
 .z-row-cnt .z-label {
 	color : #222;
 }
@@ -89,7 +94,7 @@ body {
 /***************************** BUTTON STYLE *****************************/
 
 .button {
-	background : url(../images/style/navbar-bg.png) transparent repeat-x;
+	background : url(../images/style/bar-bg.png) transparent repeat-x;
 	color : white;
 	-moz-border-radius:8px;
 	-webkit-border-radius:8px;
@@ -106,10 +111,72 @@ body {
 .button:hover {
 	background : url(../images/style/navbar-bg-inverse.png) transparent repeat-x;
 }
+
 .button:active {
-	position:relative;
-	top:1px;
-	border : none;
+	background : url(../images/style/navbar-bg-inverse-active.png) transparent repeat-x;
+}
+
+.active {
+	background : url(../images/style/bar-bg-0.png) transparent repeat-x;
+}
+
+.icon {
+	padding : 4px 5px 5px 5px;
+	margin: 5px 0px 0px 0px;
+}
+
+.left {
+	-moz-border-radius-topleft:  8px;
+	border-top-left-radius:      8px;
+	-moz-border-radius-bottomleft:  8px;
+	border-bottom-left-radius:      8px;
+	-moz-border-radius-topright:  0px;
+	border-top-right-radius:      0px;
+	-moz-border-radius-bottomright:  0px;
+	border-bottom-right-radius:      0px;
+	padding-left : 12px;
+	padding-right : 12px;
+	margin: 0px;
+}
+
+.center {
+	-moz-border-radius-topleft:  0px;
+	border-top-left-radius:      0px;
+	-moz-border-radius-bottomleft:  0px;
+	border-bottom-left-radius:      0px;
+	-moz-border-radius-topright:  0px;
+	border-top-right-radius:      0px;
+	-moz-border-radius-bottomright:  0px;
+	border-bottom-right-radius:      0px;
+	padding-left : 12px;
+	padding-right : 12px;
+	margin: 0px;
+}
+
+.right {
+	-moz-border-radius-topleft:  0px;
+	border-top-left-radius:      0px;
+	-moz-border-radius-bottomleft:  0px;
+	border-bottom-left-radius:      0px;
+	-moz-border-radius-topright:  8px;
+	border-top-right-radius:      8px;
+	-moz-border-radius-bottomright:  8px;
+	border-bottom-right-radius:      8px;
+	padding-left : 12px;
+	padding-right : 12px;
+	margin: 0px;
+}
+
+.button_0 {
+	background : url(../images/style/bar-bg-0.png) transparent repeat-x;
+}
+
+.button_1 {
+	background : url(../images/style/bar-bg-1.png) transparent repeat-x;
+}
+
+.button_2 {
+	background : url(../images/style/bar-bg-2.png) transparent repeat-x;
 }
 
 /***************************** LISTBOX STYLE *****************************/
@@ -145,7 +212,7 @@ div.z-column-cnt {
 	border-top-right-radius:      8px;
 }
 
-.z-tab-ver, .z-tab-ver-hm, .z-tab-ver-hl, .z-tab-ver-hr, 
+/*.z-tab-ver, .z-tab-ver-hm, .z-tab-ver-hl, .z-tab-ver-hr, 
 .z-tab-ver-hl .z-tab-ver-hr, .z-tab-ver .z-tab-ver-hm {
 	background : url(../images/style/navbar-bg.png) transparent repeat-x;
 	color : white;
@@ -156,7 +223,7 @@ div.z-column-cnt {
 	border-top-left-radius:      8px;
 	-moz-border-radius-bottomleft:  8px;
 	border-bottom-left-radius:      8px;
-}
+}*/
 
 .z-tab:hover, .z-tab-hl:hover, .z-tab-hm:hover, .z-tab-hr:hover {
 	background : url(../images/style/navbar-bg-inverse.png) transparent repeat-x;
@@ -170,7 +237,7 @@ div.z-column-cnt {
 	border-top-right-radius:      8px;
 }
 
-.z-tab-ver:hover, .z-tab-ver-hm:hover, .z-tab-ver-hl:hover, .z-tab-ver-hr:hover, 
+/*.z-tab-ver:hover, .z-tab-ver-hm:hover, .z-tab-ver-hl:hover, .z-tab-ver-hr:hover, 
 .z-tab-ver:hover .z-tab-ver-hm:hover, .z-tab-ver-hl:hover .z-tab-ver-hr:hover {
 	background : url(../images/style/navbar-bg-inverse.png) transparent repeat-x;
 	color : white;
@@ -182,8 +249,13 @@ div.z-column-cnt {
 	-moz-border-radius-bottomleft:  8px;
 	border-bottom-left-radius:      8px;
 }
+*/
 
-.z-tab, .z-tab-ver {
+.z-tab .z-tab-hl:hover .z-tab-text {
+	color: white;
+}
+
+.z-tab {
 	border:1px solid #888;
 }
 
