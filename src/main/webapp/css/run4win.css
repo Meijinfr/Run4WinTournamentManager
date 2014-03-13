@@ -93,7 +93,7 @@ body {
 
 /***************************** BUTTON STYLE *****************************/
 
-.button {
+.button,  .z-messagebox-btn {
 	background : url(../images/style/bar-bg.png) transparent repeat-x;
 	color : white;
 	-moz-border-radius:8px;
@@ -108,13 +108,46 @@ body {
 	padding-bottom : 7px;
 }
 
-.button:hover {
+.button:hover,  .z-messagebox-btn:hover {
 	background : url(../images/style/navbar-bg-inverse.png) transparent repeat-x;
 }
 
 .button:active {
 	background : url(../images/style/navbar-bg-inverse-active.png) transparent repeat-x;
 }
+
+.button .z-button-cl, .button .z-button-cr,
+.button .z-button-tm, .button .z-button-tr,
+.button .z-button-bl, .button .z-button-bm, .button .z-button-br {
+	display : none;
+} 
+
+.button .z-button-cm, .button .z-button-tl {
+	background : transparent;
+	color : white;
+	font-weight : 700;
+}
+ 
+.button_upload {
+	height : 17px; 
+}
+
+.z-upload,.z-upload input {
+	height: 31px !important;
+	clip: rect(auto auto auto auto);
+	top : 22px;
+	color : white;
+}
+ /*
+.z-upload {
+	background: transparent url(../images/style/bar-bg.png) left top no-repeat;
+}
+
+.z-upload input {
+	opacity: 0;
+}
+*/
+
 
 .active {
 	background : url(../images/style/bar-bg-0.png) transparent repeat-x;
@@ -297,8 +330,27 @@ li.z-tab-seld .z-tab-text, li.z-tab-ver-seld .z-tab-text {
 
 /***************************** MODAL WINDOW *****************************/
 
-.modal .modal-shadow {
+.modal .modal-shadow, .z-messagebox-window {
 	background : url(../images/style/navbar-bg.png) #f0eee3 repeat-x;
+}
+
+.z-window-modal-hm, .z-window-modal-br,
+.z-window-modal-cr, .z-window-modal-cl,
+.z-window-modal-hr, .z-window-modal-tr,
+.z-window-modal-hl, .z-window-modal-tl,
+.z-window-modal-bl, .z-window-modal-cnt,
+ .z-window-modal-cm { 
+   background : transparent;
+   border : none;
+}
+
+.z-window-modal-icon {
+	display : none;
+}
+
+.z-messagebox-window .z-window-modal-cnt {
+	padding-top : 25px;
+	color : #000;
 }
 
 .modal {
@@ -309,12 +361,13 @@ li.z-tab-seld .z-tab-text, li.z-tab-ver-seld .z-tab-text {
 	border-top-right-radius:      8px;
 }
 
-.modal .modal-hl, .modal-header {
+.modal .modal-hl, .modal-header, .z-window-modal-header {
 	height : 35px;
 	color : white;
 	padding-top : 8px;
 	padding-left : 10px;
 	font-weight : bolder;
+	font-size : 12pt;
 }
 
 .modal-cnt {

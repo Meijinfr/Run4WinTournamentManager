@@ -22,10 +22,11 @@
 			
 			<hlayout width="100%" style="margin-top : 0.5em; margin-left : 25%;">
 				<button id="newTournament" label="Nouveau" class="button"/>
-				<button id="fileOpen" label="Ouvrir" class="button"/>
+				<button id="fileOpen" label="Ouvrir" class="button button_upload"  upload="true"/>
 				<button id="fileSave" label="Enregistrer" class="button"/>
 				<button id="htmlDownload" label="Exporter (HTML)" class="button"/>
 				<button id="csvDownloadRanking" label="Exporter (CSV)" class="button"/>
+				
 			</hlayout>
 		</hlayout>
 		
@@ -41,10 +42,10 @@
 				<tab id="resultTab" closable="false" label="Résultats" />
 			</tabs>
 			<tabpanels>
-				<tabpanel>
+				<tabpanel width="100%">
 					<listbox id="playersList" itemRenderer="fr.meijin.run4win.renderer.ListPlayerRenderer" zclass="tournament_grid"
-						model="@{sessionScope.tournament.players}" width="100%" style="padding-right : -20px;">
-						<listhead>
+						model="@{sessionScope.tournament.players}" >
+						<listhead >
 							<listheader label="N°" hflex="1" align="center"/>
 							<listheader label="Prénom" hflex="3" align="left"/>
 							<listheader label="Nom" hflex="3" align="left"/>

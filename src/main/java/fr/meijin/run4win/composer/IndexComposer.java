@@ -17,6 +17,7 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Filedownload;
+import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Listbox;
@@ -90,7 +91,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 	public void onClick$addRound (Event e) throws InterruptedException{
 		Tournament tournament = (Tournament) session.getAttribute("tournament");
 		
-		tournament = TournamentUtils.nextRound(tournament);
+		if(!TournamentUtils.nextRound(tournament)) return;
 		
 		if(tournament.rounds > 1){
 			if(tournament.rankings.size() == 1)
@@ -98,6 +99,7 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 			else
 				addResultTab(tournament.rankings.get(tournament.rankings.size()-1));
 		}
+		
 		Tab tab = null;
 		if(tournament.roundsList.size() == 1)
 			tab = addRoundTab(tournament.roundsList.get(0));

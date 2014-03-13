@@ -45,8 +45,8 @@ public class ServerRunner extends JFrame implements ActionListener {
 		
 		this.setTitle("Run 4 Win");
 		
-		int width = 710;
-		int height = 375;
+		int width = 301;
+		int height = 420;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (screen.width - width) / 2;
 		int y = (screen.height - height) / 2;
@@ -83,9 +83,9 @@ public class ServerRunner extends JFrame implements ActionListener {
 		progressBar.setValue(0);
 		progressBar.setBorderPainted(false);
 
-		content.add(image, BorderLayout.CENTER);
+		content.add(image,BorderLayout.CENTER);
 		content.add(progressBar, BorderLayout.SOUTH);
-		content.setBorder(BorderFactory.createLineBorder(Color.black, 10));
+		//content.setBorder(BorderFactory.createLineBorder(Color.black, 10));
 
 		setVisible(true);
 

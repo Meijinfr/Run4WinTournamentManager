@@ -53,7 +53,7 @@ public class TournamentUtils {
 		return p;
 	}
 	
-	public static Tournament nextRound(Tournament tournament){
+	public static boolean nextRound(Tournament tournament){
 		RankingUtils.updatePlayersRanking(tournament.roundsList, tournament.players);
 		
 		Collections.sort(tournament.players);
@@ -84,7 +84,7 @@ public class TournamentUtils {
 			toMatch.add(TournamentUtils.createByePlayer());
 		} else if (tournament.players.isEmpty()){
 			Messagebox.show(LangUtils.getMessage(LangEnum.NO_PLAYERS), LangUtils.getMessage(LangEnum.ERROR), Messagebox.OK, Messagebox.ERROR);
-			return tournament;
+			return false;
 		}
 
 		tournament.rounds++;
@@ -118,6 +118,6 @@ public class TournamentUtils {
 		Round r = MatchingUtils.doSingleMatch(tournament.rounds,tournament.roundsList, toMatch, matched);
 		tournament.roundsList.add(r);
 		
-		return tournament;
+		return true;
 	}
 }
