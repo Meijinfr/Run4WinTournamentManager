@@ -25,6 +25,7 @@
 				<button id="fileSave" label="Save" class="button"/>
 				<button id="htmlDownload" label="Export (HTML)" class="button"/>
 				<button id="csvDownloadRanking" label="Export (CSV)" class="button"/>
+				<button id="jsonDownload" label="Export (JSON)" class="button"/>
 			</hlayout>
 		</hlayout>
 		

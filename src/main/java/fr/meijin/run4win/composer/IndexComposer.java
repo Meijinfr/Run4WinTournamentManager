@@ -157,8 +157,8 @@ public class IndexComposer extends GenericForwardComposer<Div> {
 		Filedownload.save(exportFile, "text/plain");
 	}
 	
-	public void onUpload$fileOpen (UploadEvent e) throws Exception {
-		Media m = e.getMedia();
+	public void onClick$fileOpen (Event e) throws Exception {
+		Media m = Fileupload.get();
 		if(m != null){
 			ObjectInputStream ois = new ObjectInputStream(m.getStreamData());
 			Tournament tournament = (Tournament) ois.readObject();

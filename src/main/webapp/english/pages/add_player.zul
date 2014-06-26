@@ -23,11 +23,11 @@
 				</row>
 				<row>
 					<label value="Runner Id" />
-					<combobox id="idRunnerCombobox" model="@{pageScope.runnerIdentities }" value="@{arg.oldPlayer.idRunner.displayName }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
+					<listbox id="idRunnerListbox" model="@{pageScope.runnerIdentities }" value="@{arg.oldPlayer.idRunner.displayName }" itemRenderer="fr.meijin.run4win.renderer.IdentityListitemRenderer" mold="select" width="162px"/>
 				</row>
 				<row>
 					<label value="Corporation Id" />
-					<combobox id="idCorporationCombobox" model="@{pageScope.corporationIdentities }" value="@{arg.oldPlayer.idCorporation.displayName }" itemRenderer="fr.meijin.run4win.renderer.IdentityComboitemRenderer" width="162px"/>
+					<listbox id="idCorporationListbox" model="@{pageScope.corporationIdentities }" value="@{arg.oldPlayer.idCorporation.displayName }" itemRenderer="fr.meijin.run4win.renderer.IdentityListitemRenderer" mold="select" width="162px"/>
 				</row>
 				<row>
 					<label value="Forfeit" />

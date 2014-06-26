@@ -22,11 +22,11 @@
 			
 			<hlayout width="100%" style="margin-top : 0.5em; margin-left : 25%;">
 				<button id="newTournament" label="Nouveau" class="button"/>
-				<button id="fileOpen" label="Ouvrir" class="button button_upload"  upload="true"/>
+				<button id="fileOpen" label="Ouvrir" class="button"/>
 				<button id="fileSave" label="Enregistrer" class="button"/>
 				<button id="htmlDownload" label="Exporter (HTML)" class="button"/>
 				<button id="csvDownloadRanking" label="Exporter (CSV)" class="button"/>
-				
+				<button id="jsonDownload" label="Exporter (JSON)" class="button"/>
 			</hlayout>
 		</hlayout>
 		

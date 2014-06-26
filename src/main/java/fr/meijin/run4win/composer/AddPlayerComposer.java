@@ -5,7 +5,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Checkbox;
-import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.SimpleListModel;
 import org.zkoss.zul.Textbox;
@@ -26,8 +26,8 @@ public class AddPlayerComposer extends GenericForwardComposer<Window>{
 	private Textbox firstNameTextbox;
 	private Textbox lastNameTextbox;
 	private Textbox nicknameTextbox;
-	private Combobox idCorporationCombobox;
-	private Combobox idRunnerCombobox;
+	private Listbox idCorporationListbox;
+	private Listbox idRunnerListbox;
 	private Checkbox forfeitCheckbox;
 	private Checkbox byeFirstRoundCheckbox;
 	
@@ -66,13 +66,13 @@ public class AddPlayerComposer extends GenericForwardComposer<Window>{
 		p.firstName = firstNameTextbox.getValue();
 		p.lastName = lastNameTextbox.getValue();
 		p.nickname = nicknameTextbox.getValue();
-		if(idCorporationCombobox.getSelectedItem() != null)
-			p.idCorporation = CorporationIdentityEnum.valueOf((String) idCorporationCombobox.getSelectedItem().getValue());
+		if(idCorporationListbox.getSelectedItem() != null)
+			p.idCorporation = CorporationIdentityEnum.valueOf((String) idCorporationListbox.getSelectedItem().getValue());
 		else 
 			p.idCorporation = CorporationIdentityEnum.BLANK;
 		
-		if(idRunnerCombobox.getSelectedItem() != null)
-			p.idRunner = RunnerIdentityEnum.valueOf((String) idRunnerCombobox.getSelectedItem().getValue());
+		if(idRunnerListbox.getSelectedItem() != null)
+			p.idRunner = RunnerIdentityEnum.valueOf((String) idRunnerListbox.getSelectedItem().getValue());
 		else 
 			p.idRunner = RunnerIdentityEnum.BLANK;
 		

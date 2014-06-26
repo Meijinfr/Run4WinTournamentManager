@@ -19,9 +19,11 @@ public enum CorporationIdentityEnum implements IdentityEnum {
 	
 	NBN_MAKING_NEWS							("making","Making News","color : #ecaa2c;","01080","NBN"),
 	NBN_THE_WORLD_IS_YOURS					("world","The World is Yours","color : #ecaa2c;","02114","NBN"),
+	NEAR_EARTH								("nearearth","Near-Earth","color : #ecaa2c;","02114","NBN"),
 	
 	WEYLAND_BUILDING_A_BETTER_WORLD			("building","Building a Better World","color : #4b796c;","01093","Weyland"),
 	WEYLAND_BECAUSE_WE_BUILT_IT				("because","Because We Built It","color : #4b796c;","02076","Weyland"),
+	BLUE_SUN								("blue","Blue Sun","color : #4b796c;","02076","Weyland"),
 	GRNDL									("grndl","GRNDL","color : #4b796c;","04097","Weyland");
 	
 	private String filename;

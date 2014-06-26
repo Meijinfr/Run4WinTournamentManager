@@ -13,9 +13,9 @@
 		<columns>
 			<column label="Table" hflex="1" align="center" sort="auto"/>
 			<column label="Joueur 1" hflex="2"/>
-			<column label="Résultats Joueur 1" hflex="5"/>
+			<column label="Résultats Joueur 1" hflex="6"/>
 			<column label="Joueur 2" hflex="2"/>
-			<column label="Résultats Joueur 2" hflex="5"/>
+			<column label="Résultats Joueur 2" hflex="6"/>
 		</columns>
 	</grid>
 </zk>

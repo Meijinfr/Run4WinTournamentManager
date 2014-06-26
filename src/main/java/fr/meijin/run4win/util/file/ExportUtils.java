@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import net.sf.jxls.transformer.XLSTransformer;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -37,29 +38,78 @@ public class ExportUtils {
 		
 		JSONObject jsonTournament = new JSONObject();
 		jsonTournament.put("name", tournament.name);
-		int i = 1;
 		
+		JSONArray roundsArray = new JSONArray();
+
+		for(Round round : tournament.roundsList){
+			JSONArray jsonRound = new JSONArray();
+			round.games.addAll(round.challenges);
+			for(Game game : round.games){
+				JSONObject jsonGame = new JSONObject();
+				
+				if(game.p1Result.flatlineWin){
+					jsonGame.put("game1WonBy", "flatline");
+				} else if (game.p1Result.millWin) {
+					jsonGame.put("game1WonBy", "mill");
+				} else {
+					jsonGame.put("game1WonBy", "ap");
+				}
+				
+				if(game.p2Result.flatlineWin){
+					jsonGame.put("game2WonBy", "flatline");
+				} else if (game.p2Result.millWin) {
+					jsonGame.put("game2WonBy", "mill");
+				} else {
+					jsonGame.put("game2WonBy", "ap");
+				}
+
+				jsonGame.put("eliminationGame", false);
+				jsonGame.put("table", game.tableNumber);
+				
+				JSONObject player1 = new JSONObject();
+				player1.put("id", game.player1.id);
+				player1.put("runnerScore", game.p1Result.resultRunner);
+				player1.put("corpScore", game.p1Result.resultCorporation);
+				jsonGame.put("player1", player1);
+				
+				JSONObject player2 = new JSONObject();
+				player2.put("id", game.player2.id);
+				player2.put("runnerScore", game.p2Result.resultRunner);
+				player2.put("corpScore", game.p2Result.resultCorporation);
+				jsonGame.put("player2", player2);
+				
+				jsonRound.add(jsonGame);
+			}
+			roundsArray.add(jsonRound);
+		}
+		jsonTournament.put("rounds", roundsArray);
+		
+		int i = 1;
 		JSONArray playersArray = new JSONArray();
 		
 		Collections.sort(tournament.players);
 		for(Player player : tournament.players){
 			JSONObject jsonPlayer = new JSONObject();
 			jsonPlayer.put("id", player.id);
+			jsonPlayer.put("name", player.nickname);
+			
 			jsonPlayer.put("corpFaction", player.idCorporation.getFaction());
 			jsonPlayer.put("corpIdentity", player.idCorporation.getDisplayName());
-			jsonPlayer.put("opponentStrength", player.getOpponentsStrength());
+			
 			jsonPlayer.put("runnerFaction", player.idRunner.getFaction());
-			jsonPlayer.put("rank", i++);
-			jsonPlayer.put("weakSideWins", player.getWeakestSideWins());
-			jsonPlayer.put("forfeit", player.forfeit);
-			jsonPlayer.put("prestige", player.getPrestige());
 			jsonPlayer.put("runnerIdentity", player.idRunner.getDisplayName());
-			jsonPlayer.put("name", player.nickname);
+			
+			jsonPlayer.put("rank", i++);
+			
+			jsonPlayer.put("prestige", player.getPrestige());
+			jsonPlayer.put("strengthOfSchedule", player.getOpponentsStrength());
+			jsonPlayer.put("weakSideWins", player.getWeakestSideWins());
+			
+			jsonPlayer.put("forfeit", player.forfeit);
 			
 			playersArray.add(jsonPlayer);
 		}
 		jsonTournament.put("players", playersArray);
-		
 		
 		fileWriter.write(jsonTournament.toJSONString());
 		fileWriter.flush();

@@ -127,27 +127,6 @@ body {
 	color : white;
 	font-weight : 700;
 }
- 
-.button_upload {
-	height : 17px; 
-}
-
-.z-upload,.z-upload input {
-	height: 31px !important;
-	clip: rect(auto auto auto auto);
-	top : 22px;
-	color : white;
-}
- /*
-.z-upload {
-	background: transparent url(../images/style/bar-bg.png) left top no-repeat;
-}
-
-.z-upload input {
-	opacity: 0;
-}
-*/
-
 
 .active {
 	background : url(../images/style/bar-bg-0.png) transparent repeat-x;
@@ -330,7 +309,7 @@ li.z-tab-seld .z-tab-text, li.z-tab-ver-seld .z-tab-text {
 
 /***************************** MODAL WINDOW *****************************/
 
-.modal .modal-shadow, .z-messagebox-window {
+.modal .modal-shadow, .z-messagebox-window, .z-window-modal {
 	background : url(../images/style/navbar-bg.png) #f0eee3 repeat-x;
 }
 
