@@ -70,7 +70,6 @@
 										<column label="Rang" align="center" hflex="1" />
 										<column label="Pseudo" hflex="2" align="left"/>
 										<column label="Prestige" hflex="2" align="left"/>
-										<column label="Victoires Côté Faible" hflex="2" align="left"/>
 										<column label="Force Adversaires" hflex="2" align="left"/>
 									</columns>
 									<rows>
@@ -79,7 +78,6 @@
 											<label value="@{self.parent.index, converter='fr.meijin.run4win.converter.RankingConverter'}" />
 											<label value="@{player.nickname}" />
 											<label value="@{player.prestige}" />
-											<label value="@{player.weakestSideWins}" />
 											<label value="@{player.opponentsStrength}" />
 										</row>
 									</rows>

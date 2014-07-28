@@ -103,7 +103,7 @@ public class ExportUtils {
 			
 			jsonPlayer.put("prestige", player.getPrestige());
 			jsonPlayer.put("strengthOfSchedule", player.getOpponentsStrength());
-			jsonPlayer.put("weakSideWins", player.getWeakestSideWins());
+			//jsonPlayer.put("weakSideWins", player.getWeakestSideWins());
 			
 			jsonPlayer.put("forfeit", player.forfeit);
 			
@@ -161,7 +161,7 @@ public class ExportUtils {
 		writer.writeNext  (new String[]{	"rank",
 											"nickname",
 											"prestige",
-											"weakest_side_wins",
+											/*"weakest_side_wins",*/
 											"opponents_strength",
 											"id_corp",
 											"id_runner"
@@ -175,7 +175,7 @@ public class ExportUtils {
 			 writer.writeNext  (new String[]{	String.valueOf(i++),
 					 							player.nickname,
 					 							String.valueOf(player.getPrestige()),
-					 							String.valueOf(player.getWeakestSideWins()),
+					 							/*String.valueOf(player.getWeakestSideWins()),*/
 					 							String.valueOf(player.getOpponentsStrength()),
 					 							player.idCorporation.getOctgnCode(),
 					 							player.idRunner.getOctgnCode()

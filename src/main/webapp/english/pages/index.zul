@@ -69,8 +69,7 @@
 										<column label="Rank" align="center" hflex="1" />
 										<column label="Nickname" hflex="2" align="left"/>
 										<column label="Prestige" hflex="2" align="left"/>
-										<column label="Weakest Side Wins" hflex="2" align="left"/>
-										<column label="Opponents Strength" hflex="2" align="left"/>
+										<column label="Strength of Schedule" hflex="2" align="left"/>
 									</columns>
 									<rows>
 										<row self="@{each='player'}"
@@ -78,7 +77,6 @@
 											<label value="@{self.parent.index, converter='fr.meijin.run4win.converter.RankingConverter'}" />
 											<label value="@{player.nickname}" />
 											<label value="@{player.prestige}" />
-											<label value="@{player.weakestSideWins}" />
 											<label value="@{player.opponentsStrength}" />
 										</row>
 									</rows>

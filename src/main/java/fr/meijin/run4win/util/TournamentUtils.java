@@ -33,7 +33,7 @@ public class TournamentUtils {
 					PlayerRanking pr = new PlayerRanking();
 					pr.nickname = p.nickname;
 					pr.prestige = p.getPrestigeByRound(i);
-					pr.weakestSideWins = p.getWeakestSideWins(i);
+					//pr.weakestSideWins = p.getWeakestSideWins(i);
 					pr.opponentsStrength = p.getOpponentsStrengthByRound(i);
 					ranking.playerRankings.add(pr);
 				}
@@ -64,7 +64,7 @@ public class TournamentUtils {
 				PlayerRanking pr = new PlayerRanking();
 				pr.nickname = p.nickname;
 				pr.prestige = p.getPrestige();
-				pr.weakestSideWins = p.getWeakestSideWins();
+				//pr.weakestSideWins = p.getWeakestSideWins();
 				pr.opponentsStrength = p.getOpponentsStrength();
 				ranking.playerRankings.add(pr);
 			}

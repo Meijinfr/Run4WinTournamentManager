@@ -142,8 +142,7 @@
     			<th>Rank</th>
     			<th>Nickname</th>
     			<th>Prestige taken</th>
-    			<th>Weakest side</th>
-    			<th>Opponents strength</th>
+    			<th>Strength of Schedule</th>
     		</thead>
     		#set( $i = 1 )
     		#foreach( $player in $players )
@@ -151,7 +150,6 @@
     			<td>$i</td>
     			<td>$player.nickname</td>
     			<td>$player.prestige</td>
-    			<td>$player.weakestSideWins</td>
     			<td>$player.opponentsStrength</td>
     		</tr>
     		#set( $i = $i+1 )

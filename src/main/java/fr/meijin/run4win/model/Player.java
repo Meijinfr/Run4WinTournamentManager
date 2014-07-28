@@ -90,47 +90,6 @@ public class Player implements Comparable<Player>, Serializable {
 		return ret;
 	}
 	
-	public int getWeakestSideWins() {
-		int winRunner = 0;
-		int winCorp = 0;
-		
-		if(this.id == 0)
-			return 0;
-		
-		for(Game g : games.values()){
-			if(g.player1.id == this.id){
-				winCorp += (g.p1Result.resultCorporation == 2) ? 1 : 0;
-				winRunner += (g.p1Result.resultRunner == 2) ? 1 : 0;
-			} else if (g.player2.id == this.id) {
-				winCorp += (g.p2Result.resultCorporation == 2) ? 1 : 0;
-				winRunner += (g.p2Result.resultRunner == 2) ? 1 : 0;
-			}
-		}
-
-		return winRunner <= winCorp ? winRunner : winCorp;
-	}
-	
-	public int getWeakestSideWins(int roundNumber) {
-		int winRunner = 0;
-		int winCorp = 0;
-		
-		if(this.id == 0)
-			return 0;
-		
-		for(int i = 1; i <= roundNumber; i++){
-			Game g = games.get(String.valueOf(i));
-			if(g.player1.id == this.id){
-				winCorp += (g.p1Result.resultCorporation == 2) ? 1 : 0;
-				winRunner += (g.p1Result.resultRunner == 2) ? 1 : 0;
-			} else if (g.player2.id == this.id) {
-				winCorp += (g.p2Result.resultCorporation == 2) ? 1 : 0;
-				winRunner += (g.p2Result.resultRunner == 2) ? 1 : 0;
-			}
-		}
-
-		return winRunner <= winCorp ? winRunner : winCorp;
-	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Player){
@@ -146,11 +105,15 @@ public class Player implements Comparable<Player>, Serializable {
 
 		ret += (p.getPrestige() - this.getPrestige())*100000;
 		
-		if (ret == 0)
-			ret += (p.getWeakestSideWins() - this.getWeakestSideWins())*1000;
+		/*if (ret == 0)
+			ret += (p.getWeakestSideWins() - this.getWeakestSideWins())*1000;*/
 		
 		if(ret == 0)
-			ret += (p.getOpponentsStrength() - this.getOpponentsStrength())*10;
+			ret += (p.getOpponentsStrength() - this.getOpponentsStrength())*1000;
+		
+		/** RANDOM TY FFG ! **/
+		if(ret == 0)
+			ret += Math.round((Math.random() - Math.random()))*1000;
 
 		return ret;
 	}
