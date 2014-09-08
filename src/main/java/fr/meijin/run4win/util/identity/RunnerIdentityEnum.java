@@ -8,6 +8,7 @@ public enum RunnerIdentityEnum implements IdentityEnum {
 	NOISE									("noise","Noise","color : #e45f30;","01001","Anarch"),
 	WHIZZARD								("whizzard","Whizzard","color : #e45f30;","02001","Anarch"),
 	REINA_ROJA								("reina","Reina Roja","color : #e45f30;","04041","Anarch"),
+	QUETZAL									("quetzal","Quetzal","color : #e45f30;","06052","Anarch"),
 	EDWARD_KIM								("edward","Edward Kim","color : #e45f30;","07028","Anarch"),
 	
 	GABRIEL									("gabriel","Gabriel Santiago","color : #3e6ea9;","01017","Criminal"),
@@ -16,6 +17,7 @@ public enum RunnerIdentityEnum implements IdentityEnum {
 	SILHOUETTE								("silhouette","Silhouette","color : #3e6ea9;","05030","Criminal"),
 	KEN										("ken","Ken 'Express' Tenma","color : #3e6ea9;","05029","Criminal"),
 	IAIN_STIRLING							("iain","Iain Stirling","color : #3e6ea9;","05028","Criminal"),
+	LEELA_PATEL								("leela","Leela Patel","color : #3e6ea9;","06095","Criminal"),
 	
 	KATE									("kate","Kate 'Mac' McCaffrey","color : #6b9141;","01033","Shaper"),
 	CHAOS_THEORY							("chaos","Chaos Theory","color : #6b9141;","02046","Shaper"),
