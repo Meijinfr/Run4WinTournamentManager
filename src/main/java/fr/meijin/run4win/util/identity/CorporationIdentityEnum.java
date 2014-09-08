@@ -17,7 +17,7 @@ public enum CorporationIdentityEnum implements IdentityEnum {
 	HARMONY_MEDTECH							("harmony","Harmony Medtech","color : #c53127;", "05001","Jinteki"),
 	TENNIN_INSTITUTE						("tennin","Tennin Institute","color : #c53127;", "05002","Jinteki"),
 	NISEI_DIVISION							("nisei","Nisei Division","color : #c53127;", "05003","Jinteki"),
-	//GENOMICS_INDUSTRIES					("genomics","Genomics Industries","color : #c53127;", "00003","Jinteki"),
+	//GENOMICS_INDUSTRIES					("genomics","Genomics Industries","color : #c53127;", "06105","Jinteki"),
 	CHRONOS_PROTOCOL						("chronos","Chronos Protocol","color : #c53127;", "00003","Jinteki"),
 	
 	NBN_MAKING_NEWS							("making","Making News","color : #ecaa2c;","01080","NBN"),
